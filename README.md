@@ -1,25 +1,17 @@
 # project_mnm_front
-
-## Project setup
 ```
-test 중입니다.
-npm install
+mnm project front-end develope
 ```
-
-### Compiles and hot-reloads for development
+## Use fold
 ```
-npm run serve
+assets안에 필요한 image 들어있습니다.
 ```
 
-### Compiles and minifies for production
+### Use npm
 ```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
+npm install : Project setup
+npm run serve : Compiles and hot-reloads for development
+npm run build : Compiles and minifies for production
+npm run lint : Lints and fixes files
 See [Configuration Reference](https://cli.vuejs.org/config/).
+```
