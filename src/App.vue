@@ -1,15 +1,16 @@
 <template>
   <img alt="MnM logo" src="./assets/logo.png">
-  <HelloWorld msg="하우스메이트 매칭 및 공동 생활 관리 서비스 제공 플랫폼"/>
+  <Main msg="하우스메이트 매칭 및 공동 생활 관리 서비스 제공 플랫폼"/>
 </template>
 
 <script>
-import main_page from './components/.vue'
+//import main_page from './components/.vue'
+import Main from './components/Main.vue'
 
 export default {
   name: 'App',
   components: {
-    Main_page
+    Main
   }
 }
 </script>
