@@ -2,7 +2,6 @@
 
 ## Project setup
 ```
-test 중입니다..
 npm install
 ```
 
