@@ -1,17 +1,10 @@
 <template>
-  <div class="hello">
-    <h2>{{ msg }}</h2>
-    <p>
-      <img alt="Concept Image" src="../assets/concept_image.png">
-    </p>
-    <button> log in </button>
-    <button> log out </button>
-  </div>
+    <button> {{msg}} </button>
 </template>
 
 <script>
 export default {
-  name: 'Main',
+  name: 'red-button',
   props: {
     msg: String
   }
@@ -20,21 +13,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h2 {
-  margin: 40px 0 0;
-}
 button {
   width: 148px;
   height: 51px;
-  font-size: 20px;
+  font-family: Righteous-Regular;
+  font-size: 30px;
   background-color: red;
   color: black;
   border: solid 2px black;
   border-radius: 16px;
-  margin: 5px;
-}
-img {
-  width: 268px;
-  height: 558px;
+  margin: 15px;
 }
 </style>
