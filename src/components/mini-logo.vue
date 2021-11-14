@@ -1,7 +1,7 @@
 <template>
   <div class="mini-logo">
     <p>
-      <img alt="Concept Image" src="../assets/concept_image.png">
+      <img alt="Concept Image" src="../assets/logo.png">
     </p>
   </div>
 </template>
@@ -19,4 +19,10 @@ img {
   width: 94px;
   height: 31px;
 }
+
+.mini-logo {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
 </style>

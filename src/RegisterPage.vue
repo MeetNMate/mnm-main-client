@@ -1,15 +1,17 @@
 <template>
   <mini-logo></mini-logo>
-  <div><img class='login-img' alt="Login" src="./assets/login_title.png"> </div>
+  <div><img class="joinus-img" alt="Join Us" src="./assets/joinus_title.png"> </div>
   <div class="input-text">
-    <textbox msg = "address" ></textbox>
+    <Textbox msg = "address" ></Textbox>
     <textbox msg = "password" ></textbox>
+    <textbox msg = "pass word again" ></textbox>
     <div class="button-area">
-      <red-button>log in</red-button>
-      <red-button @mouseover="doMouseOver">i forgot my password =(</red-button>
+        <red-button>register</red-button>
     </div>
   </div>
-  <div><img class='bottom-img' alt="Bottom Img" src="./assets/down_image.png"> </div>
+  <div>
+    <img class='bottom-img' alt="Bottom Img" src="./assets/down_image.png">
+  </div>
 </template>
 
 <script>
@@ -18,7 +20,7 @@ import RedButton from './components/red-button.vue'
 import Textbox from './components/textbox.vue'
 
 export default {
-  name: 'LoginPage',
+  name: 'RegisterPage',
   components: {
     MiniLogo,
     RedButton,
@@ -30,7 +32,7 @@ export default {
 </script>
 
 <style>
-#loginpage {
+#registerpage {
   width: 100%;
   height: 100%;
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -49,14 +51,10 @@ export default {
   padding-top: 5%;
 }
 
-.login-img {
-  width: 388px;
+.joinus-img {
+  width: 100%;
+  max-width: 388px;
   height: 91px;
-}
-
-.red-button {
-    width: 89px;
-    height: 28px;
 }
 
 .input-text {
@@ -66,10 +64,13 @@ export default {
   padding-bottom: 40px;
 }
 
-/*
+.red-button {
+    width: 89px;
+    height: 28px;
+}
+
 .button-area {
     width: 100%;
-    text-align: left;
+    text-align: right;
 }
-*/
 </style>
