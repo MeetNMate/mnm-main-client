@@ -1,24 +1,27 @@
 <template>
-  <img alt="MnM logo" src="./assets/logo.png">
-  <Main msg="하우스메이트 매칭 및 공동 생활 관리 서비스 제공 플랫폼"/>
+  <mini-logo></mini-logo>
+  
 </template>
 
 <script>
-//import main_page from './components/.vue'
-import Main from './components/Main.vue'
+import MiniLogo from './components/mini-logo.vue'
+import Main from './components/red-button.vue'
 
 export default {
   name: 'App',
   components: {
-    Main
+    Main,
+    MiniLogo,
+    
   }
 }
 </script>
 
 <style>
-#app {
+#loginpage {
   width: 100%;
   height: 100%;
+  height: 100vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -27,6 +30,10 @@ export default {
   background-color: #EABF3A;
   padding: 0;
   margin: 0;
+}
+
+template {
+  background-color: #EABF3A;
 }
 
 </style>
