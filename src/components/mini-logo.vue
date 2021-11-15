@@ -1,15 +1,15 @@
 <template>
   <div class="mini-logo">
     <p>
-      <img alt="Concept Image" src="../assets/concept_image.png">
+      <img alt="Concept Image" src="../assets/logo.png">
     </p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'mini-logo',
-  
+  name: 'mini-logo'
+
 }
 </script>
 
