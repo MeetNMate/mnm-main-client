@@ -1,11 +1,13 @@
 <template>
-    <div class=logo_img>
+    <div class="logo_img">
         <img alt="MnM logo" src="./assets/logo.png">  
     </div>
     <p> 하우스메이트 매칭 및 공동 생활 관리 서비스 제공 플랫폼 </p>
     <main-img></main-img>
-    <RedButton msg = "log in"></RedButton>
-    <RedButton msg = "join us"></RedButton>
+    <div>
+        <red-button>log in</red-button>
+        <red-button>join us</red-button>
+    </div>
 </template>
 
 <script>
@@ -22,7 +24,6 @@ export default {
 #mainpage {
   width: 100%;
   height: 100%;
-  height: 100vh;
   font-family: a고딕14, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -45,6 +46,12 @@ img {
 p {
     padding-top: 1%;
     padding-bottom: 1%;
+}
+
+.red-button {
+    font-size: 30px;
+    width: 148px;
+    height: 51px;
 }
 
 </style>

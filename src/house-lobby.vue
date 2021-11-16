@@ -1,26 +1,31 @@
 <template>
   <div class="lobby">
-    <p id="logo"><img alt="mnm logo" src="./assets/logo.png"></p>  <!--나중에 mini-logo components로 수정-->
-    <!-- <navigator></navigator> : navigator 만들고 고고-->
-
+    <minilogo></minilogo>
+<!--      <navigator></navigator> : navigator 만들고 고고-->
     <div>
       <househeader></househeader>
 
-      <img id="profile_img" src="./assets/profile.png">
-      <img id="profile_img" src="./assets/profile.png">
-      <img id="profile_img" src="./assets/profile.png">
+      <!-- 이미지 3개 겹치게 해야 함 -->
+      <img id="profile_img" src="./assets/profile_2.png">
+      <img id="profile_img" src="./assets/profile_2.png">
+      <img id="profile_img" src="./assets/profile_2.png">
 
-      <button><img id="mate_add" src="./assets/mate_add.png"></button>
+      <span class="plusMate" v-on:click="addMate">
+        <img id="mate_add" src="./assets/mate_add.png">
+      </span>
+      <!-- <button><img id="mate_add" src="./assets/mate_add.png"></button> -->
     </div>
 
     <div class="explain_house">
-      <p id="explanation">Soyoung, Seoki, moosongsong</p>
-      <p>님이 함께 사는</p>
-      <p id="explanation">연희동빨간지붕</p>
-      <p>House입니다.</p>
+      <p id="explanation" style="display: inline">Soyoung, Seoki, moosongsong</p>
+      <p style="display: inline"> 님이 함께 사는</p>
+      <div>
+        <p id="explanation" style="display: inline">연희동빨간지붕</p>
+        <p style="display: inline"> House입니다.</p>
+      </div>
       <p>[2020.10.01~2021.09.30]</p>
+      <img id="house_pic" src="./assets/house_pic.png" alt="house picture">
     </div>
-    <img id="house_pic" src="./assets/house_pic.png" alt="house picture">
 
     <div class="todolist">
       <img id="guide_bar" src="./assets/todolist.png" alt="todolist_title">
@@ -30,30 +35,45 @@
       <li>화장실 쓰레기 비우기 (소영)</li>
       <li>계란 한판 사오기 (다같이)</li>
     </div>
-    <div class="rule_btn">
+
+    <span class="plusMate" v-on:click="addMate">
+      <img id="guide_bar" src="./assets/house_rule.png" alt="house rule">
+    </span>
+
+    <span class="plusMate" v-on:click="addMate">
+      <img id="guide_bar" src="./assets/leave_house.png" alt="leave house">
+    </span>
+
+    <!-- <div class="rule_btn">
       <button><img id="guide_bar" src="./assets/house_rule.png" alt="house rule"></button>
     </div>
     <div class="leave_btn">
       <button><img id="guide_bar" src="./assets/leave_house.png" alt="leave house"></button>
-    </div>
+    </div> -->
 
 
   </div>
 </template>
 
 <script>
-// import mini_logo from './components/mini-logo.vue'
 import househeader from './components/layout/house-header.vue'
+import minilogo from './components/mini-logo.vue'
 
 export default {
   name: 'HouseLobby',
   components: {
-    househeader
+    househeader,
+    minilogo
+  },
+  methods: {
+    addMate() {
+      console.log();
+    }
   }
 }
 </script>
 
-<style> /** scoped : 뷰에서 지원하는 속성으로 스타일 정의를 해당 컴포넌트에만 적용하겠다는 의미 **/
+<style>
   body {
     background-color: #5BB5B5;
   }
@@ -61,7 +81,29 @@ export default {
     font-family: a고딕14;
     font-size: 14px;
   }
-
+  li {
+    list-style-type: "\25cb";
+    font-family: a고딕14;
+    font-size: 14px;
+    margin-bottom: 7px;
+  }
+  /* span {
+    padding-bottom: 10px;
+  } */
+  /* input.add_button {
+    background-image: url(/assets/mate_add.png);
+  } */
+  /* button {
+    border: none;
+    border-radius: 0;
+  } */
+  .lobby {
+    padding-left: 20px; /** 5% **/
+    padding-right: 20px;
+  }
+  .explain_house {
+    padding-bottom: 3%;
+  }
   #house_name {
     font-family: a고딕19;
     font-size: 30px;
@@ -80,27 +122,17 @@ export default {
     height: 19px;
   }
   #house_pic {
-    width: 388px;
+    width: 100%;
     height: 224px;
   }
   #guide_bar {
     width: 194px;
     height: 29px;
+    padding-bottom: 5px;
   }
   #explanation {
     font-family: a고딕19;
     font-size: 14px;
-  }
-
-/** logo component 붙이면 지우기 +) img id 어쩌고도 같이 수정**/
-  img {
-    width: 94px;
-    height: 31px;
-  }
-  #logo {
-    text-align: center;
-    margin-top: 50px;
-    margin-bottom: 30px;
   }
 
 </style>

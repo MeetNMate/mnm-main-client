@@ -1,5 +1,7 @@
 <template>
-    <button> {{msg}} </button>
+    <button @click="button">
+      <slot></slot>
+    </button>
 </template>
 
 <script>
@@ -14,14 +16,13 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 button {
-  width: 148px;
-  height: 51px;
+  display: inline-block;
   font-family: Righteous-Regular;
-  font-size: 30px;
   background-color: red;
   color: black;
   border: solid 2px black;
   border-radius: 16px;
-  margin: 15px;
+  padding: 1% 4% 2%;
+  margin: 15px 5px 2px;
 }
 </style>
