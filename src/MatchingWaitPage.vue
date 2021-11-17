@@ -1,7 +1,7 @@
 <template>
     <mini-logo></mini-logo>
     <main-img></main-img>
-    <p> {{}}님을 위한 메이트를 찾고있습니다. <br>
+    <p> {{Username}}님을 위한 메이트를 찾고있습니다. <br>
         조금만 기다려주세요! </p>
 </template>
 
@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #matchingwaitpage {
   width: 100%;
   height: 100%;
