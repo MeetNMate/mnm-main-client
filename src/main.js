@@ -1,11 +1,12 @@
+
 import { createApp } from 'vue'
-import MainPage from './MainPage.vue'
-import LoginPage from './LoginPage.vue'
-import RegisterPage from './RegisterPage.vue'
-import MatchingWaitPage from './MatchingWaitPage.vue'
-import InfoExplanePage from './InfoExplanePage.vue'
-import InfoInputPage from './InfoInputPage.vue'
-import MateListPage from './MateListPage.vue'
+import MainPage from './views/MainPage.vue'
+import LoginPage from './views/LoginPage.vue'
+import RegisterPage from './views/RegisterPage.vue'
+import MatchingWaitPage from './views/MatchingWaitPage.vue'
+import InfoExplanePage from './views/InfoExplanePage.vue'
+import InfoInputPage from './views/InfoInputPage.vue'
+import MateListPage from './views/MateListPage.vue'
 
 createApp(MainPage).mount('#mainpage')
 createApp(LoginPage).mount('#loginpage')

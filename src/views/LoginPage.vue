@@ -1,6 +1,6 @@
 <template>
   <mini-logo></mini-logo>
-  <div><img class='login-img' alt="Login" src="./assets/login_title.png"> </div>
+  <div><img class='login-img' alt="Login" src="../assets/login_title.png"> </div>
   <div>
     <div class="input-text">
       <textbox msg = "address" ></textbox>
@@ -11,13 +11,13 @@
       <red-button>i forgot my password =(</red-button>
     </div>
   </div>
-  <div><img class='bottom-img' alt="Bottom Img" src="./assets/down_image.png"> </div>
+  <div><img class='bottom-img' alt="Bottom Img" src="../assets/down_image.png"> </div>
 </template>
 
 <script>
-import MiniLogo from './components/mini-logo.vue'
-import RedButton from './components/red-button.vue'
-import Textbox from './components/textbox.vue'
+import MiniLogo from '../components/mini-logo.vue'
+import RedButton from '../components/red-button.vue'
+import Textbox from '../components/textbox.vue'
 
 export default {
   name: 'LoginPage',
@@ -25,6 +25,11 @@ export default {
     MiniLogo,
     RedButton,
     Textbox,
+  },
+  data() {
+    return {
+      
+    }
   }
 }
 

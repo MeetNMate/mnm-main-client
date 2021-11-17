@@ -1,7 +1,7 @@
 <template>
     <div>
-        <p>Message is: {{ messaage}}</p>
-        <input v-model="message" placeholder="edit me" />
+        <p>Message is: {{msg}}</p>
+        <input type="text" v-model="value" placeholder="edit me" />
     </div>    
 </template>
 
@@ -10,7 +10,12 @@
 export default {
   name: 'textbox',
   props: {
-    msg: String
+    msg: String,
+  },
+  data() {
+      return {
+          value:"",
+      };
   }
 }
 </script>

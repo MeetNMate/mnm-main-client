@@ -1,6 +1,6 @@
 <template>
   <mini-logo></mini-logo>
-  <div><img class="joinus-img" alt="Join Us" src="./assets/joinus_title.png"></div>
+  <div><img class="joinus-img" alt="Join Us" src="../assets/joinus_title.png"></div>
   <div>
     <div class="input-text">
         <Textbox msg = "address" ></Textbox>
@@ -12,14 +12,14 @@
     </div>
   </div>
   <div>
-    <img class='bottom-img' alt="Bottom Img" src="./assets/down_image.png">
+    <img class='bottom-img' alt="Bottom Img" src="../assets/down_image.png">
   </div>
 </template>
 
 <script scoped>
-import MiniLogo from './components/mini-logo.vue'
-import RedButton from './components/red-button.vue'
-import Textbox from './components/textbox.vue'
+import MiniLogo from '../components/mini-logo.vue'
+import RedButton from '../components/red-button.vue'
+import Textbox from '../components/textbox.vue'
 
 export default {
   name: 'RegisterPage',
