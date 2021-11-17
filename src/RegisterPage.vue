@@ -1,10 +1,12 @@
 <template>
   <mini-logo></mini-logo>
-  <div><img class="joinus-img" alt="Join Us" src="./assets/joinus_title.png"> </div>
-  <div class="input-text">
-    <Textbox msg = "address" ></Textbox>
-    <textbox msg = "password" ></textbox>
-    <textbox msg = "pass word again" ></textbox>
+  <div><img class="joinus-img" alt="Join Us" src="./assets/joinus_title.png"></div>
+  <div>
+    <div class="input-text">
+        <Textbox msg = "address" ></Textbox>
+        <textbox msg = "password" ></textbox>
+        <textbox msg = "pass word again" ></textbox>
+    </div>
     <div class="button-area">
         <red-button>register</red-button>
     </div>
@@ -14,7 +16,7 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 import MiniLogo from './components/mini-logo.vue'
 import RedButton from './components/red-button.vue'
 import Textbox from './components/textbox.vue'
