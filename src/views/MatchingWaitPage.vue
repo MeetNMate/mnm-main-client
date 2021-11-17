@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import mainImg from './components/main-img.vue'
-import MiniLogo from './components/mini-logo.vue'
+import mainImg from '../components/main-img.vue'
+import MiniLogo from '../components/mini-logo.vue'
 
 export default {
   name: 'MatchingWaitPage',

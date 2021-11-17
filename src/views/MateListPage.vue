@@ -18,9 +18,9 @@
 </template>
 
 <script scoped>
-import MiniLogo from './components/mini-logo.vue'
-import RedButton from './components/red-button.vue'
-import GreenButton from './components/green-button.vue'
+import MiniLogo from '../components/mini-logo.vue'
+import RedButton from '../components/red-button.vue'
+import GreenButton from '../components/green-button.vue'
 
 export default {
   name: 'MateListPage',

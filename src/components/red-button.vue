@@ -1,5 +1,5 @@
 <template>
-    <button @click="button">
+    <button @click="onClick">
       <slot></slot>
     </button>
 </template>
@@ -8,7 +8,13 @@
 export default {
   name: 'red-button',
   props: {
-    msg: String
+  
+  },
+  methods: {
+    onClick() {
+      console.log("버튼 클릭");
+    }
+
   }
 }
 </script>
