@@ -1,8 +1,10 @@
 <template>
-    <mini-logo></mini-logo>
-    <main-img></main-img>
-    <p> {{Username}}님을 위한 메이트를 찾고있습니다. <br>
-        조금만 기다려주세요! </p>
+    <div id ="change-color">
+      <mini-logo></mini-logo>
+      <main-img></main-img>
+      <p> {{Username}}님을 위한 메이트를 찾고있습니다. <br>
+          조금만 기다려주세요! </p>
+    </div>
 </template>
 
 <script>
@@ -11,26 +13,26 @@ import MiniLogo from '../components/mini-logo.vue'
 
 export default {
   name: 'MatchingWaitPage',
-  components: { mainImg, MiniLogo }
+  components: { 
+    mainImg, MiniLogo 
+  },
+  data() {
+    return {
+      Username: 'User'
+    }
+  }
+  
 }
 </script>
 
 <style scoped>
-#matchingwaitpage {
-  width: 100%;
-  height: 100%;
-  font-family: a고딕14, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #000000;
+#change-color {
   background-color: #CE9E92;
-  padding: 0;
-  margin: 0;
 }
 
 p {
     padding-top: 1%;
     padding-bottom: 1%;
+    margin: 0px;
 }
 </style>

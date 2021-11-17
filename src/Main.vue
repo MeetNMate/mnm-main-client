@@ -13,10 +13,22 @@
   color: #000000;
   padding: 0;
   margin: 0;
-  background-color: #EABF3A;
+  background-color:  #EABF3A;
 }
 
 img {
   -webkit-user-drag: none; 
+}
+
+.button-area {
+  width: 100%;
+  max-width: 388px;
+  display: flex;
+  margin: auto;
+}
+
+.mini-logo {
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 </style>

@@ -39,6 +39,7 @@ export default {
     },
     LoginButton() {
       console.log(this.id, this.pw);
+      this.$router.push({ path: '/matching/explain'}) //id 체크해서 조사 안했으면 matching, 했으면 main
     },
     ForgotButton() {
       console.log("forgot password...");
@@ -49,19 +50,6 @@ export default {
 </script>
 
 <style scoped>
-#loginpage {
-  width: 100%;
-  height: 100%;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #000000;
-  background-color: #EABF3A;
-  padding: 0;
-  margin: 0;
-}
-
 .login-img {
   width: 100%;
   max-width: 388px;
@@ -69,7 +57,6 @@ export default {
 }
 
 .button-area {
-    width: 100%;
     justify-content: space-between;
 }
 </style>
