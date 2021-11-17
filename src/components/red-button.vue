@@ -12,7 +12,7 @@ export default {
   },
   methods: {
     onClick() {
-      console.log("버튼 클릭");
+      console.log("버튼 클릭"); //나중에 마우스 오버 했을 때 표시나는 것으로 바꾸기
     }
 
   }
@@ -28,7 +28,8 @@ button {
   color: black;
   border: solid 2px black;
   border-radius: 16px;
-  padding: 1% 4% 2%;
+  padding: 5px 18px 10px;
   margin: 15px 5px 2px;
 }
+
 </style>

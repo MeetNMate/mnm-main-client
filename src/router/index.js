@@ -1,6 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Main from '../views/MainPage.vue'
 import Login from '../views/LoginPage.vue'
+import MatchingExplane from '../views/InfoExplanePage.vue'
+import MatchingSurvey from '../views/InfoInputPage.vue'
+import MatchingWait from '../views/MatchingWaitPage.vue'
+import MateList from '../views/MateListPage.vue'
 
 const routes = [
   {
@@ -20,6 +24,26 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import('../views/RegisterPage.vue')
+  },
+  {
+    path:'/matching/explain',
+    name: 'MatchingExplane',
+    component: MatchingExplane
+  },
+  {
+    path:'/matching/survey',
+    name: 'MatchingSurvey',
+    component: MatchingSurvey
+  },
+  {
+    path:'/matching/waiting',
+    name: 'MatchingWait',
+    component: MatchingWait
+  },
+  {
+    path:'/auth/matelist',
+    name: 'MateList',
+    component: MateList
   }
 ]
 

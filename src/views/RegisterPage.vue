@@ -47,19 +47,6 @@ export default {
 </script>
 
 <style scoped>
-#registerpage {
-  width: 100%;
-  height: 100%;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #000000;
-  background-color: #EABF3A;
-  padding: 0;
-  margin: 0;
-}
-
 .joinus-img {
   width: 100%;
   max-width: 388px;
@@ -67,7 +54,6 @@ export default {
 }
 
 .button-area {
-    width: 100%;
     justify-content: right;
 }
 </style>

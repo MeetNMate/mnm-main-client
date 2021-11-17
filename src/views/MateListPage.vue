@@ -28,34 +28,23 @@ export default {
     MiniLogo,
     RedButton,
     GreenButton,
+  },
+  data() {
+    return {
+      Username: 'User'
+    }
   }
 }
 
 </script>
 
-<style>
-#matelistpage {
-  width: 100%;
-  height: 100%;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #000000;
-  background-color: #EABF3A;
-  padding: 0;
-  margin: 0;
-}
-
+<style scoped>
 .red-button {
     width: 89px;
     height: 28px;
 }
 
-/*
 .button-area {
-    width: 100%;
-    text-align: left;
+    justify-content: space-around;
 }
-*/
 </style>
