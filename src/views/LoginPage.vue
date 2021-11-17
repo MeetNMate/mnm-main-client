@@ -3,15 +3,17 @@
   <div><img class='login-img' alt="Login" src="../assets/login_title.png"> </div>
   <div>
     <div class="input-text">
-      <textbox msg = "address" ></textbox>
-      <textbox msg = "password" ></textbox>
+      <textbox @value="getid" msg = "email address" ></textbox>
+      <textbox @value="getpw" msg = "password" ></textbox>
     </div>
     <div class="button-area">
-      <red-button>log in</red-button>
-      <red-button>i forgot my password =(</red-button>
+      <red-button @click="LoginButton">log in</red-button>
+      <red-button @click="ForgotButton">i forgot my password =(</red-button>
     </div>
   </div>
-  <div><img class='bottom-img' alt="Bottom Img" src="../assets/down_image.png"> </div>
+  <div>
+    <img class='bottom-img' alt="Bottom Img" src="../assets/down_image.png"> 
+  </div>
 </template>
 
 <script>
@@ -27,15 +29,26 @@ export default {
     Textbox,
   },
   data() {
-    return {
-      
+  },
+  methods: {
+    getid(value) {
+      this.id = value;
+    },
+    getpw(value) {
+      this.pw = value;
+    },
+    LoginButton() {
+      console.log(this.id, this.pw);
+    },
+    ForgotButton() {
+      console.log("forgot password...");
     }
   }
 }
 
 </script>
 
-<style>
+<style scoped>
 #loginpage {
   width: 100%;
   height: 100%;
@@ -48,35 +61,36 @@ export default {
   padding: 0;
   margin: 0;
 }
-/*
-.bottom-img {
-  width: 100%;
-  height: 201px;
-  padding-top: 5%;
-}
-*/
+
 .login-img {
   width: 100%;
   max-width: 388px;
   height: 91px;
 }
-/*
-.red-button {
-    width: 89px;
-    height: 28px;
-}
 
+.button-area {
+    width: 100%;
+    justify-content: space-between;
+}
+</style>
+
+<style>
 .input-text {
   display: inline-block;
   text-align: center;
   padding-top: 50px;
   padding-bottom: 40px;
 }
-*/
 
-.button-area {
-    width: 100%;
-    text-align: left;
+.red-button {
+    width: 89px;
+    height: 28px;
 }
 
+.bottom-img {
+  width: 100%;
+  height: 100%;
+  padding-top: 5%;
+  vertical-align: bottom;
+}
 </style>

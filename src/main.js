@@ -1,5 +1,7 @@
-
 import { createApp } from 'vue'
+import Main from './Main.vue'
+import router from './router'
+
 import MainPage from './views/MainPage.vue'
 import LoginPage from './views/LoginPage.vue'
 import RegisterPage from './views/RegisterPage.vue'
@@ -8,10 +10,11 @@ import InfoExplanePage from './views/InfoExplanePage.vue'
 import InfoInputPage from './views/InfoInputPage.vue'
 import MateListPage from './views/MateListPage.vue'
 
-createApp(MainPage).mount('#mainpage')
-createApp(LoginPage).mount('#loginpage')
-createApp(RegisterPage).mount('#registerpage')
-createApp(MatchingWaitPage).mount('#matchingwaitpage')
-createApp(InfoExplanePage).mount('#infoexplanepage')
-createApp(InfoInputPage).mount('#infoinputpage')
-createApp(MateListPage).mount('#matelistpage')
+createApp(Main).use(router).mount('#main')
+createApp(MainPage).use(router).mount('#mainpage')
+createApp(LoginPage).use(router).mount('#loginpage')
+createApp(RegisterPage).use(router).mount('#registerpage')
+createApp(MatchingWaitPage).use(router).mount('#matchingwaitpage')
+createApp(InfoExplanePage).use(router).mount('#infoexplanepage')
+createApp(InfoInputPage).use(router).mount('#infoinputpage')
+createApp(MateListPage).use(router).mount('#matelistpage')

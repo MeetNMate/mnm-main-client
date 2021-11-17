@@ -3,12 +3,12 @@
   <div><img class="joinus-img" alt="Join Us" src="../assets/joinus_title.png"></div>
   <div>
     <div class="input-text">
-        <Textbox msg = "address" ></Textbox>
-        <textbox msg = "password" ></textbox>
-        <textbox msg = "pass word again" ></textbox>
+        <textbox @value="getid" msg = "email address" ></textbox>
+        <textbox @value="getpw" msg = "password" ></textbox>
+        <textbox @value="againpw" msg = "password again" ></textbox>
     </div>
     <div class="button-area">
-        <red-button>register</red-button>
+        <red-button @click="RegButton">register</red-button>
     </div>
   </div>
   <div>
@@ -27,13 +27,26 @@ export default {
     MiniLogo,
     RedButton,
     Textbox,
+  },
+  methods: {
+    getid(value) {
+      this.id = value;
+    },
+    getpw(value) {
+      this.pw = value;
+    },
+    againpw(value) {
+      this.agpw = value;
+    },
+    RegButton() {
+      console.log(this.id, this.pw, this.agpw);
+    },
   }
 }
 
-
 </script>
 
-<style>
+<style scoped>
 #registerpage {
   width: 100%;
   height: 100%;
@@ -47,32 +60,14 @@ export default {
   margin: 0;
 }
 
-.bottom-img {
-  width: 100%;
-  height: 201px;
-  padding-top: 5%;
-}
-
 .joinus-img {
   width: 100%;
   max-width: 388px;
   height: 91px;
 }
 
-.input-text {
-  display: inline-block;
-  text-align: center;
-  padding-top: 50px;
-  padding-bottom: 40px;
-}
-
-.red-button {
-    width: 89px;
-    height: 28px;
-}
-
 .button-area {
     width: 100%;
-    text-align: right;
+    justify-content: right;
 }
 </style>

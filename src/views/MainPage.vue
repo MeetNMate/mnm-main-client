@@ -6,7 +6,7 @@
     <main-img></main-img>
     <div>
         <red-button @click="LoginPage">log in</red-button>
-        <red-button @click="JoinPage">join us</red-button>
+        <red-button @click="RegisterPage">join us</red-button>
     </div>
 </template>
 
@@ -29,14 +29,14 @@ export default {
     LoginPage() {
         this.$router.push({ path: 'login'})
     },
-    JoinPage() {
-        this.$router.push({path: 'join'})
+    RegisterPage() {
+        this.$router.push({path: 'register'})
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 #mainpage {
   width: 100%;
   height: 100%;
