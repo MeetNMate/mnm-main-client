@@ -17,7 +17,7 @@
   }
 </script>
 
-<style>
+<style scoped>
 /* Modal */
 .modal,
 .overlay {
@@ -41,7 +41,7 @@
   background-color: white;
   z-index: 10;
   opacity: 1;
-  border-radius: 10%;
+  border-radius: 20px;
   background-color: #EABF3A;
   border: 3px solid black;
 }

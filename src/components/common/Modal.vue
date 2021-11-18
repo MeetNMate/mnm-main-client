@@ -17,7 +17,7 @@
   }
 </script>
 
-<style>
+<style scoped>
 /* Modal */
 .modal,
 .overlay {
@@ -34,7 +34,7 @@
 .modal-card {
   position: relative;
   max-width: 80%;
-  min-height: 500px;
+  min-height: 330px;
   margin: auto;
   margin-top: 60%;
   padding-top: 30px;

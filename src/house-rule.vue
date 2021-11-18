@@ -7,88 +7,42 @@
       <img id="title" src="./assets/house_rule_title.png" alt="house rule title">
     </div>
 
-    <!--모달-->
-    <!-- <div class="btn_group">
-      <div class="rule_add">
-        <rulemodal v-if="isModal" @close-modal="isModal=false">
-          <div class="add_rule_content">
-            <table class="addrule_table">
-              <thead id="add_rule_head">새로운 규칙 등록하기</thead>
-              <tbody>
-                <tr>
-                  <th id="table_first">대분류</th>
-                </tr>
-                <tr>
-                  <td>
-                    <input v-model="message">
-                  </td>
-                </tr>
-                <tr>
-                  <th id="table_first">소분류</th>
-                </tr>
-                <tr>
-                  <td>
-                    <input v-model="message">
-                  </td>
-                </tr>
-                <tr>
-                  <th id="table_first">내용</th>
-                </tr>
-                <tr>
-                  <td>
-                    <textarea v-model="message" rows="5"></textarea>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </rulemodal>
-        <span class="add_btn" v-on:click="addRule">
-          <img id="btn_add" src="./assets/add_btn.png" alt="add button">
-        </span>
-      </div>
+    <div class="button_group">
+      <rulemodal v-if="modal" @close-modal="modal=false">
+        <modalcontent msg="새로운 규칙 등록하기">
+          <slot class="footer_slot">
+            <span class="cancel_btn" v-on:click="cancel_modal">
+              <img id="btn_cancel" src="./assets/cancel_btn.png" alt="cancel button">
+            </span>
+            <span class="register_btn" v-on:click="register_modal">
+              <img id="btn_register" src="./assets/register_btn.png" alt="register button">
+            </span>
+          </slot>
+        </modalcontent>
+      </rulemodal>
+      <span class="add_btn" v-on:click="addRule">
+        <img id="btn_add" src="./assets/add_btn.png" alt="add button">
+      </span>
 
-      <div class="rule_edit">
-        <editmodal v-if="isModal" @close-modal="isModal=false">
-          <div class="edit_rule_content">
-            <table class="editrule_table">
-              <thead id="edit_rule_head">규칙 추가하기</thead>
-              <tbody>
-                <tr>
-                  <th id="table_first">대분류</th>
-                </tr>
-                <tr>
-                  <td>
-                    <input v-model="message">
-                  </td>
-                </tr>
-                <tr>
-                  <th id="table_first">소분류</th>
-                </tr>
-                <tr>
-                  <td>
-                    <input v-model="message">
-                  </td>
-                </tr>
-                <tr>
-                  <th id="table_first">내용</th>
-                </tr>
-                <tr>
-                  <td>
-                    <textarea v-model="message" rows="5"></textarea>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+      <rulemodal v-if="modal" @close-modal="modal=false">
+        <editmodal msg="규칙 수정하기">
+          <slot class="footer_slot">
+            <span class="cancel_btn" v-on:click="cancel_modal">
+              <img id="btn_cancel" src="./assets/cancel_btn.png" alt="cancel button">
+            </span>
+            <span class="delete_btn" v-on:click="delete_modal">
+              <img id="btn_delete" src="./assets/delete_btn.png" alt="delete button">
+            </span>
+            <span class="update_btn" v-on:click="update_modal">
+              <img id="btn_update" src="./assets/update_btn.png" alt="update button">
+            </span>
+          </slot>
         </editmodal>
-        <span class="edit_btn" v-on:click="editRule">
-          <img id="btn_edit" src="./assets/edit_btn.png" alt="edit button">
-        </span>
-      </div>
-    </div> -->
-    <!--모달 끝-->
-
+      </rulemodal>
+      <span class="edit_btn" v-on:click="editRule">
+        <img id="btn_edit" src="./assets/edit_btn.png" alt="edit button">
+      </span>
+    </div>
 
     <div class="rule_table">
       <table> <!--이 방법 말고 더 나은 방법이 있을텐데 시도해본 것 중에 이게 그나마 젤,,ㅠ-->
@@ -137,7 +91,7 @@
       </table>
     </div>
 
-    <div class="page_btn">
+    <div class="page_btn"> <!--page 넘기면 어디로 가는건지..? -->
       <span class="prev" v-on:click="addMate">
         <img id="prev_btn" src="./assets/previous_btn.png" alt="previous button">
       </span>
@@ -152,20 +106,23 @@
 <script>
 import minilogo from './components/mini-logo.vue'
 import househeader from './components/layout/house-header.vue'
-// import rulemodal from './components/common/Modal.vue'
-// import editmodal from './components/modal_rule/Modal_edit.vue'
+import rulemodal from './components/common/Modal.vue'
+import modalcontent from './components/common/modal_content.vue'
+import editmodal from './components/common/modal_edit.vue'
 
 export default {
   name: 'HouseRule',
   components: {
     minilogo,
     househeader,
-    // rulemodal,
+    rulemodal,
+    modalcontent,
+    editmodal
     // editmodal
   },
   data() {
     return {
-      isModal: false,
+      modal: false,
       message: ''
     }
   },
@@ -174,13 +131,25 @@ export default {
       console.log();
     },
     addRule() {
-      this.isModal = true
+      this.modal = true
     },
     closeModal() {
-      this.isModal = false
+      this.modal = false
     },
     editRule() {
-      this.isModal = true
+      this.modal = true
+    },
+    cancel_modal() {
+      this.modal = false
+    },
+    register_modal() {
+      this.modal = false
+    },
+    delete_modal() {
+      this.modal = false
+    },
+    update_modal() {
+      this.modal = false
     }
   }
 }
@@ -222,7 +191,7 @@ export default {
     text-align: center;
     padding-bottom: 35px;
   }
-  .btn_group {
+  .button_group {
     text-align: right;
     padding-right: 5px;
   }
@@ -253,18 +222,18 @@ export default {
   }
 
   /**모달**/
-  #table_first {
-    background-color: #EABF3A;
-    font-family: a고딕14;
-    font-size: 14px;
+  #btn_cancel,
+  #btn_register,
+  #btn_delete,
+  #btn_update {
+    width: 60px;
+    height: 24px;
+    padding: 30px 20px 0 20px;
   }
-  .addrule_table, .editrule_table {
-    background-color: #EABF3A;
+  #btn_register {
+    float: right;
   }
-  #add_rule_head, #edit_rule_head {
-    border-bottom: 2px solid black;
-    font-family: a고딕19;
-    text-align: center;
-    font-size: 20px;
+  #btn_delete {
+    padding-left: 20px;
   }
 </style>
