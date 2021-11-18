@@ -1,19 +1,17 @@
 <template>
   <div class="lobby">
     <minilogo></minilogo>
+    <househeader></househeader>
 <!--      <navigator></navigator> : navigator 만들고 고고-->
-    <div>
-      <househeader></househeader>
 
-      <!-- 이미지 3개 겹치게 해야 함 -->
-      <img id="profile_img" src="./assets/profile_2.png">
-      <img id="profile_img" src="./assets/profile_2.png">
-      <img id="profile_img" src="./assets/profile_2.png">
+    <div>
+      <img id="profile_img1" src="./assets/profile_2.png">
+      <img id="profile_img2" src="./assets/profile_2.png">
+      <img id="profile_img3" src="./assets/profile_2.png">
 
       <span class="plusMate" v-on:click="addMate">
         <img id="mate_add" src="./assets/mate_add.png">
       </span>
-      <!-- <button><img id="mate_add" src="./assets/mate_add.png"></button> -->
     </div>
 
     <div class="explain_house">
@@ -36,21 +34,13 @@
       <li>계란 한판 사오기 (다같이)</li>
     </div>
 
-    <span class="plusMate" v-on:click="addMate">
+    <span class="move_houserule" v-on:click="addMate">  <!--나중에 수정-->
       <img id="guide_bar" src="./assets/house_rule.png" alt="house rule">
     </span>
 
-    <span class="plusMate" v-on:click="addMate">
+    <span class="leave_thishouse" v-on:click="addMate">
       <img id="guide_bar" src="./assets/leave_house.png" alt="leave house">
     </span>
-
-    <!-- <div class="rule_btn">
-      <button><img id="guide_bar" src="./assets/house_rule.png" alt="house rule"></button>
-    </div>
-    <div class="leave_btn">
-      <button><img id="guide_bar" src="./assets/leave_house.png" alt="leave house"></button>
-    </div> -->
-
 
   </div>
 </template>
@@ -73,7 +63,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   body {
     background-color: #5BB5B5;
   }
@@ -82,21 +72,11 @@ export default {
     font-size: 14px;
   }
   li {
-    list-style-type: "\25cb";
+    list-style-type: "\25cb";  /*빈 동그라미*/
     font-family: a고딕14;
     font-size: 14px;
     margin-bottom: 7px;
   }
-  /* span {
-    padding-bottom: 10px;
-  } */
-  /* input.add_button {
-    background-image: url(/assets/mate_add.png);
-  } */
-  /* button {
-    border: none;
-    border-radius: 0;
-  } */
   .lobby {
     padding-left: 20px; /** 5% **/
     padding-right: 20px;
@@ -113,13 +93,30 @@ export default {
     font-size: 30px;
     text-align: center;
   }
-  #profile_img {
+  /**이미지 겹치기**/
+  #profile_img1 {
     width: 35px;
     height: 35px;
+    position: relative;
+  }
+  #profile_img2 {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    left: 45px;
+  }
+  #profile_img3 {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    left: 70px;
   }
   #mate_add {
     width: 19px;
     height: 19px;
+    position: absolute;
+    left: 110px;
+    top: 207px;
   }
   #house_pic {
     width: 100%;

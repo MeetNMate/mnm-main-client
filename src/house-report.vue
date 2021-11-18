@@ -16,10 +16,10 @@
         </colgroup>
         <tbody>
           <tr v-for="item in items" :key="item.profile">
-            <td><img v-bind:src="item.profile">{{ item.link }}</td>
+            <td><img v-bind:src="item.profile"></td>
             <td><span v-html="item.user"></span></td>
             <!-- <td><span class="plusMate" v-on:click="addMate">{{ item.link }}</span></td> -->
-            <td><span v-on:click="startReport"><img v-bind:src="item.button">{{ item.link }}</span></td>
+            <td><span v-on:click="startReport"><img v-bind:src="item.button"></span></td>
           </tr>
         </tbody>
       </table>
@@ -61,7 +61,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   img {
     width: 70px;
     height: 70px;
