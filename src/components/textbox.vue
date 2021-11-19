@@ -29,7 +29,9 @@ export default {
 <style scoped>
 div {
     position: relative;
-    width: 348px;
+    width:100%;
+
+    max-width: 348px;
     height: 70px;
     display: block;
     font-family: 'a고딕14';

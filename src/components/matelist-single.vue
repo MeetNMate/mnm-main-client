@@ -8,8 +8,8 @@
       <p class="mid-size">
         <slot></slot>
       </p>
-      <red-button class="mini-button bt1">profile</red-button>
-      <red-button class="mini-button bt2">chat!</red-button>
+      <red-button @click="ProfilePage" class="mini-button bt1">profile</red-button>
+      <red-button @click="ChatPage" class="mini-button bt2">chat!</red-button>
     </div>
   </div>
 </template>
@@ -23,7 +23,16 @@ export default {
     name: String,
     age: String,
   },
-}
+  methods: {
+    ProfilePage() {
+        this.$router.push({ path: '/auth/userprofile'})
+    },
+    ChatPage() {
+        this.$router.push({ path: '/auth/chatting'})
+    },
+  },
+};
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -45,10 +54,13 @@ export default {
 .background-image {
   display: inline-block;
   position: relative;
-  width: 388px;
+  width: 100%;
+  min-width: 350px;
+  max-width: 388px;
   height: 141px;
   background-image: url("../assets/speakbox_image.png");
-  background-size: 101%;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 img {
   width: 80%;
