@@ -1,6 +1,8 @@
 <template>
     <div id="change-color">
-        <mini-logo></mini-logo>
+        <div id="non-click">
+            <mini-logo></mini-logo>
+        </div>
         <div><img class="info_image" alt="Info image" src="../assets/info_image.png"></div>
         <div><img class="upper_text" alt="Before Matching" src="../assets/matching_upper_text.png"></div>
         <div><img class="paging" alt="Input Page Number" src="../assets/matching_page_num.png"></div>
