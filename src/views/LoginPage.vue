@@ -3,8 +3,8 @@
   <div><img class='login-img' alt="Login" src="../assets/login_title.png"> </div>
   <div>
     <div class="input-text">
-      <textbox @value="getid" msg = "email address" ></textbox>
-      <textbox @value="getpw" msg = "password" ></textbox>
+      <textbox @value="getid" msg = "email address"></textbox>
+      <textbox @value="getpw" msg = "password"></textbox>
     </div>
     <div class="button-area">
       <red-button @click="LoginButton">log in</red-button>
@@ -20,6 +20,7 @@
 import MiniLogo from '../components/mini-logo.vue'
 import RedButton from '../components/red-button.vue'
 import Textbox from '../components/textbox.vue'
+//import axios from 'axios'
 
 export default {
   name: 'LoginPage',
@@ -29,23 +30,61 @@ export default {
     Textbox,
   },
   data() {
+    return {
+      loginCheck: 0,
+      login: {
+        email: '',
+        password:'',
+        response:'',
+        message:'',
+        data:'',
+        view: false
+      }
+    }
   },
   methods: {
     getid(value) {
-      this.id = value;
+      this.login.email = value;
     },
     getpw(value) {
-      this.pw = value;
+      this.login.password = value;
     },
     LoginButton() {
-      console.log(this.id, this.pw);
-      this.$router.push({ path: '/matching/explain'}) //id 체크해서 조사 안했으면 matching, 했으면 main
+      console.log(this.login.email, this.login.pawwsord);
+/*
+      axios.post('http://localhost:5050/auth/login', {
+        email: this.login.email,
+        password: this.login.password
+      })
+      .then((res) => {
+        console.log('status code: ${res.status}');
+        console.log('response: ${res.data.response}');
+        console.log('message: ${res.data.message}');
+        console.log('data: ${res.data.data}')
+
+        this.login.response = res.data.response;
+        this.login.message = res.data.message;
+        this.login.data = JSON.parse(res.data.data);
+        this.login.view = true;
+
+        // 로컬스토리지에 토큰 저장
+        localStorage.setItem('token', this.login.data.token);
+        console.log(localStorage.getItem('token'));
+
+        this.loginCheck = 1;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+*/
+      //this.$router.push({ path: '/matching/explain'}) //id 체크해서 조사 안했으면 matching, 했으면 main    
     },
     ForgotButton() {
       console.log("forgot password...");
     }
   }
 }
+
 
 </script>
 

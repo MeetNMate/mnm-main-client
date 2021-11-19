@@ -21,15 +21,8 @@
                             <label for="female">여자</label>
                         </div>
                         <div class="question">
-                            <p>Q3. 당신의 나이대를 골라주세요!</p>
-                            <select v-model="age">
-                                <option>10대</option>
-                                <option>20~23</option>
-                                <option>24~26</option>
-                                <option>27~29</option>
-                                <option>30대</option>
-                                <option>40대 이후</option>
-                            </select>
+                            <p>Q3. 당신의 나이를 입력해주세요!</p>
+                            <input type="num" @blur="FocusOut" v-model="age" placeholder="write here"/>
                         </div>
                         <div class="question">
                             <p>Q4. 프로필 사진을 설정해주세요!</p> 
@@ -87,9 +80,25 @@
                         </div>
                         <div class="question">
                             <p v-if="show">Q8-1. 어떤 반려동물을 키울 것인가요?</p> 
+                            <select v-model="age">
+                                <option>10대</option>
+                                <option>20~23</option>
+                                <option>24~26</option>
+                                <option>27~29</option>
+                                <option>30대</option>
+                                <option>40대 이후</option>
+                            </select>
                         </div>
                         <div class="question">
                             <p >Q9. 메이트의 반려동물로 허용가능한 것은 무엇인가요?</p> 
+                            <select v-model="age">
+                                <option>10대</option>
+                                <option>20~23</option>
+                                <option>24~26</option>
+                                <option>27~29</option>
+                                <option>30대</option>
+                                <option>40대 이후</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -98,14 +107,22 @@
                     <p class="explain">거의 다 끝나가요!</p>
                     <div class="main_content">
                         <div class="question">
-                            <p>Q10. 냉/난방 문제</p> 
+                            <p>Q10. 냉/난방 문제</p>
+                            <select v-model="age">
+                                <option>10대</option>
+                                <option>20~23</option>
+                                <option>24~26</option>
+                                <option>27~29</option>
+                                <option>30대</option>
+                                <option>40대 이후</option>
+                            </select> 
                         </div>
                         <div class="question">
                             <p>Q11. 벌레를 잡을 수 있나요? (ex.바퀴벌레, 돈벌레, 지네)</p>
                             <input type="radio" id="ub_yes" value="1" v-model="userBugKiller">
                             <label for="ub_yes">잡는데 거리낌이 없다</label>
                             <input type="radio" id="ub_so" value="2" v-model="userBugKiller">
-                            <label for="ub_so">시키면 잡을 수 있다</label>
+                            <label for="ub_so">시키면 잡을 수 있다</label><br>
                             <input type="radio" id="ub_no" value="3" v-model="userBugKiller">
                             <label for="ub_no">절대 못잡는다</label> 
                         </div>
@@ -153,26 +170,42 @@
                             <label for="s_no">괜찮지 않다(안된다)</label>  
                         </div>
                         <div class="question">
-                            <p>Q15. 메이트의 소음을 어느정도 신경쓰시나요?</p> 
+                            <p>Q15. 메이트의 소음을 어느정도 신경쓰시나요?</p>
+                            <select v-model="age">
+                                <option>10대</option>
+                                <option>20~23</option>
+                                <option>24~26</option>
+                                <option>27~29</option>
+                                <option>30대</option>
+                                <option>40대 이후</option>
+                            </select> 
                         </div>
                         <div class="question">
-                            <p>Q16. 메이트의 음주를 어느정도 신경쓰시나요?</p> 
+                            <p>Q16. 메이트의 음주를 어느정도 신경쓰시나요?</p>
+                            <select v-model="age">
+                                <option>10대</option>
+                                <option>20~23</option>
+                                <option>24~26</option>
+                                <option>27~29</option>
+                                <option>30대</option>
+                                <option>40대 이후</option>
+                            </select> 
                         </div>
                         <div class="question">
                             <p>Q17. 집의 정리정돈을 어느정도 신경쓰시나요?</p>
                             <input type="radio" id="c_yes" value="1" v-model="clean">
-                            <label for="c_yes">내 공간만 아니면 신경쓰이지 않는다</label>
+                            <label for="c_yes">내 공간만 아니면 신경쓰이지 않는다</label><br>
                             <input type="radio" id="c_so" value="2" v-model="clean">
-                            <label for="c_so">공유하는 공간의 경우 신경쓰인다</label>
+                            <label for="c_so">공유하는 공간의 경우 신경쓰인다</label><br>
                             <input type="radio" id="c_no" value="3" v-model="clean">
                             <label for="c_no">메이트의 공간까지 신경쓰인다</label>  
                         </div>
                         <div class="question">
                             <p>Q18. 지인출입 문제에 대해 어떻게 생각하시나요?</p>
                             <input type="radio" id="en_yes" value="1" v-model="enter">
-                            <label for="en_yes">본인이 없을 때 말없이 지인이 잠깐 출입해도 상관없다</label>
+                            <label for="en_yes">본인이 없을 때 말없이 지인이 잠깐 출입해도 상관없다</label><br>
                             <input type="radio" id="en_so" value="2" v-model="enter">
-                            <label for="en_so">미리 말만 하면 지인이 출입해도 상관없다</label>
+                            <label for="en_so">미리 말만 하면 지인이 출입해도 상관없다</label><br>
                             <input type="radio" id="en_no" value="3" v-model="enter">
                             <label for="en_no">누구든 데려오면 안된다</label>  
                         </div>

@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import Main from './Main.vue'
 import router from './router'
+//import axious from 'axios'
 
 import MainPage from './views/MainPage.vue'
 import LoginPage from './views/LoginPage.vue'
