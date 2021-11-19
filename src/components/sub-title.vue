@@ -17,7 +17,7 @@ export default {
 <style scoped>
 p {
   width: 100%;
-  max-width: 268px;
+  max-width: 266px;
   background-color: white;
   font-family: 'Righteous-Regular';
   font-size: 40px;

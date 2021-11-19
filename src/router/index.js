@@ -6,6 +6,10 @@ import MatchingExplane from '../views/InfoExplanePage.vue'
 import MatchingSurvey from '../views/InfoInputPage.vue'
 import MatchingWait from '../views/MatchingWaitPage.vue'
 import MateList from '../views/MateListPage.vue'
+import MyPage from '../views/MyPage.vue'
+import UserProfile from '../views/UserProfilePage.vue'
+import Chatting from '../views/ChattingPage.vue'
+import ChattingList from '../views/ChattingListPage.vue'
 
 const routes = [
   {
@@ -47,6 +51,26 @@ const routes = [
     path: '/auth',
     name: 'MainAuth',
     component: MainAuth
+  },
+  {
+    path: '/auth/mypage',
+    name: 'MyPage',
+    component: MyPage
+  },
+  {
+    path: '/auth/userprofile',
+    name: 'UserProfile',
+    component: UserProfile
+  },
+  {
+    path: '/auth/chattinglist',
+    name: 'ChattingList',
+    component: ChattingList
+  },
+  {
+    path: '/auth/chatting',
+    name: 'Chatting',
+    component: Chatting
   }
 ]
 
