@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Main from '../views/MainPage.vue'
+import MainAuth from '../views/MainPageAuth.vue'
 import Login from '../views/LoginPage.vue'
 import MatchingExplane from '../views/InfoExplanePage.vue'
 import MatchingSurvey from '../views/InfoInputPage.vue'
@@ -20,9 +21,6 @@ const routes = [
   { //use router ver2
     path: '/register',
     name: 'Register',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import('../views/RegisterPage.vue')
   },
   {
@@ -44,6 +42,11 @@ const routes = [
     path:'/auth/matelist',
     name: 'MateList',
     component: MateList
+  },
+  {
+    path: '/auth',
+    name: 'MainAuth',
+    component: MainAuth
   }
 ]
 
