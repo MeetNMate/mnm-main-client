@@ -104,9 +104,24 @@ export default {
   width: 100%;
   max-width: 388px;
   height: 91px;
+  object-fit: cover;
 }
 
 .button-area {
     justify-content: right;
+}
+
+.bottom-img {
+  width: 100%;
+  padding-top: 5%;
+  vertical-align: bottom;
+  object-fit: cover;
+}
+
+.input-text {
+  display: inline-block;
+  text-align: center;
+  padding-top: 50px;
+  padding-bottom: 40px;
 }
 </style>

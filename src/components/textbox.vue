@@ -48,7 +48,7 @@ p {
     left: 0;
     right: 0;
     width: 100%;
-    height: 35%;
+    height: 50%;
     text-align: left;
     color: black;
     background-color: #E41813;
@@ -62,8 +62,8 @@ input {
     top: 52%;
     bottom:0;
     left: 15px;
-    width: 320px;
-    height: 35%;
+    width: 90%;
+    height: 45%;
     color: black;
     background-color: #EABF3A;
     border: none;

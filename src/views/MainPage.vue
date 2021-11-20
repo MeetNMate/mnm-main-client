@@ -5,8 +5,8 @@
     <p> 하우스메이트 매칭 및 공동 생활 관리 서비스 제공 플랫폼 </p>
     <main-img></main-img>
     <div class="button-area">
-        <red-button @click="LoginPage">log in</red-button>
-        <red-button @click="RegisterPage">join us</red-button>
+        <red-button class="big-button" @click="LoginPage">log in</red-button>
+        <red-button class="big-button" @click="RegisterPage">join us</red-button>
     </div>
 </template>
 
@@ -48,20 +48,13 @@ img {
     padding-top: 40px;
     padding-bottom: 30px;
 }
-/*
-p {
-    padding-top: 1%;
-    padding-bottom: 1%;
-}
-*/
-.red-button {
+
+.big-button {
     font-size: 30px;
-    width: 148px;
-    height: 51px;
 }
 
 .button-area {
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 </style>

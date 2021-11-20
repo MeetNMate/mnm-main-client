@@ -4,7 +4,7 @@
   <div>
     <div class="content1">
         <sub-title>MATE LIST</sub-title>
-        <p> 매칭 알고리즘을 기반으로 {{Username}}님께 추천된 메이트 목록입니다.<br>
+        <p class="sub-text"> 매칭 알고리즘을 기반으로 {{Username}}님께 추천된 메이트 목록입니다.<br>
         모두들 {{Username}}님의 연락을 기다리고 있어요.<br> 
         chat! 버튼을 눌러 메이트와 연락해보세요!
         </p>
@@ -70,15 +70,17 @@ export default {
 }
 
 .button-area {
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .list-single {
   display: block;
 }
-</style>
 
-<style>
+.sub-text {
+  padding-top: 15px;
+}
+
 .back-image {
   background-image: url("../assets/backline_image.png");
   background-size: 100%;
