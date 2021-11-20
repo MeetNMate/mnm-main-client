@@ -10,10 +10,10 @@
       <img id="navbar" src='./arrow_down.png'>
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-      <li id="navi_list"><a class="dropdown-item" href="#">mate list</a></li>
-      <li id="navi_list"><a class="dropdown-item" href="#">chatting list</a></li>
-      <li id="navi_list"><a class="dropdown-item" href="#">house list</a></li>
-      <li id="navi_list"><a class="dropdown-item" href="#">my page</a></li>
+      <li id="navi_list"><a class="dropdown-item" href="/auth/matelist">mate list</a></li>
+      <li id="navi_list"><a class="dropdown-item" href="/auth/chattinglist">chatting list</a></li>
+      <li id="navi_list"><a class="dropdown-item" href="/auth/house/lobby">house list</a></li>
+      <li id="navi_list"><a class="dropdown-item" href="/auth/mypage">my page</a></li>
     </ul>
   </div>
 </template>

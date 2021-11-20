@@ -1,18 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Main from '../views/MainPage.vue'
+import MainAuth from '../views/MainPageAuth.vue'
 import Login from '../views/LoginPage.vue'
 import MatchingExplane from '../views/InfoExplanePage.vue'
 import MatchingSurvey from '../views/InfoInputPage.vue'
 import MatchingWait from '../views/MatchingWaitPage.vue'
 import MateList from '../views/MateListPage.vue'
-import HouseMemReport from '../house-mem-report.vue'
-import HouseMemContent from '../house-mem-content.vue'
-import HouseReport from '../house-report.vue'
-import HouseRule from '../house-rule.vue'
-import HouseLobby from '../house-lobby.vue'
+import MyPage from '../views/MyPage.vue'
+import UserProfile from '../views/UserProfilePage.vue'
+import Chatting from '../views/ChattingPage.vue'
+import ChattingList from '../views/ChattingListPage.vue'
 
-// import HouseLobby from './house-lobby.vue'
-// import HouseRule from './house-rule.vue'
+import HouseLobby from '../views/house-lobby.vue'
+import HouseRule from '../views/house-rule.vue'
+import HouseReport from '../views/house-report.vue'
+import HouseMemReport from '../views/house-mem-report.vue'
+import HouseMemContent from '../views/house-mem-content.vue'
 
 const routes = [
   {
@@ -28,9 +31,6 @@ const routes = [
   { //use router ver2
     path: '/register',
     name: 'Register',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import('../views/RegisterPage.vue')
   },
   {
@@ -54,32 +54,56 @@ const routes = [
     component: MateList
   },
   {
-    path: '/report',
-    name: 'HouseReport',
-    component: HouseReport
+    path: '/auth',
+    name: 'MainAuth',
+    component: MainAuth
   },
   {
-    path: '/report/rating',
-    name: 'HouseMemReport',
-    component: HouseMemReport
+    path: '/auth/mypage',
+    name: 'MyPage',
+    component: MyPage
   },
   {
-    path: '/report/content',
-    name: 'HouseMemContent',
-    component: HouseMemContent
+    path: '/auth/userprofile',
+    name: 'UserProfile',
+    component: UserProfile
   },
   {
-    path: '/rule',
+    path: '/auth/chattinglist',
+    name: 'ChattingList',
+    component: ChattingList
+  },
+  {
+    path: '/auth/chatting',
+    name: 'Chatting',
+    component: Chatting
+  },
+  {
+    path: '/auth/house/lobby',
+    name: 'HouseLobby',
+    component: HouseLobby
+  },
+  {
+    path: '/auth/house/rule',
     name: 'HouseRule',
     component: HouseRule
   },
   {
-    path: '/houselobby',
-    name: 'HouseLobby',
-    component: HouseLobby
+    path: '/auth/house/report',
+    name: 'HouseReport',
+    component: HouseReport
+  },
+  {
+    path: '/auth/house/report/member',
+    name: 'HouseMemReport',
+    component: HouseMemReport
+  },
+  {
+    path: '/auth/house/content/mem',
+    name: 'HouseMemContent',
+    component: HouseMemContent
   }
 ]
-
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes

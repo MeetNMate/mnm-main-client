@@ -1,14 +1,14 @@
 <template>
-  <div class="report_mem">
+  <div class="report_mem" id ="change-color">
     <minilogo></minilogo>
     <househeader></househeader>
 
     <div id="page_title">
-      <img id="title" src="./assets/assessment_title.png">
+      <img id="title" src="../assets/assessment_title.png">
     </div>
 
     <div class="profile">
-      <img id="profile_img" src="./assets/profile_2.png">
+      <img id="profile_img" src="../assets/profile_2.png">
       <p id="user_name">seoki</p>
     </div>
 
@@ -99,22 +99,22 @@
       </table>
     </div>
 
-    <div class="page_btn">
+    <!-- <div class="page_btn">
       <span class="prev" @click="prevBtn">
         <img id="prev_btn" src="./assets/previous_btn.png" alt="previous button">
       </span>
       <span class="next" @click="nextBtn">
         <img id="next_btn" src="./assets/next_btn.png" alt="next button">
       </span>
-    </div>
+    </div> -->
 
   </div>
 </template>
 
 <script>
-import minilogo from './components/mini-logo.vue'
-import househeader from './components/layout/house-header.vue'
-import Rating from './components/Rating.vue'
+import minilogo from '../components/mini-logo.vue'
+import househeader from '../components/layout/house-header.vue'
+import Rating from '../components/Rating.vue'
 
 
 export default {
@@ -142,6 +142,10 @@ export default {
 </script>
 
 <style scoped>
+  #change-color {
+    background-color: #5BB5B5;
+  }
+
   .report_mem {
     padding: 0 20px 0 20px;
   }

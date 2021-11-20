@@ -1,5 +1,5 @@
 <template>
-    <div class="logo_img">
+    <div class="logo_img" @click="Logo">
         <img alt="MnM logo" src="../assets/logo.png">  
     </div>
     <p> 하우스메이트 매칭 및 공동 생활 관리 서비스 제공 플랫폼 </p>
@@ -25,6 +25,9 @@ export default {
       }
   },
   methods: {
+    Logo() {
+        this.$router.push({ path: '/'})
+    },
     LoginPage() {
         this.$router.push({ path: 'login'})
     },
@@ -42,14 +45,15 @@ img {
 }
 
 .logo_img {
-    padding-top: 50px;
+    padding-top: 40px;
+    padding-bottom: 30px;
 }
-
+/*
 p {
     padding-top: 1%;
     padding-bottom: 1%;
 }
-
+*/
 .red-button {
     font-size: 30px;
     width: 148px;
@@ -57,7 +61,7 @@ p {
 }
 
 .button-area {
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 </style>

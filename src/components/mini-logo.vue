@@ -1,8 +1,6 @@
 <template>
   <div class="mini-logo">
-    <p>
-      <img @click="MainPage" alt="Concept Image" src="../assets/logo.png">
-    </p>
+    <img @click="MainPage" alt="Concept Image" src="../assets/logo.png">
   </div>
 </template>
 
@@ -25,9 +23,10 @@ img {
 }
 
 .mini-logo {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 40px;
+  padding-bottom: 30px;
   text-align: center;
+  margin: 0px;
 }
 
 </style>

@@ -18,5 +18,7 @@ export default {
 img {
   width: 268px;
   height: 558px;
+  padding-top: 20px;
+  padding-bottom: 25px;
 }
 </style>

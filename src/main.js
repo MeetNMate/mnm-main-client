@@ -2,7 +2,6 @@
 import { createApp } from 'vue'
 import Main from './Main.vue'
 import router from './router'
-
 // import App from './App.vue'
 
 import MainPage from './views/MainPage.vue'
@@ -12,13 +11,20 @@ import RegisterPage from './views/RegisterPage.vue'
 import InfoExplanePage from './views/InfoExplanePage.vue'
 import InfoInputPage from './views/InfoInputPage.vue'
 import MatchingWaitPage from './views/MatchingWaitPage.vue'
-import MateListPage from './views/MateListPage.vue'
 
-import HouseLobby from './house-lobby.vue'
-import HouseRule from './house-rule.vue'
-import HouseReport from './house-report.vue'
-import HouseMemReport from './house-mem-report.vue'
-import HouseMemContent from './house-mem-content.vue'
+import MainPageAuth from './views/MainPageAuth.vue'
+import MateListPage from './views/MateListPage.vue'
+import UserProfile from './views/UserProfilePage.vue'
+import MyPage from './views/MyPage.vue'
+import ChattingList from './views/ChattingListPage.vue'
+import Chatting from './views/ChattingPage.vue'
+
+import HouseLobby from './views/house-lobby.vue'
+import HouseRule from './views/house-rule.vue'
+import HouseReport from './views/house-report.vue'
+import HouseMemReport from './views/house-mem-report.vue'
+import HouseMemContent from './views/house-mem-content.vue'
+
 import Navigator from './components/navigator.vue'
 import RuleModal from './components/common/Modal.vue'
 
@@ -34,14 +40,21 @@ createApp(RegisterPage).use(router).mount('#registerpage')
 createApp(InfoExplanePage).use(router).mount('#infoexplanepage')
 createApp(InfoInputPage).use(router).mount('#infoinputpage')
 createApp(MatchingWaitPage).use(router).mount('#matchingwaitpage')
+createApp(MainPageAuth).use(router).mount('#mainauthpage')
 createApp(MateListPage).use(router).mount('#matelistpage')
+createApp(UserProfile).use(router).mount('#userprofile')
+createApp(MyPage).use(router).mount('#mypage')
+createApp(ChattingList).use(router).mount('#chattinglist')
+createApp(Chatting).use(router).mount('#chatting')
+
 createApp(HouseLobby).use(router).mount('#houselobby')
 createApp(HouseRule).use(router).mount('#houserule')
 createApp(HouseReport).mount('#housereport')
-createApp(HouseMemReport).use(router).mount('#housememreport')
-createApp(HouseMemContent).use(router).mount('#housememcontent')
-createApp(Navigator).mount('#navi')
+createApp(HouseMemReport).mount('#housememreport')
+createApp(HouseMemContent).mount('#housememcontent')
+
 createApp(RuleModal).mount('#rulemodal')
+createApp(Navigator).mount('#navi')
 // createApp(DropdownMenu).mount('#dropdownmenu')
 
 // Vue.component('vue-multiselect', window.VueMultiselect.default)
