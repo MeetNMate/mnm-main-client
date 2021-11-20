@@ -7,12 +7,15 @@
     </div>
     <div class="back-image">
       <div class="content2">
+        <div class="single-chat-list" @click="ChatPage">
+          <SingleChatting v-bind:Username="Username" v-bind:num="num" v-bind:LastTime="LastTime" v-bind:Imgvalue="Image">
+            {{simpletext}}
+          </SingleChatting>
+        </div>
         <div class="single-chat-list">
-          <talk-box>{{simpletext}}</talk-box>
-          <talk-box>{{simpletext}}</talk-box>
-          <talk-box>{{simpletext}}</talk-box>
-          <talk-box>{{simpletext}}</talk-box>
-          <talk-box>{{simpletext}}</talk-box>
+          <SingleChatting v-bind:Username="Username" v-bind:num="num" v-bind:LastTime="LastTime" v-bind:Imgvalue="Image">
+            {{simpletext}}
+          </SingleChatting>
         </div>
       </div>
       <div class="button-area">
@@ -25,30 +28,35 @@
 
 <script scoped>
 import MiniLogo from '../components/mini-logo.vue'
-import RedButton from '../components/red-button.vue'
 import GreenButton from '../components/green-button.vue'
 import SubTitle from '../components/sub-title.vue'
-import Matelistsingle from '../components/matelist-single.vue'
 import Navigator from '../components/navigator.vue'
-import TalkBox from '../components/talk-box.vue'
+import SingleChatting from '../components/single-chatting.vue'
 
 export default {
   name: 'ChattingListPage',
   components: {
     MiniLogo,
-    RedButton,
     GreenButton,
     SubTitle,
-    Matelistsingle,
     Navigator,
-    TalkBox,
+    SingleChatting,
   },
   data() {
     return {
       Username: 'User',
-      simpletext: '아 안녕ㅇㅇㅇㅇㅇㅇㅇ 나는ㄴㄴㄴㄴㄴ 너무ㅜㅜㅜㅜ 힘들어..;ㅁ;아아아아아 안녕ㅇ'
+      simpletext: '아 안녕ㅇㅇㅇㅇㅇㅇㅇ 나는ㄴㄴㄴㄴㄴ 너무ㅜㅜㅜㅜ 힘들어..;ㅁ;아아아아아 안녕ㅇ',
+      Imgvalue: '',
+      num: '4',
+      LastTime: '8:30pm',
+      Image: '',
     }
-  }
+  },
+  methods: {
+    ChatPage() {
+        this.$router.push({ path: '/auth/chatting'})
+    },
+  },
 }
 
 </script>
