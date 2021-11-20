@@ -1,10 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Main from '../views/MainPage.vue'
+import MainAuth from '../views/MainPageAuth.vue'
 import Login from '../views/LoginPage.vue'
 import MatchingExplane from '../views/InfoExplanePage.vue'
 import MatchingSurvey from '../views/InfoInputPage.vue'
 import MatchingWait from '../views/MatchingWaitPage.vue'
 import MateList from '../views/MateListPage.vue'
+import MyPage from '../views/MyPage.vue'
+import UserProfile from '../views/UserProfilePage.vue'
+import Chatting from '../views/ChattingPage.vue'
+import ChattingList from '../views/ChattingListPage.vue'
 
 // import HouseLobby from './house-lobby.vue'
 // import HouseRule from './house-rule.vue'
@@ -23,9 +28,6 @@ const routes = [
   { //use router ver2
     path: '/register',
     name: 'Register',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import('../views/RegisterPage.vue')
   },
   {
@@ -47,6 +49,31 @@ const routes = [
     path:'/auth/matelist',
     name: 'MateList',
     component: MateList
+  },
+  {
+    path: '/auth',
+    name: 'MainAuth',
+    component: MainAuth
+  },
+  {
+    path: '/auth/mypage',
+    name: 'MyPage',
+    component: MyPage
+  },
+  {
+    path: '/auth/userprofile',
+    name: 'UserProfile',
+    component: UserProfile
+  },
+  {
+    path: '/auth/chattinglist',
+    name: 'ChattingList',
+    component: ChattingList
+  },
+  {
+    path: '/auth/chatting',
+    name: 'Chatting',
+    component: Chatting
   }
   // {
   //   path: '/house_lobby',

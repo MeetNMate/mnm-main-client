@@ -1,9 +1,10 @@
 <template>
     <div>
         <p>{{msg}}</p>
-        <input type="text" @blur="FocusOut" v-model="value" placeholder="write here" />
+        <input type="password" @blur="FocusOut" v-model="value" placeholder="write here" />
     </div>    
 </template>
+
 
 <script>
 export default {
