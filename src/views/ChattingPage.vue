@@ -1,6 +1,6 @@
 <template>
   <mini-logo></mini-logo>
-  <nevigator></nevigator>
+  <navigator></navigator>
   <div>
     <div class="content1">
         <p>{{Username}}</p>
@@ -20,6 +20,7 @@
 <script scoped>
 import GreenButton from '../components/green-button.vue'
 import MiniLogo from '../components/mini-logo.vue'
+import Navigator from '../components/navigator.vue'
 import RedButton from '../components/red-button.vue'
 
 export default {
@@ -28,6 +29,7 @@ export default {
     MiniLogo,
     RedButton,
     GreenButton,
+    Navigator,
   },
   data() {
     return {

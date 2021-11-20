@@ -1,6 +1,6 @@
 <template>
   <mini-logo></mini-logo>
-  <nevigator></nevigator>
+  <navigator></navigator>
   <div>
     <div class="content1">
         <img class="profile-img" src='../assets/profile_img.png'>
@@ -23,6 +23,7 @@
 
 <script scoped>
 import MiniLogo from '../components/mini-logo.vue'
+import Navigator from '../components/navigator.vue'
 import RedButton from '../components/red-button.vue'
 
 export default {
@@ -30,6 +31,7 @@ export default {
   components: {
     MiniLogo,
     RedButton,
+    Navigator,
   },
   data() {
     return {
@@ -48,7 +50,7 @@ export default {
 }
 
 .button-area {
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .list-single {

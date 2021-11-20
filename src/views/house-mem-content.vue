@@ -1,14 +1,14 @@
 <template>
-  <div class="report_mem">
+  <div class="report_mem" id ="change-color">
     <minilogo></minilogo>
     <househeader></househeader>
 
     <div id="page_title">
-      <img id="title" src="./assets/assessment_title.png">
+      <img id="title" src="../assets/assessment_title.png">
     </div>
 
     <div class="profile">
-      <img id="profile_img" src="./assets/profile_2.png">
+      <img id="profile_img" src="../assets/profile_2.png">
       <p id="user_name">seoki</p>
     </div>
 
@@ -19,7 +19,7 @@
 
     <div class="page_btn">
       <span class="prev" v-on:click="prev_page">
-        <img id="prev_btn" src="./assets/previous_btn.png" alt="previous button">
+        <img id="prev_btn" src="../assets/previous_btn.png" alt="previous button">
       </span>
 
       <reportmodal v-if="modal" @close-modal="modal=false">
@@ -31,15 +31,15 @@
         </div>
         <footer class="footer_btn">
           <span class="yes_button" v-on:click="submitReport">
-            <img id="yes_btn" src="./assets/report_end.png" alt="yes button">
+            <img id="yes_btn" src="../assets/report_end.png" alt="yes button">
           </span>
           <span class="cancel_button" v-on:click="cancelReport">
-            <img id="cancel_btn" src="./assets/report_cancel.png" alt="cancel button">
+            <img id="cancel_btn" src="../assets/report_cancel.png" alt="cancel button">
           </span>
         </footer>
       </reportmodal>
       <span class="next" v-on:click="endReport">
-        <img id="next_btn" src="./assets/next_btn.png" alt="next button">
+        <img id="next_btn" src="../assets/next_btn.png" alt="next button">
       </span>
     </div>
 
@@ -47,9 +47,9 @@
 </template>
 
 <script>
-import minilogo from './components/mini-logo.vue'
-import househeader from './components/layout/house-header.vue'
-import reportmodal from './components/common/Modal_2.vue'
+import minilogo from '../components/mini-logo.vue'
+import househeader from '../components/layout/house-header.vue'
+import reportmodal from '../components/common/Modal_2.vue'
 
 export default {
   name: 'HouseMemContent',
@@ -83,6 +83,9 @@ export default {
 </script>
 
 <style scoped>
+  #change-color {
+    background-color: #5BB5B5;
+  }
   .report_mem {
     padding: 0 20px 0 20px;
   }

@@ -494,7 +494,7 @@ export default {
 }
 
 .button-area {
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .explain {

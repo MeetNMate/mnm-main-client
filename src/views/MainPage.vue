@@ -45,14 +45,15 @@ img {
 }
 
 .logo_img {
-    padding-top: 50px;
+    padding-top: 40px;
+    padding-bottom: 30px;
 }
-
+/*
 p {
     padding-top: 1%;
     padding-bottom: 1%;
 }
-
+*/
 .red-button {
     font-size: 30px;
     width: 148px;
@@ -60,7 +61,7 @@ p {
 }
 
 .button-area {
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 </style>

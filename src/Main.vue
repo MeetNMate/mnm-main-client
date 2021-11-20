@@ -7,6 +7,7 @@
   width: 100%;
   height: 100%;
   font-family: 'a고딕14';
+  font-size: 14px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -40,11 +41,6 @@ img {
   display: flex;
   margin: auto;
   padding-bottom: 20px;
-}
-
-.mini-logo {
-  padding-top: 15px;
-  padding-bottom: 15px;
 }
 
 #non-click {

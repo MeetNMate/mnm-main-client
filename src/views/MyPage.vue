@@ -1,7 +1,7 @@
 <template>
     <div id ="change-color">
       <mini-logo></mini-logo>
-      <nevigator></nevigator>
+      <navigator></navigator>
       <div>
         <div class="s-title"><sub-title>my page</sub-title></div>
         <div class="dobby-content">
@@ -20,8 +20,8 @@
 </template>
 
 <script>
+import Navigator from '../components/navigator.vue'
 import MiniLogo from '../components/mini-logo.vue'
-import Nevigator from '../components/nevigator.vue'
 import RedButton from '../components/red-button.vue'
 import SubTitle from '../components/sub-title.vue'
 
@@ -29,11 +29,11 @@ export default {
   name: 'MyPage',
   components: { 
     MiniLogo, 
-    Nevigator,
+    Navigator,
     SubTitle,
     RedButton,
   },
-  data(){
+  data() {
     return {
       Username: 'User'
     }

@@ -1,6 +1,6 @@
 <template>
   <mini-logo></mini-logo>
-  <nevigator></nevigator>
+  <navigator></navigator>
   <div>
     <div class="content1">
         <sub-title>chatting</sub-title>
@@ -26,6 +26,7 @@ import RedButton from '../components/red-button.vue'
 import GreenButton from '../components/green-button.vue'
 import SubTitle from '../components/sub-title.vue'
 import Matelistsingle from '../components/matelist-single.vue'
+import Navigator from '../components/navigator.vue'
 
 export default {
   name: 'ChattingListPage',
@@ -35,6 +36,7 @@ export default {
     GreenButton,
     SubTitle,
     Matelistsingle,
+    Navigator,
   },
   data() {
     return {
@@ -52,7 +54,7 @@ export default {
 }
 
 .button-area {
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .list-single {

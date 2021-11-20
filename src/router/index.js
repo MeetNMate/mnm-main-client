@@ -11,8 +11,11 @@ import UserProfile from '../views/UserProfilePage.vue'
 import Chatting from '../views/ChattingPage.vue'
 import ChattingList from '../views/ChattingListPage.vue'
 
-// import HouseLobby from './house-lobby.vue'
-// import HouseRule from './house-rule.vue'
+import HouseLobby from '../views/house-lobby.vue'
+import HouseRule from '../views/house-rule.vue'
+import HouseReport from '../views/house-report.vue'
+import HouseMemReport from '../views/house-mem-report.vue'
+import HouseMemContent from '../views/house-mem-content.vue'
 
 const routes = [
   {
@@ -74,19 +77,33 @@ const routes = [
     path: '/auth/chatting',
     name: 'Chatting',
     component: Chatting
+  },
+  {
+    path: '/auth/house/lobby',
+    name: 'HouseLobby',
+    component: HouseLobby
+  },
+  {
+    path: '/auth/house/rule',
+    name: 'HouseRule',
+    component: HouseRule
+  },
+  {
+    path: '/auth/house/report',
+    name: 'HouseReport',
+    component: HouseReport
+  },
+  {
+    path: '/auth/house/report/member',
+    name: 'HouseMemReport',
+    component: HouseMemReport
+  },
+  {
+    path: '/auth/house/content/mem',
+    name: 'HouseMemContent',
+    component: HouseMemContent
   }
-  // {
-  //   path: '/house_lobby',
-  //   name: 'HouseLobby',
-  //   component: HouseLobby
-  // },
-  // {
-  //   path: 'house_rule',
-  //   name: 'HouseRule',
-  //   component: HouseRule
-  // }
 ]
-
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes

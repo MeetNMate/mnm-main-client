@@ -1,10 +1,10 @@
 <template>
-  <div class="report">
+  <div class="report" id ="change-color">
     <minilogo></minilogo>
     <househeader></househeader>
 
     <div id="page_title">
-      <img id="title" src="./assets/assessment_title.png">
+      <img id="title" src="../assets/assessment_title.png">
     </div>
 
     <div class="report_table">
@@ -18,13 +18,13 @@
           <tr id="table_head">
             <td rowspan="2">
               <span class="profile">
-                <img id="profile_img" src='./assets/profile_2.png'>
+                <img id="profile_img" src='../assets/profile_2.png'>
               </span>
             </td>
             <td id="user">moosongsong</td>
             <td rowspan="2">
               <span class="report_button" v-on:click="ReportBtn">
-                <img id="btn_report" src='./assets/report_btn.png'>
+                <img id="btn_report" src='../assets/report_btn.png'>
               </span>
             </td>
           </tr>
@@ -35,13 +35,13 @@
           <tr id="table_head">
             <td rowspan="2">
               <span class="profile">
-                <img id="profile_img" src='./assets/profile_2.png'>
+                <img id="profile_img" src='../assets/profile_2.png'>
               </span>
             </td>
             <td id="user">moosongsong</td>
             <td rowspan="2">
               <span class="report_button" v-on:click="ReportBtn">
-                <img id="btn_report" src='./assets/report_btn.png'>
+                <img id="btn_report" src='../assets/report_btn.png'>
               </span>
             </td>
           </tr>
@@ -55,8 +55,8 @@
 </template>
 
 <script>
-import househeader from './components/layout/house-header.vue'
-import minilogo from './components/mini-logo.vue'
+import househeader from '../components/layout/house-header.vue'
+import minilogo from '../components/mini-logo.vue'
 
 export default {
   name: 'HouseReport',
@@ -66,13 +66,17 @@ export default {
   },
   methods: {
     ReportBtn() {
-      console.log();
+      this.$router.push({ path: 'report/member'})
     }
   }
 }
 </script>
 
 <style scoped>
+  #change-color {
+    background-color: #5BB5B5;
+  }
+  
   table {
     border-collapse: collapse;
   }

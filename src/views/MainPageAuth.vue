@@ -1,5 +1,6 @@
 <template>
     <mini-logo></mini-logo>
+    <navigator></navigator>
     <div></div>
     <main-img></main-img>
     <div class="blank"></div>
@@ -8,12 +9,14 @@
 <script>
 import mainImg from '../components/main-img.vue'
 import MiniLogo from '../components/mini-logo.vue';
+import Navigator from '../components/navigator.vue';
 
 export default {
   name: 'MainPageAuth',
   components: {
     mainImg,
     MiniLogo,
+    Navigator,
   },
   data() {
       return {
@@ -31,4 +34,5 @@ export default {
 .blank {
     margin: 20px;
 }
+
 </style>
