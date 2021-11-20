@@ -29,8 +29,7 @@ export default {
 <style scoped>
 div {
     position: relative;
-    width:100%;
-
+    width:98vw;
     max-width: 348px;
     height: 70px;
     display: block;
@@ -48,6 +47,7 @@ p {
     top:0;
     left: 0;
     right: 0;
+    width: 100%;
     height: 35%;
     text-align: left;
     color: black;
