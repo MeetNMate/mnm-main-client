@@ -4,7 +4,7 @@
   <div>
     <div class="input-text">
       <textbox @value="getid" msg = "email address"></textbox>
-      <textbox @value="getpw" msg = "password"></textbox>
+      <textbox-se @value="getpw" msg = "password"></textbox-se>
     </div>
     <div class="button-area">
       <red-button @click="LoginButton">log in</red-button>
@@ -20,7 +20,8 @@
 import MiniLogo from '../components/mini-logo.vue'
 import RedButton from '../components/red-button.vue'
 import Textbox from '../components/textbox.vue'
-//import axios from 'axios'
+import axios from 'axios'
+import TextboxSe from '../components/textbox-se.vue'
 
 export default {
   name: 'LoginPage',
@@ -28,6 +29,7 @@ export default {
     MiniLogo,
     RedButton,
     Textbox,
+    TextboxSe,
   },
   data() {
     return {
@@ -51,12 +53,11 @@ export default {
     },
     LoginButton() {
       console.log(this.login.email, this.login.pawwsord);
-/*
       axios.post('http://localhost:5050/auth/login', {
         email: this.login.email,
-        password: this.login.password
+        password:this.login.password,
       })
-      .then((res) => {
+       .then((res) => {
         console.log('status code: ${res.status}');
         console.log('response: ${res.data.response}');
         console.log('message: ${res.data.message}');
@@ -66,7 +67,8 @@ export default {
         this.login.message = res.data.message;
         this.login.data = JSON.parse(res.data.data);
         this.login.view = true;
-
+        //login이 정상적으로 됐을 때 토큰 저장 및 통과
+        //login이 되지 않으면 에러
         // 로컬스토리지에 토큰 저장
         localStorage.setItem('token', this.login.data.token);
         console.log(localStorage.getItem('token'));
@@ -76,7 +78,6 @@ export default {
       .catch(err => {
         console.log(err);
       });
-*/
       //this.$router.push({ path: '/matching/explain'}) //id 체크해서 조사 안했으면 matching, 했으면 main    
     },
     ForgotButton() {

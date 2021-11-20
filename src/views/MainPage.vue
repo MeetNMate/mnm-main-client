@@ -1,5 +1,5 @@
 <template>
-    <div class="logo_img">
+    <div class="logo_img" @click="Logo">
         <img alt="MnM logo" src="../assets/logo.png">  
     </div>
     <p> 하우스메이트 매칭 및 공동 생활 관리 서비스 제공 플랫폼 </p>
@@ -25,6 +25,9 @@ export default {
       }
   },
   methods: {
+    Logo() {
+        this.$router.push({ path: '/'})
+    },
     LoginPage() {
         this.$router.push({ path: 'login'})
     },
