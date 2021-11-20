@@ -12,19 +12,10 @@
     <div class="back-image">
       <div class="content2">
         <div class="list-single">
-          <Matelistsingle name="Haeri Han" age="25">{{simpletext}}</Matelistsingle>
+          <SingleMatelist v-bind:name="hname" v-bind:age="hage">{{simpletext}}</SingleMatelist>
         </div>
         <div class="list-single">
-          <Matelistsingle name="Eunjin Cho" age="24">안녕? 나는 잠자는게 취미인 사람이야... 좋은 메이트를 구하고 있어..</Matelistsingle>
-        </div>
-        <div class="list-single">
-          <Matelistsingle name="SongSong Moo" age="24">{{simpletext}}</Matelistsingle>
-        </div>
-        <div class="list-single">
-           <Matelistsingle name="Seokhee Moon" age="24">{{simpletext}}</Matelistsingle>
-        </div>
-        <div class="list-single">
-            <Matelistsingle name="Address Yong" age="24">{{simpletext}}</Matelistsingle>
+          <SingleMatelist v-bind:name="hname" v-bind:age="hage">testestestset나ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ자고싶어ㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅠㅠㅠㅠ</SingleMatelist>
         </div>
       </div>
       <div class="button-area">
@@ -37,38 +28,33 @@
 
 <script scoped>
 import MiniLogo from '../components/mini-logo.vue'
-import RedButton from '../components/red-button.vue'
 import GreenButton from '../components/green-button.vue'
 import SubTitle from '../components/sub-title.vue'
-import Matelistsingle from '../components/matelist-single.vue'
 import Navigator from '../components/navigator.vue'
+import SingleMatelist from '../components/single-matelist.vue'
 
 export default {
   name: 'MateListPage',
   components: {
     MiniLogo,
-    RedButton,
     GreenButton,
     SubTitle,
-    Matelistsingle,
     Navigator,
+    SingleMatelist,
   },
   data() {
     return {
       Username: 'User',
-      simpletext: '저와 함께 살 멋쟁이를 구합니다!'
+      simpletext: '저와 함께 살 멋쟁이를 구합니다!',
+      hage:'25',
+      hname:'Haeri Han',
     }
-  }
+  },
 }
 
 </script>
 
 <style scoped>
-.red-button {
-    width: 89px;
-    height: 28px;
-}
-
 .button-area {
     justify-content: space-around;
 }
