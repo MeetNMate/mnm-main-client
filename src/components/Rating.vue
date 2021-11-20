@@ -36,7 +36,6 @@ export default {
   .rating {
     display: flex;
     margin: auto;
-    /* flex-direction: row-row-reverse; */
     align-items: center;
     border-bottom: 1px solid black;
   }

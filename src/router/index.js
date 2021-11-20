@@ -5,6 +5,11 @@ import MatchingExplane from '../views/InfoExplanePage.vue'
 import MatchingSurvey from '../views/InfoInputPage.vue'
 import MatchingWait from '../views/MatchingWaitPage.vue'
 import MateList from '../views/MateListPage.vue'
+import HouseMemReport from '../house-mem-report.vue'
+import HouseMemContent from '../house-mem-content.vue'
+import HouseReport from '../house-report.vue'
+import HouseRule from '../house-rule.vue'
+import HouseLobby from '../house-lobby.vue'
 
 // import HouseLobby from './house-lobby.vue'
 // import HouseRule from './house-rule.vue'
@@ -47,17 +52,32 @@ const routes = [
     path:'/auth/matelist',
     name: 'MateList',
     component: MateList
+  },
+  {
+    path: '/report',
+    name: 'HouseReport',
+    component: HouseReport
+  },
+  {
+    path: '/report/rating',
+    name: 'HouseMemReport',
+    component: HouseMemReport
+  },
+  {
+    path: '/report/content',
+    name: 'HouseMemContent',
+    component: HouseMemContent
+  },
+  {
+    path: '/rule',
+    name: 'HouseRule',
+    component: HouseRule
+  },
+  {
+    path: '/houselobby',
+    name: 'HouseLobby',
+    component: HouseLobby
   }
-  // {
-  //   path: '/house_lobby',
-  //   name: 'HouseLobby',
-  //   component: HouseLobby
-  // },
-  // {
-  //   path: 'house_rule',
-  //   name: 'HouseRule',
-  //   component: HouseRule
-  // }
 ]
 
 const router = createRouter({

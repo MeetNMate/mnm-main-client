@@ -18,12 +18,12 @@
     </div>
 
     <div class="page_btn">
-      <span class="prev" v-on:click="prev_page">
+      <span class="prev" @click="prev_page">
         <img id="prev_btn" src="./assets/previous_btn.png" alt="previous button">
       </span>
 
+      <!-- 모달 -->
       <reportmodal v-if="modal" @close-modal="modal=false">
-        <!-- <memreport></memreport> -->
         <div class="mem_report">
           <p id="report_content">soyoung 님이 작성한 평가는 삭제되지 않습니다.</p>
           <p id="report_content">신중하게 작성하셨나요?</p>
@@ -66,17 +66,17 @@ export default {
   },
   methods: {
     endReport() {
-      this.modal = true
+      this.modal = true;
     },
     cancelReport() {
-      this.modal = false
+      this.modal = false;
     },
     submitReport() {
-      this.modal = false
-      //라우터 설정 -> page 전환
+      this.modal = false;
+      console.log(this.radioValues);
     },
     prev_page() {
-      //라우터 설정
+      this.$router.push({ path: '/report/rating' });
     }
   }
 }

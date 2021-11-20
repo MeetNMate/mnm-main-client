@@ -1,7 +1,7 @@
 <template>
   <div class="lobby">
     <minilogo></minilogo>
-    <navimenu></navimenu>
+    <!-- <navimenu></navimenu> -->
     <househeader></househeader>
 
     <div>
@@ -34,11 +34,11 @@
       <li>계란 한판 사오기 (다같이)</li>
     </div>
 
-    <span class="move_houserule" v-on:click="move_houserule">  <!--나중에 수정-->
+    <span class="move_houserule" @click="move_houserule">
       <img id="guide_bar" src="./assets/house_rule.png" alt="house rule">
     </span>
 
-    <span class="leave_thishouse" v-on:click="addMate">
+    <span class="leave_thishouse" @click="leave">
       <img id="guide_bar" src="./assets/leave_house.png" alt="leave house">
     </span>
 
@@ -48,19 +48,23 @@
 <script>
 import househeader from './components/layout/house-header.vue'
 import minilogo from './components/mini-logo.vue'
-import navimenu from  './components/navigator.vue'
+// import navimenu from  './components/navigator.vue'
 
 export default {
   name: 'HouseLobby',
   components: {
     househeader,
-    minilogo,
-    navimenu
+    minilogo
+    // navimenu
     // dropdownmenu
   },
   methods: {
-    addMate() {
+    move_houserule() {
+      this.$router.push({ path: '/rule' })
+    },
+    leave() {
       console.log();
+      this.$router.push({ path: '/main' })
     }
   }
 }
@@ -118,8 +122,8 @@ export default {
     width: 19px;
     height: 19px;
     position: absolute;
-    left: 110px;
-    top: 182px;
+    left: 112px;
+    top: 237px;
   }
   #house_pic {
     width: 100%;

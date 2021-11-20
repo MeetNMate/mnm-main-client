@@ -48,18 +48,33 @@
         <tr>
           <Rating :grade="3" :maxStars="5" :hasCounter="true" />
         </tr>
-        <!-- <tr>
+      </table>
+
+      <table>
+        <tr>
           <th>2. 우리들의 음주문화!</th>
         </tr>
         <tr>
           <td>2-1. 친목도모를 위해 주 1회 음주파티 필수 참석</td>
         </tr>
         <tr>
+          <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+        </tr>
+        <tr>
           <td>2-2. 안주는 퇴근하면서 각자 먹고싶은 거 배민으로 주문</td>
+        </tr>
+        <tr>
+          <Rating :grade="3" :maxStars="5" :hasCounter="true" />
         </tr>
         <tr>
           <td>2-3. 외부인 초대 가능</td>
         </tr>
+        <tr>
+          <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+        </tr>
+      </table>
+
+      <table>
         <tr>
           <th>3. 외부인 관련</th>
         </tr>
@@ -67,19 +82,28 @@
           <td>3-1. 직계가족 방문 허용</td>
         </tr>
         <tr>
+          <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+        </tr>
+        <tr>
           <td>3-2. 이성 출입은 사전 협의하기</td>
         </tr>
         <tr>
+          <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+        </tr>
+        <tr>
           <td>3-3. 외부인의 숙박을 불가능하다</td>
-        </tr> -->
+        </tr>
+        <tr>
+          <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+        </tr>
       </table>
     </div>
 
     <div class="page_btn">
-      <span class="prev" v-on:click="addMate">
+      <span class="prev" @click="prevBtn">
         <img id="prev_btn" src="./assets/previous_btn.png" alt="previous button">
       </span>
-      <span class="next" v-on:click="addMate">
+      <span class="next" @click="nextBtn">
         <img id="next_btn" src="./assets/next_btn.png" alt="next button">
       </span>
     </div>
@@ -99,8 +123,15 @@ export default {
     minilogo,
     househeader,
     Rating
-    // vue3starRatings
-  },
+    },
+    methods: {
+      prevBtn() {
+        this.$router.push( { path: '/report' })
+      },
+      nextBtn() {
+        this.$router.push( { path: '/report/content' })
+      }
+    },
   data() {
     return {
       text: ''

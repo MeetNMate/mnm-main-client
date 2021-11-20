@@ -23,7 +23,7 @@
             </td>
             <td id="user">moosongsong</td>
             <td rowspan="2">
-              <span class="report_button" v-on:click="ReportBtn">
+              <span class="report_button" @click="ReportBtn">
                 <img id="btn_report" src='./assets/report_btn.png'>
               </span>
             </td>
@@ -40,7 +40,7 @@
             </td>
             <td id="user">moosongsong</td>
             <td rowspan="2">
-              <span class="report_button" v-on:click="ReportBtn">
+              <span class="report_button" @click="ReportBtn">
                 <img id="btn_report" src='./assets/report_btn.png'>
               </span>
             </td>
@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     ReportBtn() {
-      console.log();
+      this.$router.push({ path: '/report/rating'})
     }
   }
 }
