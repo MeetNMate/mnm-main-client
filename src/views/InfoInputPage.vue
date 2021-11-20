@@ -1,7 +1,7 @@
 <template>
     <div id= "change-color">
         <div id="non-click"><mini-logo></mini-logo></div>
-        <div><img class="info_image" alt="Info image" src="../assets/info_image.png"></div>
+        <span class="title">info</span>
         <div><img class="upper_text" alt="Who are you?" src="../assets/matching_upper_text1.png"></div>
         <div>
             <div class="change-part">
@@ -487,14 +487,14 @@ export default {
 }
 
 .upper_text {
-    width: 100%;
-    max-width: 185px;
-    height: 22px;
-    padding-bottom: 20px;
+    width: 100vw;
+    max-width: 220px;
+    object-fit: cover;
+    padding: 20px;
 }
 
 .button-area {
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .explain {
@@ -506,10 +506,8 @@ p {
     margin-bottom: 2px;
 }
 
-.qeustion {
+.question {
     padding-bottom: 10px;
-    display: flex;
-    flex-flow: wrap;
 }
 
 .answer {
@@ -530,5 +528,32 @@ p {
 
 .mini {
     width: 80px;
+}
+
+.title {
+  background-color: #5C7D36;
+  font-family: 'Righteous-Regular';
+  font-size: 40px;
+  color: black;
+  border: solid 2px black;
+  border-radius: 50px;
+  width: 180px;
+  height: 90px;
+  padding: 8px 30px 8px;
+  margin: 0px 5px 15px;
+}
+
+.paging {
+    width: 100%;
+    max-width: 388px;
+    object-fit: cover;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.main_content {
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 30px;
 }
 </style>

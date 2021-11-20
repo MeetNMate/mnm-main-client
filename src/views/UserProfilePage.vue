@@ -50,7 +50,7 @@ export default {
 }
 
 .button-area {
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .list-single {

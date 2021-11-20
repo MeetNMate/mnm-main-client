@@ -7,7 +7,7 @@
   width: 100%;
   height: 100%;
   font-family: 'a고딕14';
-  font-size: 14px;
+  font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

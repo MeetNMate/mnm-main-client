@@ -1,7 +1,7 @@
 <template>
     <div id="change-color">
         <div id="non-click"><mini-logo></mini-logo></div>
-        <div><img class="info_image" alt="Info image" src="../assets/info_image.png"></div>
+        <div><span class="title">info</span></div>
         <div><img class="upper_text" alt="Before Matching" src="../assets/matching_upper_text.png"></div>
         <div><img class="paging" alt="Input Page Number" src="../assets/matching_page_num.png"></div>
         <div>
@@ -44,10 +44,10 @@ export default {
 }
 
 .upper_text {
-    width: 100%;
-    max-width: 308px;
-    height: 22px;
-    padding-bottom: 20px;
+    width: 100vw;
+    max-width: 350px;
+    object-fit: cover;
+    padding: 20px;
 }
 
 .dobby_img {
@@ -75,24 +75,31 @@ p {
     padding-top: 1%;
     padding-bottom: 1%;
 }
-</style>
 
-<style>
-.info_image {
-    width: 164px;
-    height: 84px;
-    padding-bottom: 15px;
+.title {
+  background-color: #5C7D36;
+  font-family: 'Righteous-Regular';
+  font-size: 40px;
+  color: black;
+  border: solid 2px black;
+  border-radius: 50px;
+  width: 180px;
+  height: 90px;
+  padding: 8px 30px 8px;
+  margin: 0px 5px 15px;
 }
 
 .paging {
     width: 100%;
     max-width: 388px;
-    height: 27px;
+    object-fit: cover;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .main_content {
   width: 100%;
   padding-top: 10px;
-  padding-bottom: 35px;
+  padding-bottom: 30px;
 }
 </style>

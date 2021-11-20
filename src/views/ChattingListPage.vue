@@ -54,10 +54,23 @@ export default {
 }
 
 .button-area {
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .list-single {
   display: block;
+}
+
+.back-image {
+  background-image: url("../assets/backline_image.png");
+  background-size: 100%;
+}
+.content1 {
+  padding-bottom: 10px;
+}
+
+.content2 {
+  padding-top: 12px;
+  padding-bottom: 10px;
 }
 </style>

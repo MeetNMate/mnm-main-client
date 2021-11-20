@@ -94,30 +94,24 @@ export default {
   width: 100%;
   max-width: 388px;
   height: 91px;
+  object-fit: cover;
 }
 
 .button-area {
-    justify-content: space-between;
+    justify-content: space-around;
 }
-</style>
 
-<style>
+.bottom-img {
+  width: 100%;
+  padding-top: 5%;
+  vertical-align: bottom;
+  object-fit: cover;
+}
+
 .input-text {
   display: inline-block;
   text-align: center;
   padding-top: 50px;
   padding-bottom: 40px;
-}
-
-.red-button {
-    width: 89px;
-    height: 28px;
-}
-
-.bottom-img {
-  width: 100%;
-  height: 100%;
-  padding-top: 5%;
-  vertical-align: bottom;
 }
 </style>
