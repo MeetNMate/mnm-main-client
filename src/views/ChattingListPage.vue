@@ -7,10 +7,13 @@
     </div>
     <div class="back-image">
       <div class="content2">
-        <div class="list-single">
-          <Matelistsingle name="Haeri Han" age="25">{{simpletext}}</Matelistsingle>
+        <div class="single-chat-list">
+          <talk-box>{{simpletext}}</talk-box>
+          <talk-box>{{simpletext}}</talk-box>
+          <talk-box>{{simpletext}}</talk-box>
+          <talk-box>{{simpletext}}</talk-box>
+          <talk-box>{{simpletext}}</talk-box>
         </div>
-        
       </div>
       <div class="button-area">
         <green-button>previous</green-button>
@@ -27,6 +30,7 @@ import GreenButton from '../components/green-button.vue'
 import SubTitle from '../components/sub-title.vue'
 import Matelistsingle from '../components/matelist-single.vue'
 import Navigator from '../components/navigator.vue'
+import TalkBox from '../components/talk-box.vue'
 
 export default {
   name: 'ChattingListPage',
@@ -37,10 +41,12 @@ export default {
     SubTitle,
     Matelistsingle,
     Navigator,
+    TalkBox,
   },
   data() {
     return {
       Username: 'User',
+      simpletext: '아 안녕ㅇㅇㅇㅇㅇㅇㅇ 나는ㄴㄴㄴㄴㄴ 너무ㅜㅜㅜㅜ 힘들어..;ㅁ;아아아아아 안녕ㅇ'
     }
   }
 }
