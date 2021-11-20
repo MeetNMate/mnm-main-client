@@ -14,13 +14,8 @@
 </template>
 
 <script>
-import barform from './bar.vue'
-
   export default {
     name: 'navimenu',
-    components: {
-      barform
-    },
     data() {
       return {
         isOpen: false
@@ -31,6 +26,9 @@ import barform from './bar.vue'
 
 
 <style scoped>
+  button {
+    outline: none;
+  }
   .menu_drop {
     padding-bottom: 20px;
     text-align: center;
@@ -51,7 +49,6 @@ import barform from './bar.vue'
     list-style-type: none;
     /* line-height: 30%; */
     margin-right: 35px;
-
   }
   .dropdown-item {
     font-family: a고딕14;
