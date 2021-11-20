@@ -1,14 +1,19 @@
 <template>
   <div class="mini-logo">
     <p>
-      <img alt="Concept Image" src="../assets/logo.png">
+      <img @click="MainPage" alt="Concept Image" src="../assets/logo.png">
     </p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'mini-logo'
+  name: 'mini-logo',
+  methods: {
+    MainPage() {
+        this.$router.push('/')
+    },
+  },
 }
 </script>
 
@@ -20,8 +25,8 @@ img {
 }
 
 .mini-logo {
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   text-align: center;
 }
 

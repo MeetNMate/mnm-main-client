@@ -14,11 +14,11 @@
 
     <div class="ask_user">
       <p id="question_user">연희동빨간지붕 HOUSE에서 seoki 님과 함께 한 시간은 어땠나요?</p>
-      <textarea v-model="message" rows="10"></textarea>
+      <textarea v-model="message" rows="8"></textarea>
     </div>
 
     <div class="page_btn">
-      <span class="prev" v-on:click="addMate">
+      <span class="prev" v-on:click="prev_page">
         <img id="prev_btn" src="./assets/previous_btn.png" alt="previous button">
       </span>
 
@@ -49,9 +49,7 @@
 <script>
 import minilogo from './components/mini-logo.vue'
 import househeader from './components/layout/house-header.vue'
-
 import reportmodal from './components/common/Modal_2.vue'
-// import memreport from './components/common/modal_report.vue'
 
 export default {
   name: 'HouseMemContent',
@@ -59,7 +57,6 @@ export default {
     minilogo,
     househeader,
     reportmodal
-    // memreport
   },
   data() {
     return {
@@ -76,12 +73,16 @@ export default {
     },
     submitReport() {
       this.modal = false
+      //라우터 설정 -> page 전환
+    },
+    prev_page() {
+      //라우터 설정
     }
   }
 }
 </script>
 
-<style scoped> /** scoped : 뷰에서 지원하는 속성으로 스타일 정의를 해당 컴포넌트에만 적용하겠다는 의미 **/
+<style scoped>
   .report_mem {
     padding: 0 20px 0 20px;
   }

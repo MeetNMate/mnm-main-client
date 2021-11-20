@@ -16,7 +16,6 @@
       <li id="navi_list"><a class="dropdown-item" href="#">my page</a></li>
     </ul>
   </div>
-
 </template>
 
 <script>
@@ -47,6 +46,9 @@
     list-style-type: none;
     border-bottom: 1px solid black;
   }
+  #navi_list:focus {
+    text-decoration: none;
+  }
   button {
     background-color: #E88827;
     border-radius: 0;
@@ -65,8 +67,8 @@
     font-size: 20px;
     text-align: center;
   }
-  a.focus {
+  a.over {
     text-decoration: none;
-    box-shadow: none;
+    background-color: #E88827;
   }
 </style>

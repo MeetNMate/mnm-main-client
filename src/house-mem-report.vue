@@ -110,7 +110,7 @@ export default {
 
 </script>
 
-<style scopeds>
+<style scoped>
   .report_mem {
     padding: 0 20px 0 20px;
   }

@@ -1,8 +1,8 @@
 <template>
   <div class="lobby">
     <minilogo></minilogo>
+    <navimenu></navimenu>
     <househeader></househeader>
-<!--      <navigator></navigator> : navigator 만들고 고고-->
 
     <div>
       <img id="profile_img1" src="./assets/profile_2.png">
@@ -34,7 +34,7 @@
       <li>계란 한판 사오기 (다같이)</li>
     </div>
 
-    <span class="move_houserule" v-on:click="addMate">  <!--나중에 수정-->
+    <span class="move_houserule" v-on:click="move_houserule">  <!--나중에 수정-->
       <img id="guide_bar" src="./assets/house_rule.png" alt="house rule">
     </span>
 
@@ -48,12 +48,15 @@
 <script>
 import househeader from './components/layout/house-header.vue'
 import minilogo from './components/mini-logo.vue'
+import navimenu from  './components/navigator.vue'
 
 export default {
   name: 'HouseLobby',
   components: {
     househeader,
-    minilogo
+    minilogo,
+    navimenu
+    // dropdownmenu
   },
   methods: {
     addMate() {
@@ -63,7 +66,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
   body {
     background-color: #5BB5B5;
   }
@@ -116,7 +119,7 @@ export default {
     height: 19px;
     position: absolute;
     left: 110px;
-    top: 207px;
+    top: 182px;
   }
   #house_pic {
     width: 100%;

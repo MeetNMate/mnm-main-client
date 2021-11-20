@@ -40,7 +40,7 @@
 
 <script>
   export default {
-    name: 'EditModal',
+    name: 'Content',
     props: {
       msg: String,
     }
