@@ -11,6 +11,9 @@ import UserProfile from '../views/UserProfilePage.vue'
 import Chatting from '../views/ChattingPage.vue'
 import ChattingList from '../views/ChattingListPage.vue'
 
+// import HouseLobby from './house-lobby.vue'
+// import HouseRule from './house-rule.vue'
+
 const routes = [
   {
     path: '/',
@@ -72,6 +75,16 @@ const routes = [
     name: 'Chatting',
     component: Chatting
   }
+  // {
+  //   path: '/house_lobby',
+  //   name: 'HouseLobby',
+  //   component: HouseLobby
+  // },
+  // {
+  //   path: 'house_rule',
+  //   name: 'HouseRule',
+  //   component: HouseRule
+  // }
 ]
 
 const router = createRouter({
