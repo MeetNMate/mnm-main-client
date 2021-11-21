@@ -11,7 +11,11 @@ assets안에 필요한 image 들어있습니다.
 ```
 npm install : Project setup
 npm run serve : Compiles and hot-reloads for development
-npm run build : Compiles and minifies for production
-npm run lint : Lints and fixes files
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```
+### Use Link
+```
+localhost:8080/ => 로그인 및 회원가입
+localhost:8080/matching/explain => 매칭 정보조사
+localhost:8080/auth => 로그인 인증 이후
+localhost:8080/auth/house/lobby => 하우스 로비 페이지
 ```
