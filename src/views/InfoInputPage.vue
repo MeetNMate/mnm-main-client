@@ -29,7 +29,7 @@
                             <input class="inputtext" type="number" min='10' max='100' v-model="profile.age" placeholder="age"/>
                         </div>
                         <div class="question">
-                            <p>Q4. 프로필 사진을 설정해주세요!</p>
+                            <p>Q4. 프로필 사진을 설정해주세요!(선택사항)</p>
                             <input @change="onInputImage" class="inputfile" ref="profileImage" accept="image/*" type="file"> 
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                         </div>
                         <div class="question">
                             <div class="hide" v-if="show_userpet">
-                                <p>Q8-1. 어떤 반려동물을 키울 것인가요?</p>
+                                <p>Q8-1. 어떤 반려동물을 키울 것인지 모두 선택해주세요!</p>
                                 <div class="answer">        
                                     <input type="checkbox" id="u_dog" true-value="1" false-value="0" v-model="mainServer.userPetDog">
                                     <label for="u_dog">강아지</label>
@@ -143,7 +143,7 @@
                         </div>
                         <div class="question">
                             <div class="hide" v-if="show_matepet">
-                                <p>Q9-1. 어떤 반려동물은 괜찮나요?</p>
+                                <p>Q9-1. 어떤 반려동물은 괜찮은 지 선택해주세요!</p>
                                 <div class="answer">        
                                     <input type="checkbox" id="m_dog" true-value="1" false-value="0" v-model="mainServer.matePetDog">
                                     <label for="m_dog">강아지</label>
@@ -452,37 +452,37 @@ export default {
           },
           matching_server:{
               uid:'',
-              sex: '1',
-              age:'23',
-              mbti:'ENFP',
-              user_smoking:'1',
-              mate_smoking:'1',
-              user_pet:'0',
-              user_pet_dog:'0',
-              user_pet_cat:'0',
-              user_pet_reptile_fish:'0',
-              user_pet_rodent:'0',
-              user_pet_bird:'0',
-              mate_pet:'1',
-              mate_pet_dog:'1',
-              mate_pet_cat:'0',
-              mate_pet_reptile_fish:'0',
-              mate_pet_rodent:'0',
-              mate_pet_bird:'0',
-              air_like_airconditioner:'1',
-              air_like_heater:'1',
-              noise_talking:'1',
-              noise_music:'2',
-              noise_alarm:'1',
-              user_bug_killer:'1',
-              mate_bug_killer:'1',
-              user_cooking:'0',
-              mate_cooking:'0',
-              eat_together:'0',
-              share_item:'0',
-              mate_alcohol:'0',
-              mate_clean:'1',
-              permission_to_enter:'1',
+              sex: '',
+              age:'',
+              mbti:'',
+              user_smoking:'',
+              mate_smoking:'',
+              user_pet:'',
+              user_pet_dog:'',
+              user_pet_cat:'',
+              user_pet_reptile_fish:'',
+              user_pet_rodent:'',
+              user_pet_bird:'',
+              mate_pet:'',
+              mate_pet_dog:'',
+              mate_pet_cat:'',
+              mate_pet_reptile_fish:'',
+              mate_pet_rodent:'',
+              mate_pet_bird:'',
+              air_like_airconditioner:'',
+              air_like_heater:'',
+              noise_talking:'',
+              noise_music:'',
+              noise_alarm:'',
+              user_bug_killer:'',
+              mate_bug_killer:'',
+              user_cooking:'',
+              mate_cooking:'',
+              eat_together:'',
+              share_item:'',
+              mate_alcohol:'',
+              mate_clean:'',
+              permission_to_enter:'',
           },
           main_response: {
               response:'',
@@ -575,7 +575,7 @@ export default {
     NextB() {
         this.number++;
     },
-    SubB() {    //이미지 넣기, 대답하지 않은 문항 있는 지 확인 & matching_server에도 값 넣어주기 그후 모달 창 띄우기
+    SubB() {    //대답하지 않은 문항 있는 지 확인 & matching_server에도 값 넣어주기 그후 모달 창 띄우기
         
         if(this.mainServer.mbti != '') {this.count++; this.matching_server.mbti = this.mainServer.mbti;}
         if(this.mainServer.userSmoking != '') {this.count++; this.matching_server.user_smoking = this.mainServer.userSmoking; }
@@ -588,7 +588,7 @@ export default {
             this.matching_server.user_pet_rodent = this.mainServer.userPetRodent;
             this.matching_server.user_pet_bird = this.mainServer.userPetBird;
         }
-        if(this.mainServer.matePet != '') { 
+        if(this.mainServer.matePet != '') { this.count++;
             this.matching_server.mate_pet = this.mainServer.matePet;
             this.matching_server.mate_pet_dog = this.mainServer.matePetDog;
             this.matching_server.mate_pet_cat = this.mainServer.matePetCat;
@@ -596,56 +596,41 @@ export default {
             this.matching_server.mate_pet_rodent = this.mainServer.matePetRodent;
             this.matching_server.mate_pet_bird = this.mainServer.matePetBird;
         }
-        if(this.mainServer.airLikeAirconditioner != '') { this.matching_server.air_like_airconditioner = this.mainServer.airLikeAirconditioner; }
-        if(this.mainServer.airLikeHeater != '') { this.matching_server.air_like_heater = this.mainServer.airLikeHeater; }
-        if(this.mainServer.noiseTalking != '') { this.matching_server.noise_talking = this.mainServer.noiseTalking; } 
-        if(this.mainServer.noiseMusic != '') { this.matching_server.noise_music = this.mainServer.noiseMusic; } 
-        if(this.mainServer.noiseAlarm != '') { this.matching_server.noise_alarm = this.mainServer.noiseAlarm; } 
-        if(this.mainServer.userBugKiller != '') { this.matching_server.user_bug_killer = this.mainServer.userBugKiller; } 
-        if(this.mainServer.mateBugKiller != '') { this.matching_server.mate_bug_killer = this.mainServer.mateBugKiller; }
-        if(this.mainServer.userCooking != '') { this.matching_server.user_cooking = this.mainServer.userCooking; }
-        if(this.mainServer.mateCooking != '') { this.matching_server.mate_cooking = this.mainServer.mateCooking; }
-        if(this.mainServer.eatTogether != '') { this.matching_server.eat_together = this.mainServer.eatTogether; }
-        if(this.mainServer.shareItem != '') { this.matching_server.share_item = this.mainServer.shareItem; }
-        if(this.mainServer.mateAlcohol != '') { this.matching_server.mate_alcohol = this.mainServer.mateAlcohol; }
-        if(this.mainServer.mateClean != '') { this.matching_server.mate_clean = this.mainServer.mateClean; }
-        if(this.mainServer.permissionToEnter != '') { this.matching_server.permission_to_enter = this.mainServer.permissionToEnter; }
+        if(this.mainServer.airLikeAirconditioner != '') {this.count++; this.matching_server.air_like_airconditioner = this.mainServer.airLikeAirconditioner; }
+        if(this.mainServer.airLikeHeater != '') {this.count++; this.matching_server.air_like_heater = this.mainServer.airLikeHeater; }
+        if(this.mainServer.noiseTalking != '') {this.count++; this.matching_server.noise_talking = this.mainServer.noiseTalking; } 
+        if(this.mainServer.noiseMusic != '') {this.count++; this.matching_server.noise_music = this.mainServer.noiseMusic; } 
+        if(this.mainServer.noiseAlarm != '') {this.count++; this.matching_server.noise_alarm = this.mainServer.noiseAlarm; } 
+        if(this.mainServer.userBugKiller != '') {this.count++; this.matching_server.user_bug_killer = this.mainServer.userBugKiller; } 
+        if(this.mainServer.mateBugKiller != '') {this.count++; this.matching_server.mate_bug_killer = this.mainServer.mateBugKiller; }
+        if(this.mainServer.userCooking != '') {this.count++; this.matching_server.user_cooking = this.mainServer.userCooking; }
+        if(this.mainServer.mateCooking != '') {this.count++; this.matching_server.mate_cooking = this.mainServer.mateCooking; }
+        if(this.mainServer.eatTogether != '') {this.count++; this.matching_server.eat_together = this.mainServer.eatTogether; }
+        if(this.mainServer.shareItem != '') {this.count++; this.matching_server.share_item = this.mainServer.shareItem; }
+        if(this.mainServer.mateAlcohol != '') {this.count++; this.matching_server.mate_alcohol = this.mainServer.mateAlcohol; }
+        if(this.mainServer.mateClean != '') {this.count++; this.matching_server.mate_clean = this.mainServer.mateClean; }
+        if(this.mainServer.permissionToEnter != '') {this.count++; this.matching_server.permission_to_enter = this.mainServer.permissionToEnter; }
         
-        
-        
-        /*
-        //this.$validator.validateAll()
-        if(성공이면) {
+        if(this.profile.name != '') { this.count++;}
+        if(this.profile.sex != '') { this.count++; this.matching_server.sex = this.profile.sex;}
+        if(this.profile.age != '') { this.count++; this.matching_server.age = this.profile.age;}
+
+        if(this.count != 22) {  //대답을 다 안했으면
+            console.log(this.count);
+            this.count = 0;
+            alert("답을 안한 질문이 있습니다!"); return;
+        }
+        else {  //대답을 다 했으면
             this.show_modal = true;
         }
-        else {
-            alert('대답하지 않은 문항이 있습니다!')
-        }
-        */
-
-/*        var file = e.target.files[0];
-        console.log(file)
-        if(this.profile.image == ''){
-                this.profileImage = './assets/profile_img.png';
-            }
-            console.log(this.profile.image, this.profileImage);
-            this.profile.image = this.$refs.profileImage;
-            console.log(this.profile, this.matching_info);
-            */
-        
     },
-    onInputImage() {    //이미지 넣기 여기서 하는게 베스트...
-        //var file = e.target.files[0];
-        //console.log(file)
+    onInputImage() {    //이미지 넣기
+        /*
         if(this.profile.image == ''){
-                this.profileImage = './assets/profile_img.png';
-        }
-            console.log(this.profile.image, this.profileImage);
-            this.profile.image = this.$refs.profileImage.files[0];
-            console.log(this.profile, this.matching_info);
-        
-        console.log("dkkkkkkkk");
-       
+            this.profileImage = './assets/profile_img.png';
+        }*/
+        this.profile.image = this.$refs.profileImage.files[0];
+        console.log(this.profile.image);
     },
   }
 }

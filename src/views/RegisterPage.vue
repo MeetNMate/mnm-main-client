@@ -92,12 +92,13 @@ export default {
         })
         .then(() => {
            if(this.get_res.response == "success") {
-              alert('회원가입 성공! 다시 로그인 해주세요!'); 
               axios.post('http://'+this.matchingserve+'/users', {
                 id: this.get_res.data.id
               })
-              
-              this.$router.push({ path: '/login'})
+              .then(() => {
+                alert('회원가입 성공! 다시 로그인 해주세요!'); 
+                this.$router.push({ path: '/login'});
+              })
             }
             else {
               alert(this.get_res.message); 

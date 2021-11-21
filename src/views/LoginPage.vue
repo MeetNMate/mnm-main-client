@@ -86,7 +86,7 @@ export default {
       .then(( )=> {
         console.log(this.loginCheck)
         if(this.loginCheck == 1) {
-          axios.get('http://'+this.mainserve+'/user/matchinginfo', { //이름 받아오는 걸로 변경
+          axios.get('http://'+this.mainserve+'/user/matchinginfo', {
             headers: {
                           'X-AUTH-TOKEN': localStorage.getItem('token')
                       }
@@ -95,7 +95,6 @@ export default {
             console.log('status code: ${res2.status}');
             console.log('response: ${res2.data.response}');
             this.get_res.response = res2.data.response;
-            
           })
           .then(()=> {
             if(this.get_res.response == "success") {  //매칭정보가 있을 때 main page
