@@ -30,8 +30,8 @@ import HouseMemContent from './views/house-mem-content.vue'
 import Navigator from './components/navigator.vue'
 import RuleModal from './components/common/Modal.vue'
 
-// import "bootstrap/dist/css/bootstrap.min.css"
-// import "bootstrap"
+//import "bootstrap/dist/css/bootstrap.min.css"
+//import "bootstrap"
 
 // import DropdownMenu from '@innologica/vue-dropdown-menu'
 

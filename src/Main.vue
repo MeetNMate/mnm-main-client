@@ -50,4 +50,8 @@ img {
 input:focus {
     outline:none;
 }
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
 </style>
