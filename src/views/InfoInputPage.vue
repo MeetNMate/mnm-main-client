@@ -11,7 +11,7 @@
                     <div class="main_content">
                         <div class="question">
                             <p>Q1. 당신의 이름은 무엇인가요?</p>
-                            <input class="inputtext" type="text" v-model="profile.name" placeholder="write name"/> 
+                            <input v-validate="'required'" class="inputtext" type="text" v-model="profile.name" placeholder="write name"/> 
                         </div>
                         <div class="question">
                             <p>Q2. 당신의 성별을 골라주세요!</p>
@@ -379,6 +379,7 @@
                     </div>
                 </div>
             </div>
+            <Checkmodal v-show="show_modal" @modal-res="getresponse">정말 제출하시겠어요??</Checkmodal>
             <div class="button-area">
                 <green-button v-if="number != 1" @click="PrevB"> previous </green-button>
                 <green-button v-if="number != 4" @click="NextB"> next </green-button>
@@ -391,17 +392,22 @@
 <script>
 import GreenButton from '../components/green-button.vue'
 import MiniLogo from '../components/mini-logo.vue'
+import Checkmodal from '../components/common/check-modal.vue'
 
 export default {
   name: 'InfoInputPage',
   components: {
-    MiniLogo, GreenButton
+    MiniLogo, GreenButton, Checkmodal,
+  },
+  props: {
   },
   data() {
       return {
           number: 1,
+          modal_response:'',
           show_userpet: false,
           show_matepet: false,
+          show_modal: false,
           profile: {
               uid:'',
               image: '',
@@ -462,6 +468,23 @@ export default {
     }, 
   },
   methods: {
+    getresponse(modal_res) {
+        this.modal_response = modal_res
+        if(this.modal_response == 'yes') {
+            this.show_modal = false;
+            //비어있는 것 없이 넘어가게 한번 확인, 그 후 정보들 서버랑 매칭서버에 보내기, 모두 성공했으면 인증된 메인 페이지로 넘어가기
+            if(this.profile.image == ''){
+                this.profileImage = './assets/profile_img.png';
+            }
+            console.log(this.profile.image, this.profileImage);
+            this.profile.image = this.$refs.profileImage.files[0];
+            console.log(this.profile, this.matching_info);
+
+        }
+        else {
+            this.show_modal = false;
+        }
+    },
     PrevB() {
         this.number--;
     },
@@ -469,13 +492,15 @@ export default {
         this.number++;
     },
     SubB() {
-        if(this.profile.image == ''){
-            this.profileImage = './assets/profile_img.png';
+        this.$validator.validateAll()
+        if(!this.errors.any()) {
+            this.show_modal = true;
         }
-        console.log(this.profile.image, this.profileImage);
-        this.profile.image = this.$refs.profileImage.files[0];
-        console.log(this.profile, this.matching_info);
-//        this.$router.push({ path: 'waiting'})   //modal로 한번 checking하고 넘어가는 것으로 수정
+        else {
+            alert('대답하지 않은 문항이 있습니다!')
+        }
+
+//      this.$router.push({ path: 'waiting'})
     },
   },
 }

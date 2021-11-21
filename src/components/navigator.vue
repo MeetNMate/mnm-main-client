@@ -1,6 +1,6 @@
 <template>
   <div class="menu_drop">
-    <button id="dropmenu" @click="isOpen = !isOpen"><img src="./arrow_down.png"></button>
+    <button id="dropmenu" @click="isOpen = !isOpen"><img src="../assets/arrow_down.png"></button>
     <nav class="navmenu" v-if="isOpen">
       <ul class="menu">
         <li id="navi_list"><a class="dropdown-item" href="/auth/matelist">mate list</a></li>

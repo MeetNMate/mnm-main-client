@@ -21,7 +21,7 @@ import MiniLogo from '../components/mini-logo.vue'
 import RedButton from '../components/red-button.vue'
 import TextboxSe from '../components/textbox-se.vue'
 import Textbox from '../components/textbox.vue'
-//import axios from 'axios'
+import axios from 'axios'
 
 export default {
   name: 'RegisterPage',
@@ -33,13 +33,19 @@ export default {
   },
   data() {
     return {
+      mainserve:'172.30.1.22:5050',
+      matchingserve:'172.30.1.22:5000',
       join: {
         email:'',
         password:'',
+      },
+      get_res: {
         response:'',
         message:'',
         data:'',
-        view: false
+      },
+      get_res_sub: {
+        response:'',
       },
       checkid:false,
       checkpw:false,
@@ -63,14 +69,14 @@ export default {
       if(this.join.email=='') { alert('아이디를 입력해주세요.'); return;}
       
       if(this.join.password=='') {alert('비밀번호를 입력해주세요.'); return;}
-      else {this.checkpw = true;} //비밀번호 형식이 올바르면 true주는 것 추가
+      else {this.checkpw = true;}
       
       if(this.join.password != this.agpw) { alert('비밀번호가 다릅니다.'); return;}
       else if (this.checkid == false) {alert('아이디 형식이 잘못되었습니다.'); return;}
       else if (this.checkpw == false) {alert('비밀번호 형식이 잘못되었습니다.'); return;}
       else{
-        /*
-        axios.post('http://localhost:5050/auth/join', {
+        
+        axios.post('http://' + this.mainserve +'/auth/join', {
           email: this.join.email,
           password: this.join.password
         })
@@ -80,19 +86,24 @@ export default {
           console.log(`message: ${res.data.message}`);
           console.log(`data: ${res.data.data}`)
           
-          this.join.response = res.data.response;
-          this.join.message = res.data.message;
-          this.join.data = res.data.data;
-          this.join.view = true;  //이거 오류없으면(로그인 승낙되면) true로 바뀌는 걸로 수정
-        });*/
-        this.join.view = true; 
+          this.get_res.response = res.data.response;
+          this.get_res.message = res.data.message;
+          this.get_res.data = res.data.data;          
+        })
+        .then(() => {
+           if(this.get_res.response == "success") {
+              alert('회원가입 성공! 다시 로그인 해주세요!'); 
+              axios.post('http://'+this.matchingserve+'/users', {
+                id: this.get_res.data.id
+              })
+              
+              this.$router.push({ path: '/login'})
+            }
+            else {
+              alert(this.get_res.message); 
+            }
+        });
       }
-      
-      if(this.join.view == true) {
-        alert('회원가입 성공!'); 
-        this.$router.push({ path: '/matching/explain'})
-      }
-
     }
   }
 }
