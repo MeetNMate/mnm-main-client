@@ -22,11 +22,12 @@
           <p style="display: inline"> House입니다.</p>
         </div>
         <p>[2020.10.01~2021.09.30]</p>
+        <!--집 이미지-->
         <img id="house_pic" src="../assets/house_pic.png" alt="house picture">
       </div>
 
       <div class="todolist">
-        <img id="guide_bar" src="../assets/todolist.png" alt="todolist_title">
+        <img id="subtitle" src="../assets/todolist.png" alt="todolist_title">
         <li>거실청소(무송)</li>
         <li>가스레인지 청소하기 (서키)</li>
         <li>아침밥 다같이 먹기 - 베이글</li>
@@ -34,8 +35,8 @@
         <li>계란 한판 사오기 (다같이)</li>
       </div>
 
-      <span class="move_houserule" v-on:click="move_houserule">  <!--나중에 수정-->
-        <img id="guide_bar" src="../assets/house_rule.png" alt="house rule">
+      <span class="move_houserule" v-on:click="move_houserule">
+        <img id="guide_bar" src="../assets/house_rule.png" alt="house rule" href="/auth/house/rule">
       </span>
 
       <span class="leave_thishouse" v-on:click="leave_house">
@@ -56,7 +57,6 @@ export default {
     househeader,
     minilogo,
     navimenu
-    // dropdownmenu
   },
   methods: {
     addMate() {
@@ -83,9 +83,9 @@ export default {
     font-size: 14px;
     margin-bottom: 7px;
   }
-  
+
   .lobby {
-    padding-left: 20px; /** 5% **/
+    padding-left: 20px;
     padding-right: 20px;
   }
   .explain_house {
@@ -124,15 +124,20 @@ export default {
     position: absolute;
     left: 110px;
     margin-top: 8px;
+    cursor: pointer;
   }
   #house_pic {
     width: 100%;
     height: 224px;
   }
+  #subtitle,
   #guide_bar {
     width: 194px;
     height: 29px;
     padding-bottom: 5px;
+  }
+  #guide_bar {
+    cursor: pointer;
   }
   #explanation {
     font-family: a고딕19;

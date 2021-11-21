@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     ReportBtn() {
-      this.$router.push({ path: 'report/member'})
+      this.$router.push({ path: '/auth/house/report/member'})
     }
   }
 }
@@ -76,9 +76,14 @@ export default {
   #change-color {
     background-color: #5BB5B5;
   }
-  
+  #user,
+  #report_status {
+    padding-left: 20px;
+  }
   table {
     border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
   }
   td {
     font-family: a고딕14;
@@ -109,6 +114,7 @@ export default {
     width: 63px;
     height: 25px;
     padding-right: 20px;
+    cursor: pointer;
   }
   #table_head {
     border-top: 1px solid black;
