@@ -75,6 +75,7 @@ export default {
 <style scoped>
   #change-color {
     background-color: #5BB5B5;
+    text-align: left;
   }
 
   li {
@@ -100,11 +101,29 @@ export default {
     font-size: 30px;
     text-align: center;
   }
+  #house_pic {
+    width: 100%;
+    height: 224px;
+  }
+  #subtitle,
+  #guide_bar {
+    width: 194px;
+    height: 29px;
+    padding-bottom: 5px;
+  }
+  #guide_bar {
+    cursor: pointer;
+  }
+  #explanation {
+    font-family: a고딕19;
+    font-size: 14px;
+  }
+
   /**이미지 겹치기**/
   #profile_img1 {
     width: 35px;
     height: 35px;
-    position: relative;
+    /* position: left; */
   }
   #profile_img2 {
     width: 35px;
@@ -126,22 +145,8 @@ export default {
     margin-top: 8px;
     cursor: pointer;
   }
-  #house_pic {
-    width: 100%;
-    height: 224px;
-  }
-  #subtitle,
-  #guide_bar {
-    width: 194px;
-    height: 29px;
-    padding-bottom: 5px;
-  }
-  #guide_bar {
-    cursor: pointer;
-  }
-  #explanation {
-    font-family: a고딕19;
-    font-size: 14px;
-  }
+/** 프로필 이미지 겹치기 끝 **/
+
+
 
 </style>

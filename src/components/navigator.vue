@@ -7,6 +7,7 @@
         <li id="navi_list"><a class="dropdown-item" href="/auth/chattinglist">chatting list</a></li>
         <li id="navi_list"><a class="dropdown-item" href="/auth/house/lobby">house list</a></li>
         <li id="navi_list"><a class="dropdown-item" href="/auth/mypage">my page</a></li>
+        <li id="navi_list"><a class="dropdown-item" href="/auth/mypage">log out</a></li>
       </ul>
     </nav>
 
