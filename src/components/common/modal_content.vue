@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="modalcontent">
     <table>
       <thead>
         {{ msg }}
@@ -40,7 +40,7 @@
 
 <script>
   export default {
-    name: 'Content',
+    name: 'modalcontent',
     props: {
       msg: String,
     }
@@ -75,7 +75,7 @@
     border: none;
     background-color: #EABF3A;
   }
-  .add_content {
+  .modalcontent {
     background: #EABF3A;
   }
 </style>

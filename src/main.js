@@ -4,6 +4,8 @@ import Main from './Main.vue'
 import router from './router'
 // import App from './App.vue'
 
+// import DropdownMenu from '@innologica/vue-dropdown-menu'
+
 import MainPage from './views/MainPage.vue'
 import LoginPage from './views/LoginPage.vue'
 import RegisterPage from './views/RegisterPage.vue'

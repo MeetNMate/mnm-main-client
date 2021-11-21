@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@innologica/vue-dropdown-menu": "^0.1.4",
+    "@ivanv/vue-collapse-transition": "^1.0.2",
     "@popperjs/core": "^2.10.2",
     "axios": "^0.24.0",
     "bootstrap": "^5.1.3",

@@ -9,6 +9,7 @@
       <!--<sub-title>HOUSE RULE</sub-title>-->
       </div>
 
+      <!--모달-->
       <div class="button_group">
         <rulemodal v-if="modal" @close-modal="modal=false">
           <modalcontent msg="새로운 규칙 등록하기">
@@ -26,6 +27,28 @@
           <img id="btn_add" src="../assets/add_btn.png" alt="add button">
         </span>
 
+        <!-- <rulemodal v-if="modal" @close-modal="modal=false">
+          <editmodal msg="규칙 수정하기">
+            <slot class="footer_slot">
+              <span class="cancel_btn" v-on:click="cancel_modal">
+                <img id="btn_cancel" src="../assets/cancel_btn.png" alt="cancel button">
+              </span>
+              <span class="delete_btn" v-on:click="delete_modal">
+                <img id="btn_delete" src="../assets/delete_btn.png" alt="delete button">
+              </span>
+              <span class="update_btn" v-on:click="update_modal">
+                <img id="btn_update" src="../assets/update_btn.png" alt="update button">
+              </span>
+            </slot>
+          </editmodal>
+        </rulemodal> -->
+        <!-- <span class="edit_btn" v-on:click="editRule">
+          <img id="btn_edit" src="../assets/edit_btn.png" alt="edit button">
+        </span> -->
+      </div>
+
+
+      <div>
         <rulemodal v-if="modal" @close-modal="modal=false">
           <editmodal msg="규칙 수정하기">
             <slot class="footer_slot">
@@ -93,14 +116,6 @@
         </table>
       </div>
 
-      <!--div class="page_btn">
-        <span class="prev" v-on:click="addMate">
-          <img id="prev_btn" src="../assets/previous_btn.png" alt="previous button">
-        </span>
-        <span class="next" v-on:click="addMate">
-          <img id="next_btn" src="../assets/next_btn.png" alt="next button">
-        </span>
-      </div-->
       <div class="button-area"> <!--page 넘기면 어디로 가는건지..? -->
         <red-button class="white-button" @click="PrevButton">previous</red-button>
         <red-button class="white-button" @click="NextButton">next</red-button>
@@ -129,8 +144,8 @@ export default {
     modalcontent,
     editmodal,
     navigator,
-    SubTitle,   
-    RedButton, 
+    SubTitle,
+    RedButton,
   },
   data() {
     return {
@@ -224,10 +239,10 @@ export default {
     text-align: center;
     padding-bottom: 35px;
   }
-
   .button_group {
     text-align: right;
     padding-right: 5px;
+    cursor: pointer;
   }
   .add_btn {
     padding-right: 5px;
