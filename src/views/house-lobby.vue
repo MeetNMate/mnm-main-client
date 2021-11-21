@@ -90,6 +90,7 @@ export default {
   }
   .explain_house {
     padding-bottom: 3%;
+    text-align: left;
   }
   #house_name {
     font-family: a고딕19;
@@ -142,6 +143,7 @@ export default {
   #explanation {
     font-family: a고딕19;
     font-size: 14px;
+  
   }
 
 </style>
