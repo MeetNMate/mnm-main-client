@@ -33,7 +33,7 @@ export default {
   },
   data() {
     return {
-      mainserve:'172.30.1.22:5050',
+      mainserve:'192.168.0.118:5050',
       loginCheck: 0,
       login: {
         email: '',

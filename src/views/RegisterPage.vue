@@ -33,8 +33,8 @@ export default {
   },
   data() {
     return {
-      mainserve:'172.30.1.22:5050',
-      matchingserve:'172.30.1.22:5000',
+      mainserve:'192.168.0.118:5050',
+      matchingserve:'192.168.0.118:5000',
       join: {
         email:'',
         password:'',
