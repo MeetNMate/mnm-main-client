@@ -27,7 +27,7 @@
       </div>
 
       <div class="todolist">
-        <img id="subtitle" src="../assets/todolist.png" alt="todolist_title">
+        <red-button class="pink-button">TODO LIST</red-button>
         <li>거실청소(무송)</li>
         <li>가스레인지 청소하기 (서키)</li>
         <li>아침밥 다같이 먹기 - 베이글</li>
@@ -35,13 +35,9 @@
         <li>계란 한판 사오기 (다같이)</li>
       </div>
 
-      <span class="move_houserule" v-on:click="move_houserule">
-        <img id="guide_bar" src="../assets/house_rule.png" alt="house rule" href="/auth/house/rule">
-      </span>
+      <red-button class="pink-button ruleB" @click="move_houserule">HOUSE RULE →</red-button>
+      <red-button class="pink-button leaveB" @click="leave_house">Leaving this house</red-button>
 
-      <span class="leave_thishouse" v-on:click="leave_house">
-        <img id="guide_bar" src="../assets/leave_house.png" alt="leave house" href="/auth/house/report">
-      </span>
     </div>
   </div>
 </template>
@@ -50,13 +46,15 @@
 import househeader from '../components/layout/house-header.vue'
 import minilogo from '../components/mini-logo.vue'
 import navimenu from  '../components/navigator.vue'
+import RedButton from '../components/red-button.vue'
 
 export default {
   name: 'HouseLobby',
   components: {
     househeader,
     minilogo,
-    navimenu
+    navimenu,
+    RedButton
   },
   methods: {
     addMate() {
@@ -73,15 +71,23 @@ export default {
 </script>
 
 <style scoped>
+  .pink-button {
+    background-color: #ED8883;
+    width: 194px;
+    height: 29px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    text-align: left;
+    font-family: 'Righteous-regular';
+    margin-left: 0;
+  }
   #change-color {
     background-color: #5BB5B5;
     text-align: left;
   }
-
   li {
     list-style-type: "\25cb";  /*빈 동그라미*/
     font-family: a고딕14;
-    font-size: 14px;
     margin-bottom: 7px;
   }
 
@@ -111,12 +117,8 @@ export default {
     height: 29px;
     padding-bottom: 5px;
   }
-  #guide_bar {
-    cursor: pointer;
-  }
   #explanation {
     font-family: a고딕19;
-    font-size: 14px;
   }
 
   /**이미지 겹치기**/

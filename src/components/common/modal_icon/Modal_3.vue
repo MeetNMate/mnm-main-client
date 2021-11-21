@@ -10,7 +10,7 @@
           </tr>
           <tr>
             <td>
-              <input v-model="message1">
+              <input v-model="message">
             </td>
           </tr>
           <tr>
@@ -18,7 +18,7 @@
           </tr>
           <tr>
             <td>
-              <input v-model="message2">
+              <input v-model="message">
             </td>
           </tr>
           <tr>
@@ -26,13 +26,14 @@
           </tr>
           <tr>
             <td>
-              <textarea id="input_textarea" v-model="message3" rows="5"></textarea>
+              <textarea id="input_textarea" v-model="message" rows="5"></textarea>
             </td>
           </tr>
         </tbody>
         <footer class="footer_btn"> <!--버튼-->
           <div class="button-group">
             <green-button class="new-button cancelB" @click="$emit('close-modal')">취소</green-button>
+            <green-button class="new-button cancelB" @click="$emit('close-modal')">삭제하기</green-button>
             <green-button class="new-button registerB" @click="$emit('close-modal')">등록하기</green-button>
           </div>
         </footer>
@@ -48,13 +49,6 @@ import GreenButton from '../../components/green-button.vue'
     name: 'RuleModal',
     components: {
       GreenButton
-    },
-    data() {
-      return {
-        message1: "",
-        message2: "",
-        message3: "",
-      }
     }
   }
 </script>
