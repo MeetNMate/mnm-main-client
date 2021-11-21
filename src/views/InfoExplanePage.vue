@@ -35,6 +35,14 @@ export default {
         this.$router.push({ path: '/matching/survey'})
     },
   },
+  /*
+  beforeRouteLeave(to, from, next) {
+     const answer = window.confirm('데이터 저장이 되지 않았습니다. 이 페이지를 나가시겠습니까?') 
+     if (answer) { next() } 
+     else { next(false) // false를 추가한 경우 페이지 이동을 하지 않음 
+     } 
+  }
+  */
 }
 </script>
 

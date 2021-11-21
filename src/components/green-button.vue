@@ -12,7 +12,6 @@ export default {
   },
   methods: {
     OnClick() {
-//      console.log("버튼 클릭"); //나중에 마우스 오버 했을 때 표시나는 것으로 바꾸기
     }
 
   }
