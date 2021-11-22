@@ -33,8 +33,8 @@ export default {
   },
   data() {
     return {
-      mainserve:'192.168.0.118:5050',
-      matchingserve:'192.168.0.118:5000',
+      mainserve: this.$root.mainserverURL,
+      matchingserve: this.$root.matchingserverURL,
       join: {
         email:'',
         password:'',
@@ -76,7 +76,7 @@ export default {
       else if (this.checkpw == false) {alert('비밀번호 형식이 잘못되었습니다.'); return;}
       else{
         
-        axios.post('http://' + this.mainserve +'/auth/join',  // main서버에 회원가입 요청
+        axios.post(this.mainserve +'/auth/join', 
           { email: this.join.email,
             password: this.join.password}
         )
@@ -92,7 +92,7 @@ export default {
         })
         .then(() => { //회원가입 성공했을 때, 매칭서버에도 id를 보내 정보생성
            if(this.get_res.response == "success") {
-              axios.post('http://'+this.matchingserve+'/users', {
+              axios.post(this.matchingserve+'/users', {
                 id: this.get_res.data.id
               })
               .then(() => {

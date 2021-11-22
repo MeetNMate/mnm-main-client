@@ -33,7 +33,7 @@ export default {
   },
   data() {
     return {
-      mainserve:'192.168.0.118:5050',
+      mainserve: this.$root.mainserverURL,
       loginCheck: 0,
       login: {
         email: '',
@@ -56,6 +56,7 @@ export default {
     },
     LoginButton() { //메인서버에 로그인 요청
       console.log(this.login.email, this.login.password);
+      console.log('http://'+this.mainserve+'/auth/login');
       axios.post('http://'+ this.mainserve+'/auth/login', {
         email: this.login.email,
         password:this.login.password,
@@ -85,11 +86,11 @@ export default {
           alert(this.get_res.message); return;
         }
       })
-      .then(( )=> { //
+      .then(( )=> {
         console.log(this.loginCheck)
         console.log(this.get_res.data)
         if(this.loginCheck == 1) {  //설문조사를 했는 지 확인
-          axios.get('http://'+this.mainserve+'/user/matchinginfo/'+this.get_res.data.uid, {
+          axios.get(this.mainserve+'/user/matchinginfo/'+this.get_res.data.uid, {
             headers: { 'X-AUTH-TOKEN': localStorage.getItem('token') }
           })
           .then((res2) => {
@@ -112,8 +113,8 @@ export default {
       })    
     },
     ForgotButton() {
-      alert('준비중인 서비스 입니다...'); 
-      console.log("forgot password...");
+      alert('준비중인 서비스 입니다...');
+      console.log('PW 잊어버림...');
     }
   }
 }

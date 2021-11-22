@@ -45,12 +45,13 @@ const routes = [
   {
     path:'/matching/waiting',
     name: 'MatchingWait',
-    component: MatchingWait
+    component: MatchingWait,
+    props: true,
   },
   {
     path:'/auth/matelist',
     name: 'MateList',
-    component: MateList
+    component: MateList,
   },
   {
     path: '/auth',

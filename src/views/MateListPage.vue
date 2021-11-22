@@ -11,17 +11,16 @@
     </div>
     <div class="back-image">
       <div class="content2">
-        <div class="list-single">
-          <SingleMatelist v-bind:name="hname" v-bind:age="hage">{{simpletext}}</SingleMatelist>
-        </div>
-        <div class="list-single">
-          <SingleMatelist v-bind:name="hname" v-bind:age="hage">testestestset나ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ자고싶어ㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅠㅠㅠㅠ</SingleMatelist>
+        <div class="list-single" v-for="(info, i) in UserRes" :key="i">
+          <SingleMatelist v-bind:name="userRes[i].name" v-bind:age="userRes[i].age" 
+          v-bind:uid="userRes[i].uid" v-bind:image="userRes[i].image">
+          {{userRes[i].message}}</SingleMatelist>
         </div>
       </div>
-      <div class="button-area">
+      <!-- <div class="button-area">
         <green-button>previous</green-button>
         <green-button>next</green-button>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -32,6 +31,7 @@ import GreenButton from '../components/green-button.vue'
 import SubTitle from '../components/sub-title.vue'
 import Navigator from '../components/navigator.vue'
 import SingleMatelist from '../components/single-matelist.vue'
+import axios from 'axios'
 
 export default {
   name: 'MateListPage',
@@ -44,12 +44,57 @@ export default {
   },
   data() {
     return {
-      Username: 'User',
-      simpletext: '저와 함께 살 멋쟁이를 구합니다!',
-      hage:'25',
-      hname:'Haeri Han',
+      matchingserve: this.$root.matchingserverURL,
+      mainserve: this.$root.mainserverURL,
+      userRes: [],
+      response: {
+        status:'',
+        data:[],
+      },
+      respose2: {
+        status:'',
+        data:'',
+      },
     }
   },
+  created() {
+    axios.post(this.mathcingserve + '/results/' + localStorage.getItem('uid'))
+    .then((res) => {  //매칭서버에 매칭결과 요청 (성공하면 응답이 리스트형태로 들어옴)
+        console.log(`status code: ${res.status}`);
+        console.log(`data: ${res.data}`)
+        this.response.status = res.status;
+        this.response.data = res.data;
+        console.log('response.data[0]', this.response.data[0]);
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+    .then(()=> {  //매칭 결과를 가져온 다음, 메인서버에 다른 유저들의 프로필을 요청함
+      for(var i=0; i< this.response.data.length; i++) {
+        axios.get(this.mainserve +'/user/profile/'+ this.response.data[i] ,
+        { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
+        )
+        .then((res) => {
+          console.log(`status code: ${res.status}`);
+          console.log(`data: ${res.data}`)
+          this.response2.status = res.status;
+          this.response2.data = res.data;
+          console.log('this.response2.data',this.response2.data);
+          console.log('this.response2.data.name',this.response2.data.name);
+          console.log('this.response2.data.description',this.response2.data.description);
+          // this.userRes[i].name = this.response2.data.name;
+          // this.userRes[i].description = this.response2.data.description;
+          // this.userRes[i].age = this.response2.data.age;
+          // this.userRes[i].image = this.response2.data.image;
+          // this.userRes[i].uid = this.response2.data.uid;
+          this.userRes[i] = this.response2.data;
+        })
+        .then(()=> {
+          console.log('this.userRes', this.userRes);
+        })
+      }
+    });
+  }
 }
 
 </script>
@@ -69,7 +114,10 @@ export default {
 
 .back-image {
   background-image: url("../assets/backline_image.png");
-  background-size: 100%;
+  background-repeat: repeat;
+  height: 100%;
+  min-height: 55vh;
+  overflow: hidden;
 }
 .content1 {
   padding-bottom: 10px;
