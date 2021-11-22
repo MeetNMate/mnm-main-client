@@ -49,7 +49,7 @@ export default {
 }
 
 img {
-  -webkit-user-drag: none; 
+  -webkit-user-drag: none;
 }
 
 .button-area {

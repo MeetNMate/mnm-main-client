@@ -1,7 +1,7 @@
 <template>
-  <div id ="change-color">
+  <div class="ruletable" id ="change-color">
     <minilogo></minilogo>
-    <navigator></navigator>
+    <navimenu></navimenu>
     <househeader></househeader>
     <div class="rule">
       <div id="page_title">
@@ -12,57 +12,12 @@
       <!--모달-->
       <div class="button_group">
         <rulemodal v-if="modal" @close-modal="modal=false">
-          <modalcontent msg="새로운 규칙 등록하기">
-            <slot class="footer_slot">
-              <span class="cancel_btn" v-on:click="cancel_modal">
-                <img id="btn_cancel" src="../assets/cancel_btn.png" alt="cancel button">
-              </span>
-              <span class="register_btn" v-on:click="register_modal">
-                <img id="btn_register" src="../assets/register_btn.png" alt="register button">
-              </span>
-            </slot>
-          </modalcontent>
         </rulemodal>
         <span class="add_btn" v-on:click="addRule">
           <img id="btn_add" src="../assets/add_btn.png" alt="add button">
         </span>
 
-        <!-- <rulemodal v-if="modal" @close-modal="modal=false">
-          <editmodal msg="규칙 수정하기">
-            <slot class="footer_slot">
-              <span class="cancel_btn" v-on:click="cancel_modal">
-                <img id="btn_cancel" src="../assets/cancel_btn.png" alt="cancel button">
-              </span>
-              <span class="delete_btn" v-on:click="delete_modal">
-                <img id="btn_delete" src="../assets/delete_btn.png" alt="delete button">
-              </span>
-              <span class="update_btn" v-on:click="update_modal">
-                <img id="btn_update" src="../assets/update_btn.png" alt="update button">
-              </span>
-            </slot>
-          </editmodal>
-        </rulemodal> -->
-        <!-- <span class="edit_btn" v-on:click="editRule">
-          <img id="btn_edit" src="../assets/edit_btn.png" alt="edit button">
-        </span> -->
-      </div>
-
-
-      <div>
-        <rulemodal v-if="modal" @close-modal="modal=false">
-          <editmodal msg="규칙 수정하기">
-            <slot class="footer_slot">
-              <span class="cancel_btn" v-on:click="cancel_modal">
-                <img id="btn_cancel" src="../assets/cancel_btn.png" alt="cancel button">
-              </span>
-              <span class="delete_btn" v-on:click="delete_modal">
-                <img id="btn_delete" src="../assets/delete_btn.png" alt="delete button">
-              </span>
-              <span class="update_btn" v-on:click="update_modal">
-                <img id="btn_update" src="../assets/update_btn.png" alt="update button">
-              </span>
-            </slot>
-          </editmodal>
+        <rulemodal v-if="ismodal" @close-modal="ismodal=false">
         </rulemodal>
         <span class="edit_btn" v-on:click="editRule">
           <img id="btn_edit" src="../assets/edit_btn.png" alt="edit button">
@@ -117,21 +72,19 @@
       </div>
 
       <div class="button-area"> <!--page 넘기면 어디로 가는건지..? -->
-        <red-button class="white-button" @click="PrevButton">previous</red-button>
-        <red-button class="white-button" @click="NextButton">next</red-button>
+        <red-button class="white-button prevB" @click="PrevButton">previous</red-button>
+        <red-button class="white-button nextB" @click="NextButton">next</red-button>
       </div>
     </div>
-
   </div>
+
 </template>
 
 <script>
 import minilogo from '../components/mini-logo.vue'
 import househeader from '../components/layout/house-header.vue'
 import rulemodal from '../components/common/Modal.vue'
-import modalcontent from '../components/common/modal_content.vue'
-import editmodal from '../components/common/modal_edit.vue'
-import navigator from  '../components/navigator.vue'
+import navimenu from  '../components/navigator.vue'
 import SubTitle from '../components/sub-title.vue'
 import RedButton from '../components/red-button.vue'
 
@@ -141,15 +94,14 @@ export default {
     minilogo,
     househeader,
     rulemodal,
-    modalcontent,
-    editmodal,
-    navigator,
+    navimenu,
     SubTitle,
     RedButton,
   },
   data() {
     return {
       modal: false,
+      ismodal: false,
       message: ''
     }
   },
@@ -185,6 +137,7 @@ export default {
 <style scoped>
   #change-color {
     background-color: #5BB5B5;
+    text-align: left;
   }
 /*
   .sub-title {
@@ -192,18 +145,24 @@ export default {
     width: 611px;
   }
 */
-  .white-button {
-    display: block;
-    background-color: white;
-    font-weight: bold;
-    font-size: 20px;
-    margin: auto;
-  }
-
+.white-button {
+  display: block;
+  background-color: white;
+  font-weight: bold;
+  font-size: 20px;
+  margin: auto;
+  width: 104px;
+  display: inline;
+}
+.prevB {
+  float: left;
+}
+.nextB {
+  float: right;
+}
   .button-area {
     justify-content: space-between;
   }
-
   th {
     text-align: left;
     padding: 5px 0 5px 5px;
@@ -226,7 +185,7 @@ export default {
     padding: 0 20px 0 20px;
   }
   .rule_table {
-    padding-bottom: 20%;
+    padding-bottom: 50px;
   }
   #first_rule {
     border-top: 1px solid black;
@@ -256,22 +215,6 @@ export default {
     height: 21px;
   }
 
-/*
-  .page_btn {
-    padding-bottom: 50px;
-  }
-  .next {
-    float: right;
-  }
-  #prev_btn {
-    width: 105px;
-    height: 30px;
-  }
-  #next_btn {
-    width: 70px;
-    height: 30px;
-  }
-  */
   /**모달**/
   #btn_cancel,
   #btn_register,
