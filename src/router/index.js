@@ -15,6 +15,7 @@ import HouseLobby from '../views/house-lobby.vue'
 import HouseRule from '../views/house-rule.vue'
 import HouseReport from '../views/house-report.vue'
 import HouseMemReport from '../views/house-mem-report.vue'
+import HouseList from '../views/house-list.vue'
 
 const routes = [
   {
@@ -96,6 +97,11 @@ const routes = [
     path: '/auth/house/report/member',
     name: 'HouseMemReport',
     component: HouseMemReport
+  },
+  {
+    path: '/auth/house/list',
+    name: 'HouseList',
+    component: HouseList
   }
 ]
 const router = createRouter({

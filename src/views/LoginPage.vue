@@ -7,8 +7,8 @@
       <textbox-se @value="getpw" msg = "password"></textbox-se>
     </div>
     <div class="button-area">
-      <red-button @click="LoginButton">log in</red-button>
       <red-button @click="ForgotButton">i forgot my password =(</red-button>
+      <red-button @click="LoginButton">log in</red-button>
     </div>
   </div>
   <div>
@@ -33,15 +33,18 @@ export default {
   },
   data() {
     return {
+      mainserve:'192.168.0.118:5050',
       loginCheck: 0,
       login: {
         email: '',
         password:'',
+      },
+      get_res: {
         response:'',
         message:'',
         data:'',
-        view: false
-      }
+      },
+      user_id:'',
     }
   },
   methods: {
@@ -52,8 +55,8 @@ export default {
       this.login.password = value;
     },
     LoginButton() {
-      console.log(this.login.email, this.login.pawwsord);
-      axios.post('http://localhost:5050/auth/login', {
+      console.log(this.login.email, this.login.password);
+      axios.post('http://'+ this.mainserve+'/auth/login', {
         email: this.login.email,
         password:this.login.password,
       })
@@ -63,24 +66,52 @@ export default {
         console.log('message: ${res.data.message}');
         console.log('data: ${res.data.data}')
 
-        this.login.response = res.data.response;
-        this.login.message = res.data.message;
-        this.login.data = JSON.parse(res.data.data);
-        this.login.view = true;
-        //login이 정상적으로 됐을 때 토큰 저장 및 통과
-        //login이 되지 않으면 에러
-        // 로컬스토리지에 토큰 저장
-        localStorage.setItem('token', this.login.data.token);
-        console.log(localStorage.getItem('token'));
-
-        this.loginCheck = 1;
+        this.get_res.response = res.data.response;
+        this.get_res.message = res.data.message;
+        this.get_res.data = JSON.parse(res.data.data);
       })
       .catch(err => {
         console.log(err);
-      });
-      //this.$router.push({ path: '/matching/explain'}) //id 체크해서 조사 안했으면 matching, 했으면 main    
+      })
+      .then(() => {
+        if(this.get_res.response == "success") {  //login이 정상적으로 됐을 때 토큰 저장 및 통과
+          localStorage.setItem('token', this.get_res.data.token); // 로컬스토리지에 토큰 저장
+          console.log(localStorage.getItem('token'));
+          this.loginCheck = 1;
+        }
+        else { //login이 되지 않으면 에러
+          alert(this.get_res.message); return;
+        }
+      })
+      .then(( )=> {
+        console.log(this.loginCheck)
+        if(this.loginCheck == 1) {
+          axios.get('http://'+this.mainserve+'/user/matchinginfo', {
+            headers: {
+                          'X-AUTH-TOKEN': localStorage.getItem('token')
+                      }
+          })
+          .then((res2) => {
+            console.log('status code: ${res2.status}');
+            console.log('response: ${res2.data.response}');
+            this.get_res.response = res2.data.response;
+          })
+          .then(()=> {
+            if(this.get_res.response == "success") {  //매칭정보가 있을 때 main page
+              this.$router.push({ path: '/auth'})
+            }
+            else { //매칭정보 없으면 matching page
+              this.$router.push({ path: '/matching/explain'})
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+        }
+      })    
     },
     ForgotButton() {
+      alert('준비중인 서비스 입니다...'); 
       console.log("forgot password...");
     }
   }

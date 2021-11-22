@@ -151,12 +151,6 @@ export default {
       },
       SubmitBtn() {
         this.modal = true;
-      },
-      hellofuture(e) {
-        console.log(e.target.value);
-      },
-      score(grade) {
-        console.log(grade.target.value);
       }
     },
   data() {
