@@ -1,6 +1,7 @@
 <template>
   <div class="report_mem" id ="change-color">
     <minilogo></minilogo>
+    <navimenu></navimenu>
     <househeader></househeader>
 
     <div id="page_title">
@@ -12,102 +13,113 @@
       <p id="user_name">seoki</p>
     </div>
 
-    <!--평가 표-->
-    <div class="rule_table">
-      <table> <!--이 방법 말고 더 나은 방법이 있을텐데 시도해본 것 중에 이게 그나마 젤,,ㅠ-->
-        <tr>
-          <th id="first_rule">1. 요리를 할때는...</th>
-        </tr>
-        <tr>
-          <td>1-1. 조리 후 바로바로 설거지하기</td>
-        </tr>
-        <tr>
-          <Rating :grade="3" :maxStars="5" :hasCounter="true" />
-        </tr>
-        <tr>
-          <td>1-2. 가스레인지에 흘린 거 바로 치우기</td>
-        </tr>
-        <tr>
-          <Rating :grade="3" :maxStars="5" :hasCounter="true" />
-        </tr>
-        <tr>
-          <td>1-3. 요리하고 환기하기</td>
-        </tr>
-        <tr>
-          <Rating :grade="3" :maxStars="5" :hasCounter="true" />
-        </tr>
-        <tr>
-          <td>1-4. 쓴 재료 제자리에 원위치하기</td>
-        </tr>
-        <tr>
-          <Rating :grade="3" :maxStars="5" :hasCounter="true" />
-        </tr>
-        <tr>
-          <td>1-5. 맛있는건 나눠먹기</td>
-        </tr>
-        <tr>
-          <Rating :grade="3" :maxStars="5" :hasCounter="true" />
-        </tr>
-      </table>
+    <div class="change-part">
+      <div v-if="number === 1">
+        <!-- <div class="rule_table"> -->
+          <table>
+            <tr>
+              <th id="first_rule">1. 요리를 할때는...</th>
+            </tr>
+            <tr>
+              <td>1-1. 조리 후 바로바로 설거지하기</td>
+            </tr>
+            <tr>
+              <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+            </tr>
+            <tr>
+              <td>1-2. 가스레인지에 흘린 거 바로 치우기</td>
+            </tr>
+            <tr>
+              <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+            </tr>
+            <tr>
+              <td>1-3. 요리하고 환기하기</td>
+            </tr>
+            <tr>
+              <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+            </tr>
+            <tr>
+              <td>1-4. 쓴 재료 제자리에 원위치하기</td>
+            </tr>
+            <tr>
+              <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+            </tr>
+            <tr>
+              <td>1-5. 맛있는건 나눠먹기</td>
+            </tr>
+            <tr>
+              <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+            </tr>
+          </table>
+      </div>
 
-      <table>
-        <tr>
-          <th>2. 우리들의 음주문화!</th>
-        </tr>
-        <tr>
-          <td>2-1. 친목도모를 위해 주 1회 음주파티 필수 참석</td>
-        </tr>
-        <tr>
-          <Rating :grade="3" :maxStars="5" :hasCounter="true" />
-        </tr>
-        <tr>
-          <td>2-2. 안주는 퇴근하면서 각자 먹고싶은 거 배민으로 주문</td>
-        </tr>
-        <tr>
-          <Rating :grade="3" :maxStars="5" :hasCounter="true" />
-        </tr>
-        <tr>
-          <td>2-3. 외부인 초대 가능</td>
-        </tr>
-        <tr>
-          <Rating :grade="3" :maxStars="5" :hasCounter="true" />
-        </tr>
-      </table>
+      <div v-else-if="number === 2">
+        <table>
+          <tr>
+            <th>2. 우리들의 음주문화!</th>
+          </tr>
+          <tr>
+            <td>2-1. 친목도모를 위해 주 1회 음주파티 필수 참석</td>
+          </tr>
+          <tr>
+            <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+          </tr>
+          <tr>
+            <td>2-2. 안주는 퇴근하면서 각자 먹고싶은 거 배민으로 주문</td>
+          </tr>
+          <tr>
+            <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+          </tr>
+          <tr>
+            <td>2-3. 외부인 초대 가능</td>
+          </tr>
+          <tr>
+            <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+          </tr>
+        </table>
+      </div>
 
-      <table>
-        <tr>
-          <th>3. 외부인 관련</th>
-        </tr>
-        <tr>
-          <td>3-1. 직계가족 방문 허용</td>
-        </tr>
-        <tr>
-          <Rating :grade="3" :maxStars="5" :hasCounter="true" />
-        </tr>
-        <tr>
-          <td>3-2. 이성 출입은 사전 협의하기</td>
-        </tr>
-        <tr>
-          <Rating :grade="3" :maxStars="5" :hasCounter="true" />
-        </tr>
-        <tr>
-          <td>3-3. 외부인의 숙박을 불가능하다</td>
-        </tr>
-        <tr>
-          <Rating :grade="3" :maxStars="5" :hasCounter="true" />
-        </tr>
-      </table>
+      <div v-else-if="number === 3">
+        <table>
+          <tr>
+            <th>3. 외부인 관련</th>
+          </tr>
+          <tr>
+            <td>3-1. 직계가족 방문 허용</td>
+          </tr>
+          <tr>
+            <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+          </tr>
+          <tr>
+            <td>3-2. 이성 출입은 사전 협의하기</td>
+          </tr>
+          <tr>
+            <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+          </tr>
+          <tr>
+            <td>3-3. 외부인의 숙박을 불가능하다</td>
+          </tr>
+          <tr>
+            <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+          </tr>
+        </table>
+      </div>
+
+      <div v-else-if="number === 4">
+        <div class="ask_user">
+          <p id="question_user">연희동빨간지붕 HOUSE에서 seoki 님과 함께 한 시간은 어땠나요?</p>
+          <textarea v-model="message" rows="8"></textarea>
+        </div>
+        <reportmodal v-if="modal" @close-modal="modal=false">
+        </reportmodal>
+      </div>
     </div>
 
-    <!-- <div class="page_btn">
-      <span class="prev" @click="prevBtn">
-        <img id="prev_btn" src="./assets/previous_btn.png" alt="previous button">
-      </span>
-      <span class="next" @click="nextBtn">
-        <img id="next_btn" src="./assets/next_btn.png" alt="next button">
-      </span>
-    </div> -->
-
+    <div class="button-group">
+      <red-button class="white-button prevB" v-if="number != 1" @click="PrevBtn">previous</red-button>
+      <red-button class="white-button nextB" v-if="number != 4" @click="NextBtn">next</red-button>
+      <red-button class="white-button finishB" v-if="number === 4" @click="SubmitBtn">finish!</red-button>
+    </div>
   </div>
 </template>
 
@@ -115,6 +127,9 @@
 import minilogo from '../components/mini-logo.vue'
 import househeader from '../components/layout/house-header.vue'
 import Rating from '../components/Rating.vue'
+import RedButton from '../components/red-button.vue'
+import reportmodal from '../components/common/Modal_2.vue'
+import navimenu from '../components/navigator.vue'
 
 
 export default {
@@ -122,19 +137,26 @@ export default {
   components: {
     minilogo,
     househeader,
-    Rating
+    Rating,
+    RedButton,
+    reportmodal,
+    navimenu
     },
     methods: {
-      prevBtn() {
-        this.$router.push( { path: '/report' })
+      PrevBtn() {
+        this.number--;
       },
-      nextBtn() {
-        this.$router.push( { path: '/report/content' })
+      NextBtn() {
+        this.number++;
+      },
+      SubmitBtn() {
+        this.modal = true;
       }
     },
   data() {
     return {
-      text: ''
+      number: 1,
+      modal: false,
     }
   }
 }
@@ -142,12 +164,34 @@ export default {
 </script>
 
 <style scoped>
+  .white-button {
+    display: block;
+    background-color: white;
+    font-weight: bold;
+    font-size: 18px;
+    margin: auto;
+    width: 104px;
+    display: inline;
+  }
+  .nextB,
+  .finishB {
+    float: right;
+  }
+  .button-group {
+    padding: 30px 20px 0 20px;
+    justify-content: space-between;
+  }
+  .change-part {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
   #change-color {
     background-color: #5BB5B5;
   }
-
   .report_mem {
-    padding: 0 20px 0 20px;
+    text-align: left;
+    height: 100vh;
   }
   #page_title {
     text-align: center;
@@ -211,5 +255,21 @@ export default {
   }
   #report_question {
     background-color: #268372;
+  }
+ /** 마지막 페이지 **/
+  #question_user {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    width: 100%;
+    background-color: #268372;
+    font-family: a고딕19;
+    font-size: 14px;
+  }
+  textarea {
+    resize: none;
+    background-color: #5BB5B5;
+    padding-bottom: 30px;
+    width: 100%;
+    font-family: a고딕14;
   }
 </style>

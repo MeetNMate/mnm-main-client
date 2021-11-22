@@ -25,7 +25,6 @@ import HouseLobby from './views/house-lobby.vue'
 import HouseRule from './views/house-rule.vue'
 import HouseReport from './views/house-report.vue'
 import HouseMemReport from './views/house-mem-report.vue'
-import HouseMemContent from './views/house-mem-content.vue'
 
 import Navigator from './components/navigator.vue'
 import RuleModal from './components/common/Modal.vue'
@@ -53,7 +52,6 @@ createApp(HouseLobby).use(router).mount('#houselobby')
 createApp(HouseRule).use(router).mount('#houserule')
 createApp(HouseReport).mount('#housereport')
 createApp(HouseMemReport).mount('#housememreport')
-createApp(HouseMemContent).mount('#housememcontent')
 
 createApp(RuleModal).mount('#rulemodal')
 createApp(Navigator).mount('#navi')

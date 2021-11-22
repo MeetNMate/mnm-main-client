@@ -1,15 +1,37 @@
 <template>
   <div class="menu_drop">
-    <button id="dropmenu" @click="isOpen = !isOpen"><img src="../assets/arrow_down.png"></button>
-    <nav class="navmenu" v-if="isOpen">
-      <ul class="menu">
-        <li id="navi_list"><a class="dropdown-item" href="/auth/matelist">mate list</a></li>
-        <li id="navi_list"><a class="dropdown-item" href="/auth/chattinglist">chatting list</a></li>
-        <li id="navi_list"><a class="dropdown-item" href="/auth/house/lobby">house list</a></li>
-        <li id="navi_list"><a class="dropdown-item" href="/auth/mypage">my page</a></li>
-      </ul>
-    </nav>
-
+    <div class="overlay">
+      <button id="dropmenu" @click="isOpen = !isOpen"><img src="./arrow_down.png"></button>
+      <nav class="navmenu" v-if="isOpen">
+        <table class="dropdown">
+          <tr>
+            <td>
+              <a class="dropdown-item" href="/auth/matelist">mate list</a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a class="dropdown-item" href="/auth/chattinglist">chatting list</a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a class="dropdown-item" href="/auth/house/lobby">house list</a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a class="dropdown-item" href="/auth/mypage">my page</a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a class="dropdown-item" href="#">log out</a>
+            </td>
+          </tr>
+        </table>
+      </nav>
+    </div>
   </div>
 </template>
 
@@ -29,8 +51,24 @@
   button {
     outline: none;
   }
+  li {
+    border-bottom: 1px solid black;
+  }
+  .dropdown {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  tr {
+    border-bottom: 1px solid black;
+    height: 37px;
+  }
+  .overlay {
+    width: 100%;
+    position: absolute;
+    z-index: 9999;
+  }
   .menu_drop {
-    padding-bottom: 20px;
+    padding-bottom: 60px;
     text-align: center;
   }
   #dropmenu {
@@ -40,6 +78,7 @@
     border: 0;
     border-top: 1px solid black;
     border-bottom: 1px solid black;
+    margin: 0;
   }
   .navmenu {
     background-color: #E88827;

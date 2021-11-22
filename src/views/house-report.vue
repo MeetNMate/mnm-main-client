@@ -1,6 +1,7 @@
 <template>
   <div class="report" id ="change-color">
     <minilogo></minilogo>
+    <navimenu></navimenu>
     <househeader></househeader>
 
     <div id="page_title">
@@ -23,9 +24,7 @@
             </td>
             <td id="user">moosongsong</td>
             <td rowspan="2">
-              <span class="report_button" v-on:click="ReportBtn">
-                <img id="btn_report" src='../assets/report_btn.png'>
-              </span>
+              <green-button class="reportB" @click="ReportBtn">평가하기</green-button>
             </td>
           </tr>
           <tr>
@@ -40,9 +39,7 @@
             </td>
             <td id="user">moosongsong</td>
             <td rowspan="2">
-              <span class="report_button" v-on:click="ReportBtn">
-                <img id="btn_report" src='../assets/report_btn.png'>
-              </span>
+              <green-button class="reportB" @click="ReportBtn">평가하기</green-button>
             </td>
           </tr>
           <tr id="table_bottom">
@@ -52,17 +49,22 @@
       </table>
     </div>
   </div>
+
 </template>
 
 <script>
 import househeader from '../components/layout/house-header.vue'
 import minilogo from '../components/mini-logo.vue'
+import GreenButton from '../components/green-button.vue'
+import navimenu from '../components/navigator.vue'
 
 export default {
   name: 'HouseReport',
   components: {
     househeader,
-    minilogo
+    minilogo,
+    GreenButton,
+    navimenu,
   },
   methods: {
     ReportBtn() {
@@ -73,8 +75,22 @@ export default {
 </script>
 
 <style scoped>
+  .report {
+    height: 100vh;
+    }
+  .reportB {
+    background-color: #268372;
+    font-family: a고딕14;
+    font-size: 14px;
+    width: 70px;
+    height: 25px;
+    margin-right: 10px;
+    margin-top: 15px;
+    cursor: pointer;
+  }
   #change-color {
     background-color: #5BB5B5;
+    text-align: left;
   }
   #user,
   #report_status {

@@ -1,9 +1,6 @@
 <template>
-  <div class="modalcontent">
+  <div class="content">
     <table>
-      <thead>
-        {{ msg }}
-      </thead>
       <tbody>
         <tr>
           <th>대분류</th>
@@ -81,7 +78,7 @@
     border: none;
     background-color: #EABF3A;
   }
-  .modalcontent {
+  .content {
     background: #EABF3A;
   }
 </style>
