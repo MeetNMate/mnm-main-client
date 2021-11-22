@@ -7,7 +7,7 @@
         </tr>
         <tr>
           <td>
-            <input v-model="message">
+            <input v-model="message1">
           </td>
         </tr>
         <tr>
@@ -15,7 +15,7 @@
         </tr>
         <tr>
           <td>
-            <input v-model="message">
+            <input v-model="message2">
           </td>
         </tr>
         <tr>
@@ -23,12 +23,12 @@
         </tr>
         <tr>
           <td>
-            <textarea v-model="message" rows="5"></textarea>
+            <textarea v-model="message3" rows="5"></textarea>
           </td>
         </tr>
       </tbody>
       <footer class="footer_btn">
-        <slot />
+        <slot></slot>
       </footer>
     </table>
 
@@ -40,7 +40,13 @@
     name: 'modalcontent',
     props: {
       msg: String,
-    }
+    },
+    data() {
+      return {
+        message1: "",
+      }
+    },
+
   }
 </script>
 

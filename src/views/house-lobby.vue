@@ -97,6 +97,7 @@ export default {
   }
   .explain_house {
     padding-bottom: 3%;
+    text-align: left;
   }
   #house_name {
     font-family: a고딕19;
@@ -148,7 +149,6 @@ export default {
     cursor: pointer;
   }
 /** 프로필 이미지 겹치기 끝 **/
-
 
 
 </style>
