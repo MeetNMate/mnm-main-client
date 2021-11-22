@@ -23,7 +23,7 @@
       </div>
       <div class="input-area">
         <textarea class="input-box" v-model="message" @keyup="sendMessage" name="Text1"></textarea>
-        <red-button class="sub-bt">전송</red-button>
+        <red-button class="sub-bt" @="sendMessage">전송</red-button>
       </div>
     </div>
   
