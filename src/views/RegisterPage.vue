@@ -53,18 +53,18 @@ export default {
     }
   },
   methods: {
-    getid(value) {
+    getid(value) {  //아이디 체크
       this.join.email = value;
       let re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
       this.checkid = re.test(this.join.email);
     },
-    getpw(value) {
+    getpw(value) {  //비밀번호 체크
       this.join.password = value;
     },
-    againpw(value) {
+    againpw(value) {  //비밀번호 재확인
       this.agpw = value;
     },
-    RegButton() {
+    RegButton() { //예외처리들 함
       console.log(this.join.email, this.join.password, this.checkid, this.checkpw);
       if(this.join.email=='') { alert('아이디를 입력해주세요.'); return;}
       
@@ -76,21 +76,21 @@ export default {
       else if (this.checkpw == false) {alert('비밀번호 형식이 잘못되었습니다.'); return;}
       else{
         
-        axios.post('http://' + this.mainserve +'/auth/join', {
-          email: this.join.email,
-          password: this.join.password
-        })
+        axios.post('http://' + this.mainserve +'/auth/join',  // main서버에 회원가입 요청
+          { email: this.join.email,
+            password: this.join.password}
+        )
         .then((res) => {
-          console.log(`status code: ${res.status}`);
-          console.log(`response: ${res.data.response}`);
-          console.log(`message: ${res.data.message}`);
-          console.log(`data: ${res.data.data}`)
+          console.log('join status code:', res.status);
+          console.log('join response:', res.data.response);
+          console.log('join message:', res.data.message);
+          console.log('data:', res.data.data);
           
           this.get_res.response = res.data.response;
           this.get_res.message = res.data.message;
           this.get_res.data = res.data.data;          
         })
-        .then(() => {
+        .then(() => { //회원가입 성공했을 때, 매칭서버에도 id를 보내 정보생성
            if(this.get_res.response == "success") {
               axios.post('http://'+this.matchingserve+'/users', {
                 id: this.get_res.data.id
