@@ -17,10 +17,10 @@
           {{userRes[i].message}}</SingleMatelist>
         </div>
       </div>
-      <div class="button-area">
+      <!-- <div class="button-area">
         <green-button>previous</green-button>
         <green-button>next</green-button>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -114,7 +114,10 @@ export default {
 
 .back-image {
   background-image: url("../assets/backline_image.png");
-  background-size: 100%;
+  background-repeat: repeat;
+  height: 100%;
+  min-height: 55vh;
+  overflow: hidden;
 }
 .content1 {
   padding-bottom: 10px;

@@ -26,7 +26,7 @@
           </tr>
           <tr>
             <td>
-              <a class="dropdown-item" href="#">log out</a>
+              <a class="dropdown-item" href="/" @click="logout">log out</a>
             </td>
           </tr>
         </table>
@@ -40,7 +40,16 @@
     name: 'navimenu',
     data() {
       return {
-        isOpen: false
+        isOpen: false,
+        logout_response: '',
+      }
+    },
+    methods: {
+      logout() {
+        localStorage.removeItem('token');
+        if (localStorage.getItem('token') === null) this.logout_response = "success";
+        else this.logout_response = "failed";
+        console.log("logout response:", this.logout_response)
       }
     }
   }

@@ -1,9 +1,8 @@
 <template>
     <mini-logo></mini-logo>
     <navigator></navigator>
-    <div></div>
     <main-img></main-img>
-    <div class="blank"></div>
+    <div class='footpaint'></div>
 </template>
 
 <script>
@@ -28,8 +27,8 @@ export default {
 </script>
 
 <style scoped>
-.blank {
-    margin: 20px;
+.footpaint{
+  min-height: 10px;
+  background-color: #EABF3A;
 }
-
 </style>

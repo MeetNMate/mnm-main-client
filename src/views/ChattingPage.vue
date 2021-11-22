@@ -1,12 +1,18 @@
 <template>
   <div class="hole">
     <div class="content1">
-        <p class="user-name">{{Username}}</p> <!--username을 받아와야 하나-->
-        <red-button class="profile-bt">profile</red-button>
+        <div class="user-area">
+          <p class="user-name">{{Username}}</p> <!--username을 받아와야 하나-->
+          <red-button class="profile-bt">profile</red-button>
+          <button class="exit" @click="Exitevent">x</button>
+        </div>
         <div class="button-area">
-          <green-button @click="liveTogether" class="white-bt">같이 살자!</green-button>
-          <green-button @click="Okay" class="white-bt">그래!</green-button>
-          <green-button @click="Sorry" class="white-bt">아니..</green-button>
+          <green-button @click="liveTogether" class="white-bt">같이 살자 요청!</green-button>
+          <green-button v-show="res" @click="response" class="white-bt">응답할게요!</green-button>
+          <div v-show="!res">
+            <green-button @click="Okay" class="white-bt"> 좋아!</green-button>
+            <green-button @click="Sorry" class="white-bt">미안;ㅁ;</green-button>
+          </div>
         </div>
     </div>
 
@@ -53,6 +59,7 @@ export default {
   },
   data() {
     return {
+      res: "true",
       mainserve: this.$root.matchingserverURL, 
       uid: '4', //내꺼 uid
       cid: '5', //방 id
@@ -61,7 +68,7 @@ export default {
       beforeChat: [],
       bdfoechat_num: 0,
       otherid: '1', //상대방 ui
-      Username: 'User', //이거 상대방의 이름임;;; 가져오는 방법 생각! 방 생성할때 이름까지 생성해야함
+      Username: 'eun', //이거 상대방의 이름임;;; 가져오는 방법 생각! 방 생성할때 이름까지 생성해야함
     }
   },
   created() {
@@ -135,6 +142,7 @@ export default {
           })
         },
         Okay() {  //수락
+          this.res = true;
           axios.post(this.mainserve + '/user/chatting/'+ this.cid +'/accept', 
             { senderUid: this.uid, receiverUid: this.otherid,},
             { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
@@ -144,6 +152,7 @@ export default {
           })
         },
         Sorry() { //거절
+          this.res = true;
           axios.post(this.mainserve + '/user/chatting/'+ this.cid +'/decilne', 
             { senderUid: this.uid, receiverUid: this.otherid,},
             { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
@@ -151,8 +160,15 @@ export default {
           .then((res) => {
             console.log("data", res.data);  //이거 내용 확인하고 alert로 띄우기
           })
+        },
+        Exitevent() {
+          this.$router.push({ path: '/auth/chattinglist'})
+        },
+        response() {
+          this.res = false;
         }
-    }
+    },
+
 }
 
 </script>
@@ -166,9 +182,10 @@ export default {
 
 .content1 {
   display: flex;
+  flex-direction: column;
   background-color: #ea803a;
   height: 15vh;
-  flex-direction: column;
+  justify-content: center;
 }
 
 .chatting-area {
@@ -196,13 +213,6 @@ export default {
   padding: 10px 5px 10px;
 }
 
-.white-bt {
-    background-color: white;
-    font-weight: bold;
-    font-size: 18px;
-    border: none;
-}
-
 .input-box {
   width: 88%;
   height: auto;
@@ -220,28 +230,53 @@ export default {
     font-size: 30px;
     font-weight: bold;
     display: inline-block;
-    text-align: right;
-    margin: 0px 10px 0px 0px;
+    text-align: center;
+    margin: 15px 8px 5px 48px;
+    padding-left: 30px;
+    max-height: 10vh;
 }
 .profile-bt {
-    position: absolute;
     border-radius: 100px;
     font-family: 'a고딕14';
     font-size: 16px;
     font-weight: bold;
     background-color: red;
     border: solid 2px black;
-    height: 35px;
-    margin-top: 3px;
+    display: inline-block;
+    margin: auto;
 }
 
-.p{
+.user-area {
+  position: relative;
+  display: block;
   margin: 0px;
 }
 
+.exit {
+  font-family: 'Righteous-Regular';
+  font-size: 16px;
+  font-weight: bold;
+  background-color: white;
+  border: solid 2px black;
+  display: inline-block;
+  width: inherit;
+  position: absolute;
+  right: 5px;
+  top: 2px;
+  padding: 2px 8px 4px 8px;
+}
 
 .button-area {
-    justify-content: left;
-    padding-bottom: 15px;
+  justify-content: left;
+  padding: 0px;
+  margin: 0px;
+}
+
+.white-bt {
+    background-color: white;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 5px 5px 5px;
+    margin: 5px 10px 0px 5px;
 }
 </style>
