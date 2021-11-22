@@ -54,17 +54,17 @@ export default {
     getpw(value) {
       this.login.password = value;
     },
-    LoginButton() {
+    LoginButton() { //메인서버에 로그인 요청
       console.log(this.login.email, this.login.password);
       axios.post('http://'+ this.mainserve+'/auth/login', {
         email: this.login.email,
         password:this.login.password,
       })
-       .then((res) => {
-        console.log('status code: ${res.status}');
-        console.log('response: ${res.data.response}');
-        console.log('message: ${res.data.message}');
-        console.log('data: ${res.data.data}')
+      .then((res) => {
+        console.log(`status code: ${res.status}`);
+        console.log(`response: ${res.data.response}`);
+        console.log(`message: ${res.data.message}`);
+        console.log(`data: ${res.data.data}`)
 
         this.get_res.response = res.data.response;
         this.get_res.message = res.data.message;
@@ -76,24 +76,25 @@ export default {
       .then(() => {
         if(this.get_res.response == "success") {  //login이 정상적으로 됐을 때 토큰 저장 및 통과
           localStorage.setItem('token', this.get_res.data.token); // 로컬스토리지에 토큰 저장
+          localStorage.setItem('uid', this.get_res.data.uid); // 로컬스토리지에 uid 저장
           console.log(localStorage.getItem('token'));
+          console.log(localStorage.getItem('uid'));
           this.loginCheck = 1;
         }
         else { //login이 되지 않으면 에러
           alert(this.get_res.message); return;
         }
       })
-      .then(( )=> {
+      .then(( )=> { //
         console.log(this.loginCheck)
-        if(this.loginCheck == 1) {
-          axios.get('http://'+this.mainserve+'/user/matchinginfo', {
-            headers: {
-                          'X-AUTH-TOKEN': localStorage.getItem('token')
-                      }
+        console.log(this.get_res.data)
+        if(this.loginCheck == 1) {  //설문조사를 했는 지 확인
+          axios.get('http://'+this.mainserve+'/user/matchinginfo/'+this.get_res.data.uid, {
+            headers: { 'X-AUTH-TOKEN': localStorage.getItem('token') }
           })
           .then((res2) => {
-            console.log('status code: ${res2.status}');
-            console.log('response: ${res2.data.response}');
+            console.log(`status code: ${res2.status}`);
+            console.log('response:', res2.data.response);
             this.get_res.response = res2.data.response;
           })
           .then(()=> {

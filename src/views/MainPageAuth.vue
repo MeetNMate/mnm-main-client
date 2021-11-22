@@ -23,9 +23,6 @@ export default {
       }
   },
   methods: {
-    Logo() {
-        this.$router.push({ path: '/auth'})
-    },
   },
 };
 </script>
