@@ -10,7 +10,7 @@
           </tr>
           <tr>
             <td>
-              <input v-model="message">
+              <input v-model="message1">
             </td>
           </tr>
           <tr>
@@ -18,7 +18,7 @@
           </tr>
           <tr>
             <td>
-              <input v-model="message">
+              <input v-model="message2">
             </td>
           </tr>
           <tr>
@@ -26,7 +26,7 @@
           </tr>
           <tr>
             <td>
-              <textarea id="input_textarea" v-model="message" rows="5"></textarea>
+              <textarea id="input_textarea" v-model="message3" rows="5"></textarea>
             </td>
           </tr>
         </tbody>
@@ -46,9 +46,16 @@
 import GreenButton from '../../components/green-button.vue'
 
   export default {
-    name: 'RuleModal',
+    name: 'editmodal',
     components: {
       GreenButton
+    },
+    data() {
+      return {
+        message1: "",
+        message2: "",
+        message3: ""
+      }
     }
   }
 </script>

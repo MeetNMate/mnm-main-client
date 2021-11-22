@@ -2,16 +2,16 @@
   <div id ="change-color">
     <minilogo></minilogo>
     <navimenu></navimenu>
+    <househeader></househeader>
     <div class="lobby">
-      <househeader></househeader>
       <div>
         <img id="profile_img1" src="../assets/profile_2.png">
         <img id="profile_img2" src="../assets/profile_2.png">
         <img id="profile_img3" src="../assets/profile_2.png">
 
-        <span class="plusMate" v-on:click="addMate">
+        <!-- <span class="plusMate" v-on:click="addMate">
           <img id="mate_add" src="../assets/mate_add.png">
-        </span>
+        </span> -->
       </div>
 
       <div class="explain_house">
@@ -57,9 +57,9 @@ export default {
     RedButton
   },
   methods: {
-    addMate() {
-      console.log();
-    },
+    // addMate() {
+    //   console.log();
+    // },
     move_houserule() {
         this.$router.push({ path: 'rule'})
     },
@@ -97,6 +97,7 @@ export default {
   }
   .explain_house {
     padding-bottom: 3%;
+    text-align: left;
   }
   #house_name {
     font-family: a고딕19;
@@ -149,6 +150,31 @@ export default {
   }
 /** 프로필 이미지 겹치기 끝 **/
 
+  @media screen and (min-width: 768px) and (max-width: 1024px){
+    #house_pic {
+      width: 470px;
+    }
+    .lobby {
+      margin-left: 18%;
+    }
+    #profile_img2,
+    #profile_img3 {
+      display: none;
+    }
+  }
 
-
+  @media screen and (min-width: 1025px) {
+    #house_pic {
+      width: 470px;
+    }
+    .lobby {
+      height: 110vh;
+      margin-left: 30%;
+      margin-right: 35%;
+    }
+    #profile_img2,
+    #profile_img3 {
+      display: none;
+    }
+  }
 </style>

@@ -24,14 +24,14 @@
     components: {
       RedButton
     },
-    methods: {
-      cancelBtn() {
-        this.modal = false;
-      },
-      submitBtn() {
-        this.modal = false;
-      }
-    }
+    // methods: {
+    //   cancelBtn() {
+    //     this.modal = false;
+    //   },
+    //   submitBtn() {
+    //     this.modal = false;
+    //   }
+    // }
   }
 </script>
 
@@ -90,5 +90,23 @@
   border-radius: 20px;
   background-color: #EABF3A;
   border: 3px solid black;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px){
+  .modal-card {
+    max-width: 50%;
+    min-height: 150px;
+    margin: auto;
+    margin-top: 45%;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .modal-card {
+    max-width: 30%;
+    min-height: 150px;
+    margin: auto;
+    margin-top: 20%;
+  }
 }
 </style>

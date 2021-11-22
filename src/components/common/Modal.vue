@@ -10,7 +10,7 @@
           </tr>
           <tr>
             <td>
-              <input v-model="message1">
+              <input @input = "inputUpdate" v-model="message1">
             </td>
           </tr>
           <tr>
@@ -18,7 +18,7 @@
           </tr>
           <tr>
             <td>
-              <input v-model="message2">
+              <input @input = "inputUpdate" v-model="message2">
             </td>
           </tr>
           <tr>
@@ -26,7 +26,7 @@
           </tr>
           <tr>
             <td>
-              <textarea id="input_textarea" v-model="message3" rows="5"></textarea>
+              <textarea @input = "inputUpdate" id="input_textarea" v-model="message3" rows="5"></textarea>
             </td>
           </tr>
         </tbody>
@@ -48,6 +48,11 @@ import GreenButton from '../../components/green-button.vue'
     name: 'RuleModal',
     components: {
       GreenButton
+    },
+    methods: {
+      inputUpdate(e) {
+        console.log(e.target.value)
+      }
     },
     data() {
       return {
@@ -139,5 +144,28 @@ textarea {
 }
 .modal-footer {
   text-align: left;
+}
+
+@media screen and (min-width: 768px){
+  .modal-card {
+    max-width: 310px;
+    margin: auto;
+    margin-top: 45%;
+  }
+}
+@media screen and (min-width: 921px) and (max-width: 1024px) {
+  .modal-card {
+    max-width: 310px;
+    margin: auto;
+    margin-top: 30%;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .modal-card {
+    max-width: 310px;
+    margin: auto;
+    margin-top: 20%;
+  }
 }
 </style>

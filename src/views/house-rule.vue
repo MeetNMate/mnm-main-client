@@ -70,14 +70,8 @@
           </tr>
         </table>
       </div>
-
-      <div class="button-area"> <!--page 넘기면 어디로 가는건지..? -->
-        <red-button class="white-button prevB" @click="PrevButton">previous</red-button>
-        <red-button class="white-button nextB" @click="NextButton">next</red-button>
-      </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -87,6 +81,7 @@ import rulemodal from '../components/common/Modal.vue'
 import navimenu from  '../components/navigator.vue'
 import SubTitle from '../components/sub-title.vue'
 import RedButton from '../components/red-button.vue'
+import editmodal from '../components/common/Modal_3.vue'
 
 export default {
   name: 'HouseRule',
@@ -97,6 +92,7 @@ export default {
     navimenu,
     SubTitle,
     RedButton,
+    editmodal
   },
   data() {
     return {
@@ -110,7 +106,8 @@ export default {
       console.log();
     },
     addRule() {
-      this.modal = true
+      this.modal = true;
+
     },
     closeModal() {
       this.modal = false
@@ -135,6 +132,9 @@ export default {
 </script>
 
 <style scoped>
+  .ruletable {
+    height: 100vh;
+  }
   #change-color {
     background-color: #5BB5B5;
     text-align: left;
@@ -229,5 +229,28 @@ export default {
   }
   #btn_delete {
     padding-left: 20px;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    table {
+      width: 50%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .button_group {
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
+    table {
+      width: 625px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .ruletable {
+      height: 130vh;
+    }
   }
 </style>
