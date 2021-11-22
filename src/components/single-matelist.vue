@@ -16,6 +16,7 @@
 
 <script>
 import redButton from './red-button.vue'
+import axios from 'axios'
 
 export default {
   components: { redButton },
@@ -23,15 +24,35 @@ export default {
   props: {
     name: String,
     age: String,
+    uid: String,
+    image: String
   },
   methods: {
     ProfilePage() {
         this.$router.push({ path: '/auth/userprofile'})
     },
     ChatPage() {
-        this.$router.push({ path: '/auth/chatting'})
-    },
-  },
+        //get으로 방 있는 지 확인 후에, 방 없으면 방만들기, 방 있으면 채팅방으로 이동    
+        axios.get('http://192.168.0.118:5050/chattingRoom/exist', {
+          params: { senderUid: 3, receiverUid: 1}
+        })
+        .then((res) => {
+          console.log("data:", res.data);
+          if(res.data == true) {  //방이 이미 존재하면
+            this.$router.push({ path: '/auth/chatting'})
+          }
+          else {
+            axios.post('http://192.168.0.118:5050/chat', {  //방만들기
+              senderUid: "3", 
+              receiverUid: "1"
+            })
+            .then((res) => {
+              console.log("data", res.data);
+            })
+              }
+            })
+          },
+      },
 };
 </script>
 

@@ -19,7 +19,7 @@ export default {
   },
   data() {
     return {
-      mathcingserve: '192.168.0.118:5000',
+      mathcingserve: this.$root.matchingserverURL,
       Username: 'User',
       post: {
         uid: '',
@@ -32,7 +32,7 @@ export default {
     this.post.uid = localStorage.getItem('uid');
     console.log("저장한 uid" + this.post.uid)
     
-    axios.post('http://'+this.mathcingserve+ '/results/' + this.post.uid)
+    axios.post(this.mathcingserve+ '/results/' + this.post.uid)
     .then((res) => {
         console.log(`status code: ${res.status}`);
         console.log(`data: ${res.data}`)

@@ -11,8 +11,8 @@
           </p>
         </div>
         <div class="buttons">
-          <red-button class="mypage-button">매칭정보 변경</red-button>
-          <red-button class="mypage-button">비밀번호 변경</red-button>
+          <red-button class="changeinfo-btn" @click = "changeinfo">매칭정보 변경</red-button>
+          <red-button class="changepw-btn" @click = "changepw">비밀번호 변경</red-button>
         </div>
       </div>
       
@@ -37,6 +37,14 @@ export default {
     return {
       Username: 'User'
     }
+  },
+  methods: {
+    changeinfo() {
+      alert("준비중 입니다..");
+    },
+    changepw() {
+      alert("준비중인 서비스입니다..");
+    },
   }
 }
 </script>

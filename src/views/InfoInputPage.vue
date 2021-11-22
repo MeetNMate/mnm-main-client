@@ -404,8 +404,8 @@ export default {
   },
   data() {
       return {
-          matchingserve: "192.168.0.118:5000",
-          mainserve: "192.168.0.118:5050",
+          matchingserve: this.$root.matchingserverURL,
+          mainserve: this.$root.mainserverURL,
           number: 1,
           modal_response:'',
           show_userpet: false,
@@ -521,7 +521,7 @@ export default {
             //정보들 서버랑 매칭서버에 보내기, 모두 성공했으면 인증된 메인 페이지로 넘어가기
             console.log(this.mainServer, this.profile, this.matching_server);
 
-            axios.post('http://'+ this.mainserve+ '/user/matchinginfo', //메인서버에 매칭정보 전송
+            axios.post(this.mainserve+ '/user/matchinginfo', //메인서버에 매칭정보 전송
                 this.mainServer, 
                 { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
             )
@@ -536,7 +536,7 @@ export default {
                 
             })
             .then(()=> {    //메인서버에 profile 전송    
-                axios.post('http://' + this.mainserve + '/user/profile',
+                axios.post(this.mainserve + '/user/profile',
                     this.profile,
                     { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}
                 })
@@ -551,7 +551,7 @@ export default {
                 });
             })
             .then(() => {   //matching server에 정보 전송
-                axios.post('http://'+ this.matchingserve + '/infos',
+                axios.post(this.matchingserve + '/infos',
                     this.matching_server
                 )
                 .then((res) => {

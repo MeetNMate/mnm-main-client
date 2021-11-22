@@ -9,7 +9,12 @@ export default {
   name: 'mini-logo',
   methods: {
     MainPage() {
-        this.$router.push('/')
+       if (localStorage.getItem('token') == null){
+         this.$router.push('/')
+       }
+       else {
+         this.$router.push('/auth')
+       }
     },
   },
 }
