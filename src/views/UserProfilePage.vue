@@ -12,7 +12,7 @@
     </div>
 
     <div class="content2">
-      <userinfo v-bind:></userinfo>
+      <userinfo v-bind:gender="gender" v-bind:age="age" v-bind:MBTI="MBTI" v-bind:smoking="smoking" v-bind:with_pet="with_pet" v-bind:bug="bug"></userinfo>
     </div>
 
     <div class="content3">
@@ -53,6 +53,12 @@ export default {
       temperature: '90도',
       msg: "벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;",
       u_matename: 'eu***',
+      gender: 'm',
+      age: '24살',
+      MBTI: 'INFJ',
+      smoking: 'NO',
+      with_pet: 'Yes, Puppy',
+      bug: 'YES',
     }
   },
   methods: {

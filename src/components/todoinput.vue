@@ -69,6 +69,10 @@ input:focus {
   font-size: 15px;
   background-color: #268372;
   float: right;
+  cursor: pointer;
+}
+.addContainer:focus {
+  outline: none;
 }
 /* li {
   list-style-type: "\25cb";
