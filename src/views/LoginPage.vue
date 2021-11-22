@@ -12,7 +12,7 @@
     </div>
   </div>
   <div>
-    <img class='bottom-img' alt="Bottom Img" src="../assets/down_image.png"> 
+    <img class='bottom-img' alt="Bottom Img" src="../assets/down_image.png">
   </div>
 </template>
 
@@ -33,7 +33,7 @@ export default {
   },
   data() {
     return {
-      mainserve:'192.168.0.118:5050',
+      mainserve:'172.30.1.12:5050',
       loginCheck: 0,
       login: {
         email: '',
@@ -108,10 +108,10 @@ export default {
             console.log(err);
           });
         }
-      })    
+      })
     },
     ForgotButton() {
-      alert('준비중인 서비스 입니다...'); 
+      alert('준비중인 서비스 입니다...');
       console.log("forgot password...");
     }
   }
