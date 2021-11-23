@@ -404,8 +404,8 @@ export default {
   },
   data() {
       return {
-          matchingserve: "192.168.0.118:5000",
-          mainserve: "192.168.0.118:5050",
+          matchingserve: this.$root.matchingserverURL,
+          mainserve: this.$root.mainserverURL,
           number: 1,
           modal_response:'',
           show_userpet: false,
@@ -521,7 +521,7 @@ export default {
             //정보들 서버랑 매칭서버에 보내기, 모두 성공했으면 인증된 메인 페이지로 넘어가기
             console.log(this.mainServer, this.profile, this.matching_server);
 
-            axios.post('http://'+ this.mainserve+ '/user/matchinginfo',
+            axios.post(this.mainserve+ '/user/matchinginfo', //메인서버에 매칭정보 전송
                 this.mainServer, 
                 { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
             )
@@ -534,11 +534,9 @@ export default {
                 this.main_response.message = res.data.message;
                 this.main_response.data = res.data.data;
                 
-                this.matching_server.uid = this.main_response.data.user.id
-                console.log(this.matching_server.uid);
             })
-            .then(()=> {    //profile 전송    
-                axios.post('http://' + this.mainserve + '/user/profile',
+            .then(()=> {    //메인서버에 profile 전송    
+                axios.post(this.mainserve + '/user/profile',
                     this.profile,
                     { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}
                 })
@@ -552,8 +550,8 @@ export default {
                     this.post.data = res2.data.data;
                 });
             })
-            .then(() => {   //matching server에 전송
-                axios.post('http://'+ this.matchingserve + '/infos',
+            .then(() => {   //matching server에 정보 전송
+                axios.post(this.matchingserve + '/infos',
                     this.matching_server
                 )
                 .then((res) => {
@@ -561,9 +559,6 @@ export default {
                 console.log(`matching data: ${res.data}`);
                 })
             })
-            .then(() => {
-                this.$router.push({ path: 'waiting'})
-            });
         }
         else {
             this.show_modal = false;
@@ -625,10 +620,6 @@ export default {
         }
     },
     onInputImage() {    //이미지 넣기
-        /*
-        if(this.profile.image == ''){
-            this.profileImage = './assets/profile_img.png';
-        }*/
         this.profile.image = this.$refs.profileImage.files[0];
         console.log(this.profile.image);
     },

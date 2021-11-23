@@ -29,7 +29,7 @@ export default {
 .full-chat {
     width: 100%;
     max-width: 400px;
-    margin: auto;
+    margin: 0;
     display: flex;
 }
 
@@ -38,7 +38,6 @@ export default {
   position:relative;
   width: 100%;
   max-width: 420px;
-  height: 100%;
   background: orange;
   border-radius: 6px;
   border: solid 2px black;
@@ -73,7 +72,7 @@ export default {
 }
 
 p {
-    width: 98%;
+    width: 95%;
     max-width: 400px;
     height: 100%;
     margin: 5px 5px 0px;

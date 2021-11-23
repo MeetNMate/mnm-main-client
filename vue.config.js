@@ -1,5 +1,6 @@
 module.exports = {
     devServer: {
-        overlay: false
+        overlay: false,
+    //    host: '172.30.1.13'
     }
 }
