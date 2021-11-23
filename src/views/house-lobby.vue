@@ -2,37 +2,15 @@
   <div id ="change-color">
     <minilogo></minilogo>
     <navimenu></navimenu>
+    <househeader v-bind:housename="housename"></househeader>
     <div class="lobby">
-      <househeader></househeader>
-      <div>
-        <img id="profile_img1" src="../assets/profile_2.png">
-        <img id="profile_img2" src="../assets/profile_2.png">
-        <img id="profile_img3" src="../assets/profile_2.png">
-
-        <span class="plusMate" v-on:click="addMate">
-          <img id="mate_add" src="../assets/mate_add.png">
-        </span>
-      </div>
-
-      <div class="explain_house">
-        <p id="explanation" style="display: inline">Soyoung, Seoki, moosongsong</p>
-        <p style="display: inline"> 님이 함께 사는</p>
-        <div>
-          <p id="explanation" style="display: inline">연희동빨간지붕</p>
-          <p style="display: inline"> House입니다.</p>
-        </div>
-        <p>[2020.10.01~2021.09.30]</p>
-        <!--집 이미지-->
-        <img id="house_pic" src="../assets/house_pic.png" alt="house picture">
+      <div class="explain_lobby">
+        <explanation v-bind:Username="Username" v-bind:housename="housename" v-bind:date="date"></explanation>
       </div>
 
       <div class="todolist">
-        <red-button class="pink-button">TODO LIST</red-button>
-        <li>거실청소(무송)</li>
-        <li>가스레인지 청소하기 (서키)</li>
-        <li>아침밥 다같이 먹기 - 베이글</li>
-        <li>화장실 쓰레기 비우기 (소영)</li>
-        <li>계란 한판 사오기 (다같이)</li>
+        <todoinput v-on:addTodo="addTodo"></todoinput>
+        <todolist v-bind:propsdata="todoItems" @removeTodo="removeTodo"></todolist>
       </div>
 
       <red-button class="pink-button ruleB" @click="move_houserule">HOUSE RULE →</red-button>
@@ -47,6 +25,9 @@ import househeader from '../components/layout/house-header.vue'
 import minilogo from '../components/mini-logo.vue'
 import navimenu from  '../components/navigator.vue'
 import RedButton from '../components/red-button.vue'
+import explanation from '../components/lobby-explain.vue'
+import todolist from '../components/todolist.vue'
+import todoinput from '../components/todoinput.vue'
 
 export default {
   name: 'HouseLobby',
@@ -54,11 +35,35 @@ export default {
     househeader,
     minilogo,
     navimenu,
-    RedButton
+    RedButton,
+    explanation,
+    todolist,
+    todoinput
+  },
+  data() {
+    return {
+      Username: 'Soyoung, Seoki, moosongsong',
+      housename: '연희동빨간지붕',
+      date: '[2020.10.01~2021.09.30]',
+      todoItems: [],
+      // todolist: '거실청소(무송)'
+    }
   },
   methods: {
-    addMate() {
-      console.log();
+    // addMate() {
+    //   console.log();
+    // },
+    clearAll() {
+      localStorage.clear();
+      this.todoItems = [];
+    },
+    addTodo(todoItem) {
+      localStorage.setItem(todoItem, todoItem);
+      this.todoItems.push(todoItem);
+    },
+    removeTodo(todoItem, index) {
+      localStorage.removeItem(todoItem);
+      this.todoItems.splice(index, 1);
     },
     move_houserule() {
         this.$router.push({ path: 'rule'})
@@ -66,6 +71,13 @@ export default {
     leave_house() {
         this.$router.push({ path: 'report'})
     },
+  },
+  created() {
+    if (localStorage.length > 0) {
+      for (var i = 0; i < localStorage.length; i++) {
+        this.todoItems.push(localStorage.key(i));
+      }
+    }
   }
 }
 </script>
@@ -85,20 +97,15 @@ export default {
     background-color: #5BB5B5;
     text-align: left;
   }
-  li {
-    list-style-type: "\25cb";  /*빈 동그라미*/
-    font-family: a고딕14;
-    margin-bottom: 7px;
-  }
-
   .lobby {
     padding-left: 20px;
     padding-right: 20px;
+    height: 80vh;
   }
-  .explain_house {
+  /* .explain_house {
     padding-bottom: 3%;
     text-align: left;
-  }
+  } */
   #house_name {
     font-family: a고딕19;
     font-size: 30px;
@@ -107,10 +114,6 @@ export default {
   #house_title {
     font-size: 30px;
     text-align: center;
-  }
-  #house_pic {
-    width: 100%;
-    height: 224px;
   }
   #subtitle,
   #guide_bar {
@@ -122,24 +125,6 @@ export default {
     font-family: a고딕19;
   }
 
-  /**이미지 겹치기**/
-  #profile_img1 {
-    width: 35px;
-    height: 35px;
-    /* position: left; */
-  }
-  #profile_img2 {
-    width: 35px;
-    height: 35px;
-    position: absolute;
-    left: 45px;
-  }
-  #profile_img3 {
-    width: 35px;
-    height: 35px;
-    position: absolute;
-    left: 70px;
-  }
   #mate_add {
     width: 19px;
     height: 19px;
@@ -150,5 +135,31 @@ export default {
   }
 /** 프로필 이미지 겹치기 끝 **/
 
+  @media screen and (min-width: 768px) and (max-width: 1024px){
+    #house_pic {
+      width: 470px;
+    }
+    .lobby {
+      margin-left: 18%;
+    }
+    #profile_img2,
+    #profile_img3 {
+      display: none;
+    }
+  }
 
+  @media screen and (min-width: 1025px) {
+    #house_pic {
+      width: 470px;
+    }
+    .lobby {
+      height: 110vh;
+      margin-left: 30%;
+      margin-right: 35%;
+    }
+    #profile_img2,
+    #profile_img3 {
+      display: none;
+    }
+  }
 </style>

@@ -10,9 +10,11 @@
         </div>
         <p class="mid-text">" {{simpletext}} "</p>
     </div>
+
     <div class="content2">
-    
+      <userinfo v-bind:gender="gender" v-bind:age="age" v-bind:MBTI="MBTI" v-bind:smoking="smoking" v-bind:with_pet="with_pet" v-bind:bug="bug"></userinfo>
     </div>
+
     <div class="content3">
       <div>
         <PersonChatting v-bind:matename="u_matename">{{msg}}</PersonChatting>
@@ -32,6 +34,7 @@ import MiniLogo from '../components/mini-logo.vue'
 import Navigator from '../components/navigator.vue'
 import PersonChatting from '../components/person-chatting.vue'
 import RedButton from '../components/red-button.vue'
+import userinfo from '../components/user-info.vue'
 
 export default {
   name: 'UserProfilePage',
@@ -40,15 +43,22 @@ export default {
     RedButton,
     Navigator,
     PersonChatting,
+    userinfo
   },
   data() {
     return {
-      Userimage: '', 
+      Userimage: '',
       Username: 'User',
       simpletext: '저와 함께 살 멋쟁이를 구합니다!',
       temperature: '90도',
       msg: "벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;",
       u_matename: 'eu***',
+      gender: 'm',
+      age: '24살',
+      MBTI: 'INFJ',
+      smoking: 'NO',
+      with_pet: 'Yes, Puppy',
+      bug: 'YES',
     }
   },
   methods: {
@@ -98,6 +108,6 @@ export default {
 
 .white-bt {
     background-color: white;
-    font-size: 16px;    
+    font-size: 16px;
 }
 </style>

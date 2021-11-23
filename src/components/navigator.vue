@@ -16,7 +16,7 @@
           </tr>
           <tr>
             <td>
-              <a class="dropdown-item" href="/auth/house/lobby">house list</a>
+              <a class="dropdown-item" href="/auth/house/list">house list</a>
             </td>
           </tr>
           <tr>

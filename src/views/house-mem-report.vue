@@ -2,7 +2,7 @@
   <div class="report_mem" id ="change-color">
     <minilogo></minilogo>
     <navimenu></navimenu>
-    <househeader></househeader>
+    <househeader v-bind:housename="housename"></househeader>
 
     <div id="page_title">
       <img id="title" src="../assets/assessment_title.png">
@@ -24,31 +24,31 @@
               <td>1-1. 조리 후 바로바로 설거지하기</td>
             </tr>
             <tr>
-              <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+              <Rating :grade="0" :maxStars="5" :hasCounter="true" />
             </tr>
             <tr>
               <td>1-2. 가스레인지에 흘린 거 바로 치우기</td>
             </tr>
             <tr>
-              <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+              <Rating :grade="0" :maxStars="5" :hasCounter="true" />
             </tr>
             <tr>
               <td>1-3. 요리하고 환기하기</td>
             </tr>
             <tr>
-              <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+              <Rating :grade="0" :maxStars="5" :hasCounter="true" />
             </tr>
             <tr>
               <td>1-4. 쓴 재료 제자리에 원위치하기</td>
             </tr>
             <tr>
-              <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+              <Rating :grade="0" :maxStars="5" :hasCounter="true" />
             </tr>
             <tr>
               <td>1-5. 맛있는건 나눠먹기</td>
             </tr>
             <tr>
-              <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+              <Rating :grade="0" :maxStars="5" :hasCounter="true" />
             </tr>
           </table>
       </div>
@@ -62,19 +62,19 @@
             <td>2-1. 친목도모를 위해 주 1회 음주파티 필수 참석</td>
           </tr>
           <tr>
-            <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+            <Rating :grade="0" :maxStars="5" :hasCounter="true" />
           </tr>
           <tr>
             <td>2-2. 안주는 퇴근하면서 각자 먹고싶은 거 배민으로 주문</td>
           </tr>
           <tr>
-            <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+            <Rating :grade="0" :maxStars="5" :hasCounter="true" />
           </tr>
           <tr>
             <td>2-3. 외부인 초대 가능</td>
           </tr>
           <tr>
-            <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+            <Rating :grade="0" :maxStars="5" :hasCounter="true" />
           </tr>
         </table>
       </div>
@@ -88,19 +88,19 @@
             <td>3-1. 직계가족 방문 허용</td>
           </tr>
           <tr>
-            <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+            <Rating :grade="0" :maxStars="5" :hasCounter="true" />
           </tr>
           <tr>
             <td>3-2. 이성 출입은 사전 협의하기</td>
           </tr>
           <tr>
-            <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+            <Rating :grade="0" :maxStars="5" :hasCounter="true" />
           </tr>
           <tr>
             <td>3-3. 외부인의 숙박을 불가능하다</td>
           </tr>
           <tr>
-            <Rating :grade="3" :maxStars="5" :hasCounter="true" />
+            <Rating :grade="0" :maxStars="5" :hasCounter="true" />
           </tr>
         </table>
       </div>
@@ -108,7 +108,7 @@
       <div v-else-if="number === 4">
         <div class="ask_user">
           <p id="question_user">연희동빨간지붕 HOUSE에서 seoki 님과 함께 한 시간은 어땠나요?</p>
-          <textarea v-model="message" rows="8"></textarea>
+          <textarea v-model="message1" rows="8"></textarea>
         </div>
         <reportmodal v-if="modal" @close-modal="modal=false">
         </reportmodal>
@@ -140,7 +140,7 @@ export default {
     Rating,
     RedButton,
     reportmodal,
-    navimenu
+    navimenu,
     },
     methods: {
       PrevBtn() {
@@ -157,6 +157,8 @@ export default {
     return {
       number: 1,
       modal: false,
+      message1: "",
+      housename: '연희동빨간지붕'
     }
   }
 }
@@ -172,6 +174,7 @@ export default {
     margin: auto;
     width: 104px;
     display: inline;
+    cursor: pointer;
   }
   .nextB,
   .finishB {
@@ -271,5 +274,47 @@ export default {
     padding-bottom: 30px;
     width: 100%;
     font-family: a고딕14;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    table {
+      width: 388px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    textarea {
+      width: 388px;
+    }
+    #question_user {
+      width: 388px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .ask_user {
+      text-align: center;
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
+    table {
+      width: 35%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    textarea {
+      width: 35%;
+
+    }
+    #question_user {
+      width: 35%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .ask_user {
+      text-align: center;
+    }
+    .report_mem {
+      height: 135vh;
+    }
   }
 </style>

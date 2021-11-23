@@ -30,7 +30,7 @@
             </td>
           </tr>
         </tbody>
-        <footer class="footer_btn"> <!--버튼-->
+        <footer class="footer_btn">
           <div class="button-group">
             <green-button class="new-button cancelB" @click="$emit('close-modal')">취소</green-button>
             <green-button class="new-button registerB" @click="$emit('close-modal')">등록하기</green-button>
@@ -49,11 +49,23 @@ import GreenButton from '../../components/green-button.vue'
     components: {
       GreenButton
     },
+    // methods: {
+    //   addRule() {
+    //     if(this.message !== "") {
+    //       var value = this.message && this.message.trim();
+    //       this.$emit('addRule', value)
+    //       this.clearInput();
+    //     }
+    //   },
+    //   clearInput() {
+    //     this.message = '';
+    //   }
+    // },
     data() {
       return {
-        message1: "",
-        message2: "",
-        message3: "",
+        message1: '',
+        message2: '',
+        message3: '',
       }
     }
   }
@@ -125,7 +137,7 @@ textarea {
 }
 .modal-card {
   position: relative;
-  max-width: 80%;
+  max-width: 310px;
   min-height: 335px;
   margin: auto;
   margin-top: 60%;
@@ -139,5 +151,25 @@ textarea {
 }
 .modal-footer {
   text-align: left;
+}
+
+@media screen and (min-width: 768px){
+  .modal-card {
+    margin: auto;
+    margin-top: 45%;
+  }
+}
+@media screen and (min-width: 921px) and (max-width: 1024px) {
+  .modal-card {
+    margin: auto;
+    margin-top: 30%;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .modal-card {
+    margin: auto;
+    margin-top: 20%;
+  }
 }
 </style>
