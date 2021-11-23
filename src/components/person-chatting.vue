@@ -9,6 +9,9 @@
                 <slot></slot>
             </p>
         </div>
+        <div class="sendtime">
+            <p class="sendat"> {{ Time }} </p>
+        </div>
     </div>
 </template>
 
@@ -16,10 +19,9 @@
 export default {
   name: 'person-chatting',
   props: {
-      Imgvalue: Image,
+      Img: Image,
       matename: String,
-      num: String,
-      LastTime: String,
+      Time: String,
   },
 }
 </script>
@@ -36,7 +38,7 @@ export default {
 .balloon {
   display: inline-block;
   position:relative;
-  width: 100%;
+  width: 90%;
   max-width: 420px;
   background: orange;
   border-radius: 6px;
@@ -88,6 +90,12 @@ p {
 
 .name {
     font-weight: bold;
+}
+
+.sendtime .sendat {
+    display: inline-block;
+    width: 10%;
+    font-size: 10px;
 }
 
 .person-name {
