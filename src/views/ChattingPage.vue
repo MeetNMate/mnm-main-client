@@ -19,12 +19,12 @@
     <div class="content2">
       <div class="chatting-area">
         <div class="add-before" v-for="(chat, index) in beforeChat" :key="index"> <!--for같이 순회하면서 child만들면 됨 uid로 누가 보내는 건지 구분하기-->
-          <PersonChatting> {{beforeChat[index].message}} </PersonChatting>
-          <!-- item.cid, item.uid 로 접근-->
+          <PersonChatting v-if="item.uid != this.uid"> {{chat.message}} </PersonChatting>
+          <UserChatting v-if="item.uid == this.uid" v-bind:Img="PImage"> {{chat.message}} </UserChatting>
         </div>
-        <div class>
-          <PersonChatting v-for="(item, idx) in recvList" :key="idx"> {{item.message}} </PersonChatting>
-          <!-- 내가 보내는 말풍선.vue 만들기 아니면 자식으로 id 받아서 local.id랑 비교후 같으면 말풍선 바꾸는 걸로 -->
+        <div class v-for="(item, idx) in recvList" :key="idx">
+          <PersonChatting v-if="item.uid != this.uid"> {{item.message}} </PersonChatting>
+          <UserChatting v-if="item.uid == this.uid" v-bind:Img="PImage"> {{item.message}} </UserChatting>
         </div>
       </div>
       <div class="input-area">
@@ -61,27 +61,47 @@ export default {
     return {
       res: "true",
       mainserve: this.$root.matchingserverURL, 
-      uid: '4', //내꺼 uid
+      uid: '', //내꺼 uid
       cid: '5', //방 id
-      value: '',
+      otherid: '', //상대방 ui
       recvList: [],
       beforeChat: [],
-      bdfoechat_num: 0,
-      otherid: '1', //상대방 ui
-      Username: 'eun', //이거 상대방의 이름임;;; 가져오는 방법 생각! 방 생성할때 이름까지 생성해야함
+      Username: 'test', //상대방의 이름
+      PImage: '',
+      respon: {
+        status:'',
+        data:'',
+      }
     }
   },
   created() {
-        this.connect() // ChattingView.vue 생성 시 소켓 연결 시도
-        //여기서 그동안의 채팅내역 리스트 불러오기!
-        axios.get(this.mainserve +'/user/chatting/'+ this.cid, {
-          headers: { 'X-AUTH-TOKEN': localStorage.getItem('token') }
-        })
+        this.my_id = localStorage.getItem('uid'); //uid 가져오기
+
+        //상대방 이름이랑 이미지 가져오기
+        axios.get(this.mainserve +'/user/profile/'+ this.otherid ,
+        { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
+        )
         .then((res) => {
-          console.log(res.data.data);
-          this.beforeChat = res.data.data;
-          console.log(this.beforeChat[1].cid);
-          console.log(this.beforeChat[1].message);  
+          console.log(`status code: ${res.status}`);
+          console.log(`data: ${res.data}`)
+          this.respon.status = res.status;
+          this.respon.data = res.data;
+
+          this.Username = this.respon.data.name;
+          this.PImage = this.respon.data.image;
+        })
+        .then(()=> {
+          this.connect() // ChattingView.vue 생성 시 소켓 연결 시도
+          //여기서 그동안의 채팅내역 리스트 불러오기!
+          axios.get(this.mainserve +'/user/chatting/'+ this.cid, {
+            headers: { 'X-AUTH-TOKEN': localStorage.getItem('token') }
+          })
+          .then((res) => {
+            console.log(res.data.data);
+            this.beforeChat = res.data.data;
+            console.log(this.beforeChat[1].cid);
+            console.log(this.beforeChat[1].message);  
+          })
         })
     },
     methods: {

@@ -9,8 +9,8 @@ export default {
   name: 'Main',
   data: function() {
     return {
-      mainserverURL:"http://192.168.0.117:5050",
-      matchingserverURL:"http://192.168.0.117:5000",
+      mainserverURL:"http://10.14.4.53:8080",//"http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com:8080",
+      matchingserverURL:"http://ec2-3-17-148-189.us-east-2.compute.amazonaws.com/users",
     }
   },
   components: {

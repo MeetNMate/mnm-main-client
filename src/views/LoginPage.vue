@@ -56,8 +56,8 @@ export default {
     },
     LoginButton() { //메인서버에 로그인 요청
       console.log(this.login.email, this.login.password);
-      console.log('http://'+this.mainserve+'/auth/login');
-      axios.post('http://'+ this.mainserve+'/auth/login', {
+      console.log(this.mainserve+'/auth/login');
+      axios.post(this.mainserve+'/auth/login', {
         email: this.login.email,
         password:this.login.password,
       })
@@ -76,8 +76,9 @@ export default {
       })
       .then(() => {
         if(this.get_res.response == "success") {  //login이 정상적으로 됐을 때 토큰 저장 및 통과
+          this.user_id= this.get_res.data.uid;
           localStorage.setItem('token', this.get_res.data.token); // 로컬스토리지에 토큰 저장
-          localStorage.setItem('uid', this.get_res.data.uid); // 로컬스토리지에 uid 저장
+          localStorage.setItem('uid', this.user_id); // 로컬스토리지에 uid 저장
           console.log(localStorage.getItem('token'));
           console.log(localStorage.getItem('uid'));
           this.loginCheck = 1;
@@ -90,7 +91,7 @@ export default {
         console.log(this.loginCheck)
         console.log(this.get_res.data)
         if(this.loginCheck == 1) {  //설문조사를 했는 지 확인
-          axios.get(this.mainserve+'/user/matchinginfo/'+this.get_res.data.uid, {
+          axios.get(this.mainserve+'/user/matchinginfo/'+this.user_id, {
             headers: { 'X-AUTH-TOKEN': localStorage.getItem('token') }
           })
           .then((res2) => {
