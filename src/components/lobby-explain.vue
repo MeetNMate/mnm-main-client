@@ -10,7 +10,7 @@
       <p id="explanation" style="display: inline">{{Username}}</p>
       <p style="display: inline"> 님이 함께 사는</p>
       <div>
-        <p id="explanation" style="display: inline">{{Housename}}</p>
+        <p id="explanation" style="display: inline">{{housename}}</p>
         <p style="display: inline"> House입니다.</p>
       </div>
       <p class="date">{{date}}</p>
@@ -25,7 +25,7 @@ export default {
   name: 'explanation',
   props: {
     Username: String,
-    Housename: String,
+    housename: String,
     date: String
   }
 }

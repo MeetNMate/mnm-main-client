@@ -2,10 +2,10 @@
   <div id ="change-color">
     <minilogo></minilogo>
     <navimenu></navimenu>
-    <househeader></househeader>
+    <househeader v-bind:housename="housename"></househeader>
     <div class="lobby">
       <div class="explain_lobby">
-        <explanation v-bind:Username="Username" v-bind:Housename="Housename" v-bind:date="date"></explanation>
+        <explanation v-bind:Username="Username" v-bind:housename="housename" v-bind:date="date"></explanation>
       </div>
 
       <div class="todolist">
@@ -43,9 +43,9 @@ export default {
   data() {
     return {
       Username: 'Soyoung, Seoki, moosongsong',
-      Housename: '연희동빨간지붕',
+      housename: '연희동빨간지붕',
       date: '[2020.10.01~2021.09.30]',
-      todoItems: []
+      todoItems: [],
       // todolist: '거실청소(무송)'
     }
   },
@@ -100,7 +100,7 @@ export default {
   .lobby {
     padding-left: 20px;
     padding-right: 20px;
-    height: 75vh;
+    height: 80vh;
   }
   /* .explain_house {
     padding-bottom: 3%;

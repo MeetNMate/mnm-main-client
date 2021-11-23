@@ -2,7 +2,7 @@
   <div class="report_mem" id ="change-color">
     <minilogo></minilogo>
     <navimenu></navimenu>
-    <househeader></househeader>
+    <househeader v-bind:housename="housename"></househeader>
 
     <div id="page_title">
       <img id="title" src="../assets/assessment_title.png">
@@ -140,7 +140,7 @@ export default {
     Rating,
     RedButton,
     reportmodal,
-    navimenu
+    navimenu,
     },
     methods: {
       PrevBtn() {
@@ -158,6 +158,7 @@ export default {
       number: 1,
       modal: false,
       message1: "",
+      housename: '연희동빨간지붕'
     }
   }
 }

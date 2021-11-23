@@ -10,7 +10,7 @@
           </tr>
           <tr>
             <td>
-              <input @input = "inputUpdate" v-model="message1">
+              <input v-model="message1">
             </td>
           </tr>
           <tr>
@@ -18,7 +18,7 @@
           </tr>
           <tr>
             <td>
-              <input @input = "inputUpdate" v-model="message2">
+              <input v-model="message2">
             </td>
           </tr>
           <tr>
@@ -26,11 +26,11 @@
           </tr>
           <tr>
             <td>
-              <textarea @input = "inputUpdate" id="input_textarea" v-model="message3" rows="5"></textarea>
+              <textarea id="input_textarea" v-model="message3" rows="5"></textarea>
             </td>
           </tr>
         </tbody>
-        <footer class="footer_btn"> <!--버튼-->
+        <footer class="footer_btn">
           <div class="button-group">
             <green-button class="new-button cancelB" @click="$emit('close-modal')">취소</green-button>
             <green-button class="new-button registerB" @click="$emit('close-modal')">등록하기</green-button>
@@ -49,16 +49,23 @@ import GreenButton from '../../components/green-button.vue'
     components: {
       GreenButton
     },
-    methods: {
-      inputUpdate(e) {
-        console.log(e.target.value)
-      }
-    },
+    // methods: {
+    //   addRule() {
+    //     if(this.message !== "") {
+    //       var value = this.message && this.message.trim();
+    //       this.$emit('addRule', value)
+    //       this.clearInput();
+    //     }
+    //   },
+    //   clearInput() {
+    //     this.message = '';
+    //   }
+    // },
     data() {
       return {
-        message1: "",
-        message2: "",
-        message3: "",
+        message1: '',
+        message2: '',
+        message3: '',
       }
     }
   }
@@ -130,7 +137,7 @@ textarea {
 }
 .modal-card {
   position: relative;
-  max-width: 80%;
+  max-width: 310px;
   min-height: 335px;
   margin: auto;
   margin-top: 60%;
@@ -148,14 +155,12 @@ textarea {
 
 @media screen and (min-width: 768px){
   .modal-card {
-    max-width: 310px;
     margin: auto;
     margin-top: 45%;
   }
 }
 @media screen and (min-width: 921px) and (max-width: 1024px) {
   .modal-card {
-    max-width: 310px;
     margin: auto;
     margin-top: 30%;
   }
@@ -163,7 +168,6 @@ textarea {
 
 @media screen and (min-width: 1025px) {
   .modal-card {
-    max-width: 310px;
     margin: auto;
     margin-top: 20%;
   }

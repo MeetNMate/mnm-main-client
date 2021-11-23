@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page_header">
-      <p id="house_name" style="display: inline">연희동빨간지붕</p>
+      <p id="house_name" style="display: inline">{{ housename }}</p>
       <p id="default_house" style="display: inline"> HOUSE</p>
     </div>
   </div>
@@ -9,7 +9,10 @@
 
 <script>
 export default {
-  name: 'househeader'
+  name: 'househeader',
+  props: {
+    housename: String,
+  }
 }
 </script>
 

@@ -2,7 +2,7 @@
   <div class="report" id ="change-color">
     <minilogo></minilogo>
     <navimenu></navimenu>
-    <househeader></househeader>
+    <househeader v-bind:housename="housename"></househeader>
 
     <div id="page_title">
       <img id="title" src="../assets/assessment_title.png">
@@ -34,7 +34,8 @@ export default {
   data() {
     return {
       user_name: 'moosongsong',
-      status: '<<평가 대기 중...>>'
+      status: '<<평가 대기 중...>>',
+      housename: '연희동빨간지붕'
     }
   }
 }

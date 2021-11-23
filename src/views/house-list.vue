@@ -8,29 +8,25 @@
     <div class="back-image">
       <div class="content2">
         <div class="single-chat-list" @click="LobbyPage">
-          <listyoso v-bind:Username="Username" v-bind:num="num" v-bind:LastTime="LastTime" v-bind:Imgvalue="Image">
+          <listyoso v-bind:Username="Username" v-bind:Imgvalue="Image">
             {{simpletext}}
           </listyoso>
         </div>
         <div class="single-chat-list">
-          <listyoso v-bind:Username="Username" v-bind:num="num" v-bind:LastTime="LastTime" v-bind:Imgvalue="Image">
+          <listyoso v-bind:Username="Username" v-bind:Imgvalue="Image">
             {{simpletext}}
           </listyoso>
         </div>
         <div class="single-chat-list">
-          <listyoso v-bind:Username="Username" v-bind:num="num" v-bind:LastTime="LastTime" v-bind:Imgvalue="Image">
+          <listyoso v-bind:Username="Username" v-bind:Imgvalue="Image">
             {{simpletext}}
           </listyoso>
         </div>
         <div class="single-chat-list">
-          <listyoso v-bind:Username="Username" v-bind:num="num" v-bind:LastTime="LastTime" v-bind:Imgvalue="Image">
+          <listyoso v-bind:Username="Username" v-bind:Imgvalue="Image">
             {{simpletext}}
           </listyoso>
         </div>
-      </div>
-      <div class="button-area">
-        <green-button class="white-button">previous</green-button>
-        <green-button class="white-button">next</green-button>
       </div>
     </div>
   </div>
@@ -42,6 +38,7 @@ import navimenu from  '../components/navigator.vue'
 import listyoso from '../components/list-yoso.vue'
 import GreenButton from '../components/green-button.vue'
 import SubTitle from '../components/sub-title.vue'
+import axios from 'axios'
 
 export default {
   name: 'HouseList',
@@ -57,10 +54,18 @@ export default {
       Username: '연희동 빨간지붕',
       simpletext: '웰컴투네오존',
       Imgvalue: '',
-      num: '127',
-      LastTime: '1:27am',
       Image: '',
     }
+  },
+  created() {
+    axios.get('http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com:8080/house/1')
+    .then((res)=> {
+      console.log('status code:', res.status);
+      console.log('data:', res.data);
+      this.Username = res.data.data.name;
+      this.simpletext = res.data.data.description;
+      console.log('result:', this.Username);
+    })
   },
   methods: {
     LobbyPage() {
@@ -71,7 +76,7 @@ export default {
 </script>
 
 <style scoped>
-.white-button {
+/* .white-button {
   display: block;
   background-color: white;
   font-weight: bold;
@@ -80,7 +85,7 @@ export default {
   width: 100px;
   display: inline;
   cursor: pointer;
-}
+} */
 #houselist {
   background-color: #5BB5B5;
   height: 100vh;
@@ -101,6 +106,7 @@ export default {
 .back-image {
   background-image: url("../assets/backline_image.png");
   background-size: 100%;
+  min-height: 70vh;
 }
 .content1 {
   padding-bottom: 10px;
@@ -109,5 +115,11 @@ export default {
 .content2 {
   padding-top: 12px;
   padding-bottom: 10px;
+}
+
+@media screen and (min-width: 1025px) {
+  #houselist {
+    height: 115vh;
+  }
 }
 </style>

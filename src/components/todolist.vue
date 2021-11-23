@@ -24,7 +24,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 li {
   list-style-type: "\25cb";
   padding-bottom: 5px;

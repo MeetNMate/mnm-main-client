@@ -7,10 +7,6 @@
             <slot></slot>
         </p>
     </div>
-    <div class= "sub-content" id="non-click">
-        <p class="time">{{LastTime}}</p>
-        <button class="no-read">{{num}}</button>
-    </div>
   </div>
 </template>
 
@@ -20,8 +16,6 @@ export default {
   props: {
       Imgvalue: Image,
       Username: String,
-      num: String,
-      LastTime: String,
   },
 }
 </script>
@@ -62,27 +56,6 @@ p {
     text-align: left;
     margin-left: 5px;
     margin-top: 6px;
-}
-
-.sub-content {
-    display:inline-block;
-    text-align: right;
-    height: 75px;
-    margin-top: 3px;
-    margin-right: 3px;
-}
-
-.time {
-    font-size: 12px;
-    color: white;
-}
-
-.no-read {
-    border-radius: 50px;
-    background-color: white;
-    border: solid 2px black;
-    padding: 2px 9px 2px;
-    margin-top: 12px;
 }
 
 .name {

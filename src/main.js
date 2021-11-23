@@ -6,6 +6,9 @@ import router from './router'
 
 // import DropdownMenu from '@innologica/vue-dropdown-menu'
 
+// import VueTables from 'vue-crud-tables'
+// Vue.use(VueTables);
+
 import MainPage from './views/MainPage.vue'
 //import LoginPage from './views/LoginPage.vue'
 //import RegisterPage from './views/RegisterPage.vue'
