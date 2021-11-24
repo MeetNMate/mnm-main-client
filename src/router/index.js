@@ -67,7 +67,8 @@ const routes = [
   {
     path: '/auth/userprofile',
     name: 'UserProfile',
-    component: UserProfile
+    component: UserProfile,
+    props: true,
   },
   {
     path: '/auth/chattinglist',
