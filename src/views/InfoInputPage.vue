@@ -404,8 +404,8 @@ export default {
   },
   data() {
       return {
-          matchingserve: this.$root.matchingserverURL,
-          mainserve: this.$root.mainserverURL,
+          mainserve: "http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com",
+          matchingserve: "http://ec2-13-209-88-70.ap-northeast-2.compute.amazonaws.com/",
           number: 1,
           modal_response:'',
           show_userpet: false,
@@ -558,6 +558,9 @@ export default {
                 console.log(`matching status code: ${res.status}`);
                 console.log(`matching data: ${res.data}`);
                 })
+            })
+            .then(() => {
+                this.$router.push({ path: '/matching/waiting'})
             })
         }
         else {

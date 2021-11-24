@@ -1,5 +1,5 @@
 <template>
-    <div class="balloon" id="shadow" >
+    <div class="balloon" id="shadow" @click="sendindex">
         <img class= "mini-profile" src='../assets/profile_img.png'>
         <div class= "content" id="non-click">
             <p class="name">{{Username}}</p>
@@ -8,7 +8,7 @@
             </p>
         </div>
         <div class= "sub-content" id="non-click">
-            <p class="time">{{LastTime}}</p>
+            <p class="time">{{this.hour}}:{{this.min}}</p>
             <button class="no-read">{{num}}</button>
         </div>
     </div>
@@ -22,6 +22,18 @@ export default {
       Username: String,
       num: String,
       LastTime: String,
+  },
+  data() {
+      return {
+        hour:'',
+        min:'',
+      }
+  },
+  created() {
+    const sendAt = this.LastTime;
+    const date = new Date(sendAt); // Date 형식으로 변환
+    this.hour = date.getHours();
+    this.min = date.getMinutes();
   },
 }
 </script>

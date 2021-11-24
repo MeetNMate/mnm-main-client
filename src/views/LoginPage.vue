@@ -33,7 +33,7 @@ export default {
   },
   data() {
     return {
-      mainserve: this.$root.mainserverURL,
+      mainserve: "http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com",
       loginCheck: 0,
       login: {
         email: '',
@@ -65,11 +65,11 @@ export default {
         console.log(`status code: ${res.status}`);
         console.log(`response: ${res.data.response}`);
         console.log(`message: ${res.data.message}`);
-        console.log(`data: ${res.data.data}`)
+        console.log(`data: ${res.data.data}`);
 
         this.get_res.response = res.data.response;
         this.get_res.message = res.data.message;
-        this.get_res.data = JSON.parse(res.data.data);
+        this.get_res.data = res.data.data;
       })
       .catch(err => {
         console.log(err);
@@ -89,14 +89,16 @@ export default {
       })
       .then(( )=> {
         console.log(this.loginCheck)
-        console.log(this.get_res.data)
+        console.log(this.user_id)
+        
         if(this.loginCheck == 1) {  //설문조사를 했는 지 확인
-          axios.get(this.mainserve+'/user/matchinginfo/'+this.user_id, {
+          axios.get(this.mainserve+'/user/profile/'+this.user_id, {
             headers: { 'X-AUTH-TOKEN': localStorage.getItem('token') }
           })
           .then((res2) => {
             console.log(`status code: ${res2.status}`);
             console.log('response:', res2.data.response);
+            console.log('resdddd:', res2.data);
             this.get_res.response = res2.data.response;
           })
           .then(()=> {

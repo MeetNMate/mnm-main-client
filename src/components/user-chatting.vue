@@ -1,10 +1,10 @@
 <template>
     <div class= "full-chat">
         <div class="sendtime">
-            <p class="sendat"> {{ Time }} </p>
+            <p class="sendat"> {{this.month}}-{{this.day}} {{this.hour}}:{{this.min}} </p>
         </div>
         <div class="balloon" id="shadow" >
-            <p>
+            <p class="msg">
                 <slot></slot>
             </p>
         </div>
@@ -17,22 +17,36 @@ export default {
   props: {
       Time: String,
   },
+  data() {
+      return {
+        month:'',
+        day:'',
+        hour:'',
+        min:'',
+      }
+  },
+  created() {
+    const sendAt = this.Time;
+    const date = new Date(sendAt); // Date 형식으로 변환
+    this.month = date.getMonth()+1;
+    this.day = date.getDate();
+    this.hour = date.getHours();
+    this.min = date.getMinutes();
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .full-chat {
-    width: 100%;
-    max-width: 400px;
-    margin: 0;
+    width: 98%;
     display: flex;
+    justify-content: right;
 }
 
 .balloon {
   display: inline-block;
   position:relative;
-  width: 90%;
   max-width: 420px;
   background: orange;
   border-radius: 6px;
@@ -43,36 +57,36 @@ export default {
 
 .balloon:after {
     border-top: 0px solid transparent;
-    border-left: 0px solid transparent;
-    border-right: 10px solid orange;
+    border-left: 10px solid orange;
+    border-right: 0px solid transparent;
     border-bottom: 10px solid transparent;
     content:"";
     position:absolute;
     top: 4px;
-    left: -10px;
+    right: -10px;
     display: block;
     z-index: 1;
 }
 
 .balloon:before {
     border-top: 0px solid transparent;
-    border-left: 0px solid transparent;
-    border-right: 14px solid black;
+    border-left: 14px solid black;
+    border-right: 0px solid transparent;
     border-bottom: 14px solid transparent;
     content:"";
     position:absolute;
     top: 2px;
-    left: -14px;
+    right: -14px;
     display: block;
     z-index: 0;
 }
 
-p {
-    width: 95%;
+.msg {
     max-width: 400px;
-    height: 100%;
-    margin: 5px 5px 0px;
     text-align: left;
+    height: 100%;
+    min-height: 14px;
+    margin: 3px 3px 3px 5px;
 }
 
 .mini-profile {
@@ -82,21 +96,9 @@ p {
     margin: 10px 5px 0px;
 }
 
-.name {
-    font-weight: bold;
-}
-
-.person-name {
-    max-width: 35px;
-    height: inherit;
-    margin: 1px auto;
-    font-size: 12px;
-    text-align: center;
-}
-
 .sendtime .sendat {
-    width: 10%;
     display: inline-block;
     font-size: 10px;
+    overflow: hidden;
 }
 </style>
