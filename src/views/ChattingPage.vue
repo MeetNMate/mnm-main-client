@@ -60,7 +60,8 @@ export default {
   data() {
     return {
       check: "true",
-      mainserve: 'http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com', 
+      // mainserve: 'http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com', 
+      mainserve: "http://localhost:5000",
       uid: '', //내꺼 uid
 //      cid: '5', //방 id
 //      otherid: '1', //상대방 ui
@@ -188,7 +189,7 @@ export default {
         },
         Sorry() { //거절
           this.check = true;
-          axios.post(this.mainserve + '/user/chatting/'+ this.cid +'/decilne', 
+          axios.post(this.mainserve + '/user/chatting/'+ this.cid +'/decline', 
             { senderUid: this.uid, receiverUid: this.otherid,},
             { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
           )
