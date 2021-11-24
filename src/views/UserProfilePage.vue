@@ -18,22 +18,22 @@
 
     <div class="content3">
       <div>
-        <PersonChatting v-bind:matename="u_matename">{{msg}}</PersonChatting>
+        <PersonReview v-bind:matename="u_matename">{{msg}}</PersonReview>
       </div>
       <div>
-        <PersonChatting v-bind:matename="u_matename">{{msg}}</PersonChatting>
+        <PersonReview v-bind:matename="u_matename">{{msg}}</PersonReview>
       </div>
     </div>
     <div class="button-area">
         <red-button class="white-bt" @click="ChatPage">chat!</red-button>
-      </div>
+    </div>
   </div>
 </template>
 
 <script scoped>
 import MiniLogo from '../components/mini-logo.vue'
 import Navigator from '../components/navigator.vue'
-import PersonChatting from '../components/person-chatting.vue'
+import PersonReview from '../components/person-review.vue'
 import RedButton from '../components/red-button.vue'
 import userinfo from '../components/user-info.vue'
 import axios from 'axios'
@@ -44,7 +44,7 @@ export default {
     MiniLogo,
     RedButton,
     Navigator,
-    PersonChatting,
+    PersonReview,
     userinfo
   },
   data() {
@@ -55,7 +55,7 @@ export default {
       name: '',
       description: '',
       temperature: '90도',
-      msg: "벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;",
+      msg: "벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;",
       u_matename: 'eu***',
       gender: '',
       age: '',
@@ -170,10 +170,15 @@ export default {
 
 .button-area {
     justify-content: right;
+    padding-top: 10px;
 }
 
 .white-bt {
     background-color: white;
     font-size: 16px;
+}
+
+.content3 {
+  padding-top: 20px;
 }
 </style>
