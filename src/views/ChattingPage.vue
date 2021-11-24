@@ -189,7 +189,7 @@ export default {
         },
         Sorry() { //거절
           this.check = true;
-          axios.post(this.mainserve + '/user/chatting/'+ this.cid +'/decilne', 
+          axios.post(this.mainserve + '/user/chatting/'+ this.cid +'/decline', 
             { senderUid: this.uid, receiverUid: this.otherid,},
             { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
           )
