@@ -112,9 +112,7 @@ export default {
           })
           .then((res) => {
             console.log('test1: ',res.data.data);
-            this.beforeChat = res.data.data;
-            console.log('test2:', this.beforeChat[0].cid);
-            console.log('test3:', this.beforeChat[0].message);  
+            this.beforeChat = res.data.data; 
           })
         })
     },
