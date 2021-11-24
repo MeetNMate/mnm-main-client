@@ -78,7 +78,6 @@ export default {
           { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
         );
         this.userRes[i] = res1.data.data;
-        console.log(this.userRes[i].user.id);
       });
     }, Promise.resolve());
   }
