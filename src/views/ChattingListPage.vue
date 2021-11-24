@@ -7,7 +7,7 @@
     </div>
     <div class="back-image">
       <div class="content2">
-        <div class="single-chat-list" v-for="(item, i) in Room" :key="i">
+        <div class="single-chat-list" v-for="(item, i) in this.Room" :key="i">
           <SingleChatting v-bind:Username="this.User[i].name" v-bind:num="this.Room[i].number"
            v-bind:LastTime="this.Room[i].sendAt" v-bind:Imgvalue="this.User[i].image" @click="ChatPage(i)">
             {{this.Room[i].message}}
@@ -53,7 +53,6 @@ export default {
         sendAt:'',
         message:'',
       }],
-      ind:'',
     }
   },
   async created() {
@@ -94,7 +93,7 @@ export default {
     ChatPage(index) { //채팅방 아이디 같이 넘겨주기
         this.$router.push({ 
           name: "Chatting",
-          params: {otherid: this.Room[index].uid, cid:this.ChatRoom[index]} 
+          params: {otherid: this.Room[index].uid, cid:this.ChatRoom[index].id} 
         })
     },
   }

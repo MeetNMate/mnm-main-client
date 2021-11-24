@@ -25,7 +25,7 @@
     </div>
     <div class="button-area">
         <red-button class="white-bt" @click="ChatPage">chat!</red-button>
-      </div>
+    </div>
   </div>
 </template>
 
