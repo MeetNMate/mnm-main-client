@@ -44,8 +44,8 @@ export default {
   },
   data() {
     return {
-      matchingserve: this.$root.matchingserverURL,
-      mainserve: this.$root.mainserverURL,
+      mainserve: "http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com",
+      matchingserve: "http://ec2-13-209-88-70.ap-northeast-2.compute.amazonaws.com/",
       userRes: [],
       response: {
         status:'',
@@ -55,23 +55,38 @@ export default {
         status:'',
         data:'',
       },
+      test:10,
+      obj:'',
+      result: [],
     }
   },
   created() {
-    axios.post(this.mathcingserve + '/results/' + localStorage.getItem('uid'))
+    this.test = localStorage.getItem('uid');
+    axios.post(this.matchingserve+'/results/' + localStorage.getItem('uid'))
     .then((res) => {  //매칭서버에 매칭결과 요청 (성공하면 응답이 리스트형태로 들어옴)
         console.log(`status code: ${res.status}`);
         console.log(`data: ${res.data}`)
         this.response.status = res.status;
         this.response.data = res.data;
+        console.log('now data:', this.response.data );
         console.log('response.data[0]', this.response.data[0]);
+      //String을 ,로 파싱해가지고 넣어야 함
+      this.result = this.response.data.split(",");
+        for(var i= 0; i< this.test; i++) {
+          console.log('sibal[i]:  ', this.result[i]);
+        }
     })
     .catch((err) => {
         console.log(err);
     })
     .then(()=> {  //매칭 결과를 가져온 다음, 메인서버에 다른 유저들의 프로필을 요청함
-      for(var i=0; i< this.response.data.length; i++) {
-        axios.get(this.mainserve +'/user/profile/'+ this.response.data[i] ,
+        var jsonData = JSON.parse(this.response.data);
+        for (var i = 0; i < jsonData.length; i++) {
+            var counter = jsonData;
+            console.log(counter);
+        }
+
+        axios.get('/user/profile/'+ this.resopnse.data ,
         { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
         )
         .then((res) => {
@@ -93,7 +108,7 @@ export default {
           console.log('this.userRes', this.userRes);
         })
       }
-    });
+    );
   }
 }
 

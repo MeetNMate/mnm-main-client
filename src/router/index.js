@@ -77,7 +77,8 @@ const routes = [
   {
     path: '/auth/chatting',
     name: 'Chatting',
-    component: Chatting
+    component: Chatting,
+    props: true,
   },
   {
     path: '/auth/house/lobby',

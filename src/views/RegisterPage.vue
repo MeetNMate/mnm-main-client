@@ -33,8 +33,8 @@ export default {
   },
   data() {
     return {
-      mainserve: this.$root.mainserverURL,
-      matchingserve: this.$root.matchingserverURL,
+      mainserve: "http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com",
+      matchingserve: "http://ec2-13-209-88-70.ap-northeast-2.compute.amazonaws.com/",
       join: {
         email:'',
         password:'',
