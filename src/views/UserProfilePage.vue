@@ -118,13 +118,17 @@ export default {
         headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}
       });
       
-      if(res.data) this.$router.push({ path: '/auth/chatting'});
+      if(res.data.isExisted) this.$router.push({ 
+          name: "Chatting",
+          params: {otherid: this.uid, cid: res.data.cid}});
       else {
         const res = await axios.post(this.mainserve+ '/user/chattingRoom/make', // 채팅방 생성 요청
               this.makeChattingRoom, 
               { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')} });
-        console.log(res);
-        this.$router.push({ path: '/auth/chatting'})
+        this.$router.push({ 
+          name: "Chatting",
+          params: {otherid: this.uid, cid: res.data.chattingRoom.id} 
+        });
       }
     },
   },
