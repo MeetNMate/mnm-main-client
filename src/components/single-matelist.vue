@@ -63,16 +63,16 @@ export default {
   min-width: 250px;
   max-width: 400px;
   height: 100%;
-  background: pink;
+  background: #E88827;
   border-radius: 10px 10px 0 10px;
-  border: solid 2px rgb(235, 21, 57);
-  box-shadow: 5px 9px 0px rgb(235, 21, 57);
+  border: solid 2px #A05E17;
+  box-shadow: 5px 9px 0px #A05E17;
   z-index: 100;
   margin: 10px auto 25px;
 }
 
 .balloon-shadow:after {
-    border-top: 15px solid pink;
+    border-top: 15px solid #E88827;
     border-left: 30px solid transparent;
     border-right: 0px solid transparent;
     border-bottom: 0px solid transparent;
@@ -85,7 +85,7 @@ export default {
 }
 
 .balloon-shadow:before {
-    border-top: 20px solid rgb(235, 21, 57);
+    border-top: 20px solid #A05E17;
     border-left: 45px solid transparent;
     border-right: 0px solid transparent;
     border-bottom: 0px solid transparent;

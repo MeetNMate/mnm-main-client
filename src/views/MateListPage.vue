@@ -13,7 +13,7 @@
       <div class="content2">
         <div class="list-single" v-for="(info, i) in userRes" :key="i">
           <SingleMatelist v-bind:name="info.name" v-bind:age="info.age" 
-          v-bind:uid="info.user.id" v-bind:image="info.image">
+          v-bind:uid="info.uid" v-bind:image="info.image">
           {{info.message}}</SingleMatelist>
         </div>
       </div>
@@ -76,7 +76,7 @@ export default {
           { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
         );
         this.userRes[i] = res1.data.data;
-        console.log(this.userRes[i].user.id);
+        console.log(this.userRes[i].name);
       });
     }, Promise.resolve());
   }

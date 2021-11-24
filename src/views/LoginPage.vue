@@ -33,7 +33,8 @@ export default {
   },
   data() {
     return {
-      mainserve: "http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com",
+      // mainserve: "http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com",
+      mainserve: "http://10.14.6.36:5050",
       loginCheck: 0,
       login: {
         email: '',
