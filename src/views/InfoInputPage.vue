@@ -404,8 +404,10 @@ export default {
   },
   data() {
       return {
-          mainserve: "http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com",
-          matchingserve: "http://ec2-13-209-88-70.ap-northeast-2.compute.amazonaws.com/",
+        //   mainserve: "http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com",
+        //   matchingserve: "http://ec2-13-209-88-70.ap-northeast-2.compute.amazonaws.com",
+        mainserve: "http://localhost:5000",
+        matchingserve: "http://localhost:5555",
           number: 1,
           modal_response:'',
           show_userpet: false,
@@ -619,6 +621,7 @@ export default {
             alert("답을 안한 질문이 있습니다!"); return;
         }
         else {  //대답을 다 했으면
+            this.matching_server.uid = localStorage.getItem('uid');
             this.show_modal = true;
         }
     },

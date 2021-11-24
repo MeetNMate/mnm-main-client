@@ -26,7 +26,7 @@
     </div>
     <div class="button-area">
         <red-button class="white-bt" @click="ChatPage">chat!</red-button>
-    </div>
+      </div>
   </div>
 </template>
 
@@ -49,7 +49,8 @@ export default {
   },
   data() {
     return {
-      mainserve: "http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com",
+      // mainserve: "http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com",
+      mainserve: "http://localhost:5000",
       imageSrc: '',
       name: '',
       description: '',

@@ -19,7 +19,8 @@ export default {
   },
   data() {
     return {
-      matchingserve: "http://ec2-13-209-88-70.ap-northeast-2.compute.amazonaws.com/",
+      // matchingserve: "http://ec2-13-209-88-70.ap-northeast-2.compute.amazonaws.com/",
+      matchingserve: "http://localhost:5555",
       Username: 'User',
       post: {
         uid: '',
@@ -32,7 +33,7 @@ export default {
     this.post.uid = localStorage.getItem('uid');
     console.log("저장한 uid" + this.post.uid)
     
-    axios.post(this.mathcingserve+ '/results/' + this.post.uid)
+    axios.post(this.matchingserve+ '/results/' + this.post.uid)
     .then((res) => {
         console.log(`status code: ${res.status}`);
         console.log(`data: ${res.data}`)
