@@ -5,12 +5,12 @@
     <househeader v-bind:housename="housename"></househeader>
     <div class="lobby">
       <div class="explain_lobby">
-        <explanation v-bind:Username="Username" v-bind:housename="housename" v-bind:date="date"></explanation>
+        <explanation v-bind:Username="Username" v-bind:housename="housename" v-bind:content="content" v-bind:location="location"></explanation>
       </div>
 
       <div class="todolist">
         <todoinput v-on:addTodo="addTodo"></todoinput>
-        <todolist v-bind:propsdata="todoItems" @removeTodo="removeTodo"></todolist>
+        <todolist v-bind:todoItems="todoItems" @removeTodo="removeTodo"></todolist>
       </div>
 
       <red-button class="pink-button ruleB" @click="move_houserule">HOUSE RULE →</red-button>
@@ -28,6 +28,7 @@ import RedButton from '../components/red-button.vue'
 import explanation from '../components/lobby-explain.vue'
 import todolist from '../components/todolist.vue'
 import todoinput from '../components/todoinput.vue'
+import axios from 'axios'
 
 export default {
   name: 'HouseLobby',
@@ -40,12 +41,18 @@ export default {
     todolist,
     todoinput
   },
+  props: {
+    houseid: {
+      type: String,
+      default: '',
+    }
+  },
   data() {
     return {
       Username: 'Soyoung, Seoki, moosongsong',
       housename: '연희동빨간지붕',
-      date: '[2020.10.01~2021.09.30]',
       todoItems: [],
+      location: '광야로 걸어가 알아 니 홈그라운드~'
       // todolist: '거실청소(무송)'
     }
   },
@@ -73,12 +80,57 @@ export default {
     },
   },
   created() {
-    if (localStorage.length > 0) {
-      for (var i = 0; i < localStorage.length; i++) {
-        this.todoItems.push(localStorage.key(i));
+    axios.get('http://10.14.4.42:8080/house/1')
+    .then((res)=> {
+      console.log('status code:', res.status);
+      console.log('data:', res.data);
+      this.housename = res.data.data.name;
+      this.content = res.data.data.description;
+      this.location = res.data.data.location;
+      let userList =  res.data.data.users;
+      let tempStr = ' ';
+      for(let key in userList){
+        if (key == 0) {
+          tempStr = tempStr + userList[key].name;
+        }else{
+          tempStr = tempStr + ', '+ userList[key].name;
+        }
       }
-    }
-  }
+      this.Username = tempStr;
+      console.log('result:', tempStr);
+    });
+    axios.get('http://10.14.4.42:8080/role/house/1')
+    .then((res)=> {
+      // console.log('status code:', res.status);
+      // console.log('data:', res.data);
+      // this.resList = res.data.data; // 가져온거
+      const getData = res.data.data;
+      let tempList = [];
+      for(let key in getData){
+        let tempStr = ` ${getData[key].role} (${getData[key].userName})`;
+        tempList.push(tempStr);
+      }
+      // this.todoItems = this.resList;
+      this.todoItems = tempList
+      console.log(tempList);
+
+      // const data = this.resList
+      // const rules = []
+
+      // for (let key in data) {
+        // const rule = data[key]
+        // rule.id = key
+        // rules.push(rule)
+      // }
+    });
+  },
+  // created() {
+  //   if (localStorage.length > 0) {
+  //     for (var i = 0; i < localStorage.length; i++) {
+  //       this.todoItems.push(localStorage.key(i));
+  //     }
+  //   }
+  // }
 }
 </script>
 

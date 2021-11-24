@@ -9,29 +9,14 @@
       <!--<sub-title>HOUSE RULE</sub-title>-->
       </div>
 
-
-
       <!--모달-->
       <div class="button_group">
-        <rulemodal v-if="modal" @close-modal="modal=false">
+        <rulemodal v-on:register="register" v-if="modal" @close-modal="modal=false">
         </rulemodal>
-        <span class="add_btn" v-on:click="addRule">
+        <span class="add_btn" @click="modalopen">
           <img id="btn_add" src="../assets/add_btn.png" alt="add button">
         </span>
-      </div>
-
-      <div class="tables">
-        <table>
-          <tbody>
-            <tr v-for="(row, index) in rows" :key="row">
-              <td class="index">{{ index+1 }}</td>
-              <td>{{ row.rule }}</td>
-              <td><span class="removeBtn" type="button">
-                <i class="far fa-trash-alt" aria-hidden="true"></i>
-              </span></td>
-            </tr>
-          </tbody>
-        </table>
+        <tablerow v-bind:rows="rows" @removeRule="removeRule"></tablerow>
       </div>
     </div>
   </div>
@@ -45,7 +30,8 @@ import navimenu from  '../components/navigator.vue'
 import SubTitle from '../components/sub-title.vue'
 import RedButton from '../components/red-button.vue'
 import editmodal from '../components/common/Modal_3.vue'
-// import tablerow from '../components/table_row.vue'
+import tablerow from '../components/table_row.vue'
+import axios from 'axios'
 
 export default {
   name: 'HouseRule',
@@ -57,60 +43,53 @@ export default {
     SubTitle,
     RedButton,
     editmodal,
-    // tablerow,
+    tablerow,
   },
   data() {
     return {
       modal: false,
       ismodal: false,
-      message: [],
       housename: '연희동빨간지붕',
-      rows: [
-        { rule: '조리 후 바로바로 설거지하기' },
-        { rule: '가스레인지에 흘린 거 바로 치우기' },
-        { rule: '요리하고 환기하기' },
-        { rule: '쓴 재료 제자리에 원위치하기' },
-        { rule: '맛있는건 나눠먹기' },
-        { rule: '친목도모를 위해 주 1회 음주파티 필수 참석' },
-        { rule: '안주는 퇴근하면서 각자 먹고싶은 거 배민으로 주문' },
-        { rule: '직계가족 방문 허용' },
-        { rule: '이성 출입은 사전 협의하기' },
-        { rule:  '외부인의 숙박을 불가능하다' },
-      ]
+      rows: [],
     }
   },
+  created() {
+    axios.get('http://10.14.4.42:8080/rule/house/1')
+    .then((res)=> {
+      console.log('status code:', res.status);
+      console.log('data:', res.data);
+      let ruleList = res.data.data;
+      let tempList = [];
+      for (let key in ruleList) {
+        let tempRule = ruleList[key].originalRule;
+        tempList.push(tempRule);
+      }
+      this.rows = tempList
+      console.log('result:', tempList);
+    })
+  },
   methods: {
-    addRule(message) {
+    modalopen() {
       this.modal = true;
-      localStorage.setItem(message, message);
-      this.messages.push(message);
-    },
-    removeRule(row, index) {
-      this.$emit('removeRule', row, index);
     },
     closeModal() {
       this.modal = false
     },
-    // editRule() {
-    //   this.modal = true
-    // },
-    cancel_modal() {
-      this.modal = false
+    removeRule(row, index) {
+      localStorage.removeItem(row);
+      this.rows.splice(index, 1);
+      // this.$emit('removeRule', row, index);
     },
-    // register_modal() {
-    //   this.modal = false
-    // },
-    // delete_modal() {
-    //   this.modal = false
-    // },
-    update_modal() {
-      this.modal = false
-    }
+    register(row) {
+      localStorage.setItem(row, row);
+      // this.row.push(row);
+    },
   }
 }
 </script>
 
 <style scoped>
+
   .index {
     background-color: #268372;
     }
@@ -121,12 +100,6 @@ export default {
     background-color: #5BB5B5;
     text-align: left;
   }
-/*
-  .sub-title {
-    font-size: 16px;
-    width: 611px;
-  }
-*/
 .white-button {
   display: block;
   background-color: white;

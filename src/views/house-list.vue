@@ -7,24 +7,9 @@
     </div>
     <div class="back-image">
       <div class="content2">
-        <div class="single-chat-list" @click="LobbyPage">
-          <listyoso v-bind:Username="Username" v-bind:Imgvalue="Image">
-            {{simpletext}}
-          </listyoso>
-        </div>
-        <div class="single-chat-list">
-          <listyoso v-bind:Username="Username" v-bind:Imgvalue="Image">
-            {{simpletext}}
-          </listyoso>
-        </div>
-        <div class="single-chat-list">
-          <listyoso v-bind:Username="Username" v-bind:Imgvalue="Image">
-            {{simpletext}}
-          </listyoso>
-        </div>
-        <div class="single-chat-list">
-          <listyoso v-bind:Username="Username" v-bind:Imgvalue="Image">
-            {{simpletext}}
+        <div class="single-chat-list" v-for="(items, i) in houselist" :key="i" @click="LobbyPage(i)">
+          <listyoso v-bind:Username="houselist[i].name" v-bind:Imgvalue="Image">
+            {{houselist[i].description}}
           </listyoso>
         </div>
       </div>
@@ -55,21 +40,27 @@ export default {
       simpletext: '웰컴투네오존',
       Imgvalue: '',
       Image: '',
+      houselist:[],
     }
   },
   created() {
-    axios.get('http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com:8080/house/1')
+    axios.get('http://10.14.4.42:8080/house')
     .then((res)=> {
       console.log('status code:', res.status);
       console.log('data:', res.data);
-      this.Username = res.data.data.name;
-      this.simpletext = res.data.data.description;
-      console.log('result:', this.Username);
+      console.log('data:', res.data.data);
+      this.houselist = res.data.data;
+      console.log('house1 id:', this.houselist[0].id);
+      console.log('house1 id:', this.houselist[0].name);
+      console.log('house1 id:', this.houselist[0].description);
     })
   },
   methods: {
-    LobbyPage() {
-      this.$router.push({ path: '/auth/house/lobby'})
+    LobbyPage(i) {
+      this.$router.push({
+         name: 'HouseLobby',
+         params: {houseid: this.houselist[i].id }
+       })
     }
   }
 }
