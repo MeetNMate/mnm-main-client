@@ -13,7 +13,7 @@
       <div class="content2">
         <div class="list-single" v-for="(info, i) in userRes" :key="i">
           <SingleMatelist v-bind:name="info.name" v-bind:age="info.age" 
-          v-bind:uid="info.uid" v-bind:image="info.image">
+          v-bind:uid="info.user.id" v-bind:image="info.image">
           {{info.message}}</SingleMatelist>
         </div>
       </div>
@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       mainserve: "http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com",
-      matchingserve: "http://ec2-13-209-88-70.ap-northeast-2.compute.amazonaws.com/",
+      matchingserve: "http://ec2-13-209-88-70.ap-northeast-2.compute.amazonaws.com",
       userRes: [],
       response: {
         status:'',
@@ -76,7 +76,7 @@ export default {
           { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
         );
         this.userRes[i] = res1.data.data;
-        console.log(this.userRes[i].name);
+        console.log(this.userRes[i].user.id);
       });
     }, Promise.resolve());
   }

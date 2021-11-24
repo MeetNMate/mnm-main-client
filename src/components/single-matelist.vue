@@ -21,15 +21,13 @@ import axios from 'axios'
 export default {
   components: { redButton },
   name: 'single-matelist',
-  props: {
-    name: String,
-    age: String,
-    uid: String,
-    image: String
-  },
+  props: ["name", "age", "uid", "image"],
   methods: {
     ProfilePage() {
-        this.$router.push({ path: '/auth/userprofile'})
+        this.$router.push({ 
+          name: 'UserProfile', 
+          params: { uid: this.uid }
+        });
     },
     ChatPage() {
         //get으로 방 있는 지 확인 후에, 방 없으면 방만들기, 방 있으면 채팅방으로 이동    
