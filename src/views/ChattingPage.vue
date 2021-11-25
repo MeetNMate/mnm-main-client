@@ -227,8 +227,9 @@ export default {
             console.log("make house res:", res2.data);
             // this.$router.push({ path: '/auth/house/list'});
             alert("하우스가 생성되었습니다!");
-            this.message = "하우스가 생성되었대요!";
+            this.message = "하우스가 생성되었대요😀";
             this.sendMessage();
+            this.$router.push({ path: '/auth/house/list'});
           })
         },
         Sorry() { //거절
