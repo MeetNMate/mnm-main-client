@@ -8,6 +8,7 @@
         <red-button class="big-button" @click="LoginPage">log in</red-button>
         <red-button class="big-button" @click="RegisterPage">join us</red-button>
     </div>
+    <div class="foot"></div>
 </template>
 
 <script>
@@ -55,6 +56,10 @@ img {
 
 .button-area {
     justify-content: space-around;
+}
+
+.foot {
+    min-height: 125px;
 }
 
 </style>

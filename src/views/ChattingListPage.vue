@@ -124,7 +124,7 @@ export default {
   background-image: url("../assets/backline_image.png");
   background-repeat: repeat;
   height: 100%;
-  min-height: 65vh;
+  min-height: 80vh;
   overflow: hidden;
 }
 .content1 {
