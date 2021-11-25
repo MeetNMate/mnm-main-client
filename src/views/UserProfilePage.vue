@@ -65,7 +65,7 @@ export default {
       bug: '',
       makeChattingRoom: {
         senderUid: localStorage.getItem('uid'), 
-        receiverUid: this.uid,
+        receiverUid: this.$route.query.uid,
       },
       uid:'',
     }
@@ -120,7 +120,7 @@ export default {
         headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}
       });
       
-      if(res.data.isExisted) this.$router.push({ 
+      if(res.data.existed) this.$router.push({ 
           name: "Chatting",
           query: {otherid: this.uid, cid: res.data.cid}});
       else {
