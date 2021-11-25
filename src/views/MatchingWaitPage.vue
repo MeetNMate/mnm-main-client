@@ -20,7 +20,8 @@ export default {
   data() {
     return {
       // matchingserve: "http://ec2-13-209-88-70.ap-northeast-2.compute.amazonaws.com/",
-      matchingserve: "http://localhost:5555",
+      // matchingserve: "http://localhost:5555",
+      mainserve: "http://10.14.5.15:5000",
       Username: 'User',
       post: {
         uid: '',

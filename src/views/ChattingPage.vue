@@ -61,7 +61,8 @@ export default {
     return {
       check: "true",
       // mainserve: 'http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com', 
-      mainserve: "http://localhost:5000",
+      // mainserve: "http://localhost:5000",
+      mainserve: "http://10.14.5.15:5000",
       uid: '', //내꺼 uid
 //      cid: '5', //방 id
 //      otherid: '1', //상대방 ui
@@ -188,6 +189,7 @@ export default {
             { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
           )
           .then((res) => {
+            console.log(this.uid, this.otherid);
             console.log("data", res.data);  //이거 내용 확인하고 alert로 띄우기
           })
         },
@@ -198,6 +200,7 @@ export default {
             { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
           )
           .then((res) => {
+            console.log(this.uid, this.otherid);
             console.log("data", res.data);  //이거 내용 확인하고 alert로 띄우기
           })
         },
