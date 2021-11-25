@@ -1,6 +1,6 @@
 <template>
     <div class="balloon-shadow" id="shadow" >
-        <img class= "mini-profile" src='../assets/profile_img.png'>
+        <img class= "mini-profile" v-bind:src="image">
         <div class= "content">
             <p class="large-size">{{name}}({{age}})</p>
             <p class="user-text">
@@ -116,6 +116,7 @@ export default {
     width: 80px;
     height: 80px;
     margin: auto 5px;
+    border-radius: 70%;
 }
 
 .content {

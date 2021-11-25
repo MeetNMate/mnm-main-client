@@ -13,15 +13,15 @@
     </div>
 
     <div class="content2">
-      <userinfo v-bind:gender="gender" v-bind:age="age" v-bind:MBTI="MBTI" v-bind:smoking="smoking" v-bind:with_pet="with_pet" v-bind:bug="bug"></userinfo>
+      <userinfo v-bind:gender="gender" v-bind:age="age" v-bind:MBTI="MBTI" v-bind:smoking="smoking" v-bind:with_pet="with_pet" v-bind:bug="bug" v-bind:cooking="cooking"></userinfo>
     </div>
 
     <div class="content3">
       <div>
-        <PersonReview v-bind:matename="u_matename">{{msg}}</PersonReview>
+        <PersonReview v-bind:matename="u_matename">{{msg1}}</PersonReview>
       </div>
       <div>
-        <PersonReview v-bind:matename="u_matename">{{msg}}</PersonReview>
+        <PersonReview v-bind:matename="u_matename">{{msg2}}</PersonReview>
       </div>
     </div>
     <div class="button-area">
@@ -55,7 +55,8 @@ export default {
       name: '',
       description: '',
       temperature: '90도',
-      msg: "벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;",
+      msg1: "같이 살기 좋은 메이트였어요ㅎㅎ 정말 추천합니다",
+      msg2: "요리를 잘하시더라구요. 매일 맛있게 먹었습니다:D",
       u_matename: 'eu***',
       gender: '',
       age: '',
@@ -63,6 +64,7 @@ export default {
       smoking: '',
       with_pet: '',
       bug: '',
+      cooking: '',
       makeChattingRoom: {
         senderUid: localStorage.getItem('uid'), 
         receiverUid: this.$route.query.uid,
@@ -96,6 +98,7 @@ export default {
     const res2 = await axios.get(this.mainserve+'/user/matchinginfo/'+ this.uid ,
           { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}});
     const data2 = await res2.data.data;
+    console.log(data2);
     this.MBTI = data2.mbti
     if(data2.userSmoking == 1) this.smoking = "Yes";
     else if(data2.userSmoking == 0) this.smoking = "No";
@@ -111,6 +114,8 @@ export default {
     if(data2.userBugKiller == 1) this.bug = "잘 잡아요";
     else if(data2.userBugKiller == 2) this.bug = "시키면 잡을 수 있어요";
     else if(data2.userBugKiller == 3) this.bug = "못 잡아요";
+    if (data2.userCooking == 1) this.cooking = "요리해 먹는 걸 좋아해요";
+    else if (data2.userCooking == 0) this.cooking = "배달해 먹는 걸 좋아해요";
   },
   methods: {
     async ChatPage() {
@@ -168,6 +173,7 @@ export default {
     display: block;
     width: 148px;
     margin: auto;
+    border-radius: 70%;
 }
 
 .button-area {
