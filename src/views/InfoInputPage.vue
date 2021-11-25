@@ -404,8 +404,9 @@ export default {
   },
   data() {
       return {
-          matchingserve: this.$root.matchingserverURL,
-          mainserve: this.$root.mainserverURL,
+        //   mainserve: "http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com",
+          mainserve: "http://10.14.6.36:5050",
+          matchingserve: "http://ec2-13-209-88-70.ap-northeast-2.compute.amazonaws.com",
           number: 1,
           modal_response:'',
           show_userpet: false,
@@ -451,7 +452,7 @@ export default {
               permissionToEnter:'',
           },
           matching_server:{
-              uid:'',
+              id:'',
               sex: '',
               age:'',
               mbti:'',
@@ -551,6 +552,7 @@ export default {
                 });
             })
             .then(() => {   //matching server에 정보 전송
+                console.log('serverURL:', this.matchingserve);
                 axios.post(this.matchingserve + '/infos',
                     this.matching_server
                 )
@@ -558,6 +560,9 @@ export default {
                 console.log(`matching status code: ${res.status}`);
                 console.log(`matching data: ${res.data}`);
                 })
+            })
+            .then(() => {
+                this.$router.push({ path: '/matching/waiting'})
             })
         }
         else {
@@ -616,6 +621,7 @@ export default {
             alert("답을 안한 질문이 있습니다!"); return;
         }
         else {  //대답을 다 했으면
+            this.matching_server.id = localStorage.getItem('uid');
             this.show_modal = true;
         }
     },

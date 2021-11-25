@@ -7,10 +7,10 @@
     </div>
     <div class="back-image">
       <div class="content2">
-        <div class="single-chat-list" @click="ChatPage">
-          <SingleChatting v-for="(uid, i) in ChatRoom" :key="i" v-bind:Username="User[i].name"
-           v-bind:num="ChatRoom[i].number" v-bind:LastTime="ChatRoom[i].sendAt" v-bind:Imgvalue="User[i].image">
-            {{ChatRoom[i].message}}
+        <div class="single-chat-list" v-for="(item, i) in this.Room" :key="i">
+          <SingleChatting v-bind:Username="this.User[i].name" v-bind:num="this.Room[i].number"
+           v-bind:LastTime="this.Room[i].sendAt" v-bind:Imgvalue="this.User[i].image" @click="ChatPage(i)">
+            {{this.Room[i].message}}
           </SingleChatting>
         </div>
       </div> 
@@ -41,53 +41,61 @@ export default {
   },
   data() {
     return {
-      mainserve: this.$root.mainseverURL,
+      mainserve: 'http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com',
       ChatRoom : [],
-      User : {
+      User: [{
         name:'',
         image:'',
+      }],
+      Room: [{
         uid:'',
-      },
+        number:'',
+        sendAt:'',
+        message:'',
+      }],
     }
   },
-  methods: {
-    ChatPage() { //채팅방 아이디 같이 넘겨주기
-        this.$router.push({ path: '/auth/chatting'})
-    },
-  },
-  created() {
-    axios.get(this.mainserve + '/user/chattingRoom', {
+  async created() {
+    const res = await axios.get(this.mainserve + '/user/chattingRoom', {
       headers: { 'X-AUTH-TOKEN': localStorage.getItem('token') }
-    })
-    .then((res) => {
+    });
+    try {
       console.log('res.satate:', res.state);
       console.log('res.data:', res.data);
       console.log('res.data.data:', res.data.data);
-      this.Chat = res.data.data;  //이거 안되면 matelist처럼 변경
-    })
-    .catch((err) => {
+      this.ChatRoom = res.data.data;  //이거 안되면 matelist처럼 변경
+    }
+    catch(err) {
             console.log(err);
-    })
-    .then(()=> {  //채팅방목록을 가져온 다음, 메인서버에 다른 유저들의 프로필을 요청함
-      for(var i=0; i< Object.keys(this.ChatRoom).length; i++) {
-        axios.get(this.mainserve +'/user/profile/'+ this.ChatRoom[i].uid , 
-        { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
-        )
-        .then((res) => {
-          console.log(`status code: ${res.status}`);
-          console.log(`data: ${res.data}`)
-          console.log('data.name:',res.data.name);
-          console.log('data.description:',res.data.image);
-          this.User[i].name = res.data.name;
-          this.User[i].image = res.data.image;
-          this.User[i].uid = res.data.uid;
+    }
+
+    //채팅방목록을 가져온 다음, 메인서버에 다른 유저들의 프로필을 요청함
+    this.len = await Object.keys(this.ChatRoom).length;
+    console.log('length: ', this.len);
+
+    // console.log('ChatRoom 1: ', this.ChatRoom[0].id);
+    this.ChatRoom.reduce((previous, current, i) => {
+      return previous.then(async () => {
+        const res1 = await axios.get(this.mainserve +'/user/chattingRoom/'+ current.id + '/latest', 
+          { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
+        );
+        this.Room[i] = await res1.data.data;
+
+        const res2 = await axios.get(this.mainserve +'/user/profile/'+ this.Room[i].uid , 
+          { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
+        );
+        this.User[i] = await res2.data.data;
+      });
+    }, Promise.resolve());
+
+  },
+  methods: {
+    ChatPage(index) { //채팅방 아이디 같이 넘겨주기
+        this.$router.push({ 
+          name: "Chatting",
+          params: {otherid: this.Room[index].uid, cid:this.ChatRoom[index].id} 
         })
-        .then(()=> {
-          console.log('this.Chat:', this.Chat);
-          console.log('this.User:', this.User);
-        })
-      }
-    });
+    },
   }
 }
 
@@ -109,7 +117,6 @@ export default {
 
 .back-image {
   background-image: url("../assets/backline_image.png");
-  background-size: 428px;
   background-repeat: repeat;
   height: 100%;
   min-height: 65vh;

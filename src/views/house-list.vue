@@ -36,6 +36,7 @@ export default {
   },
   data() {
     return {
+      mainserve: "http://10.14.4.217:5000",
       Username: '연희동 빨간지붕',
       simpletext: '웰컴투네오존',
       Imgvalue: '',
@@ -44,7 +45,8 @@ export default {
     }
   },
   created() {
-    axios.get('http://10.14.4.42:8080/house')
+    axios.get(this.mainserve + '/house',
+  { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}})
     .then((res)=> {
       console.log('status code:', res.status);
       console.log('data:', res.data);
@@ -57,9 +59,10 @@ export default {
   },
   methods: {
     LobbyPage(i) {
+      console.log('============house id', this.houselist[i].id);
       this.$router.push({
          name: 'HouseLobby',
-         params: {houseid: this.houselist[i].id }
+         query: {houseid: this.houselist[i].id }
        })
     }
   }

@@ -1,7 +1,10 @@
 <template>
     <div class= "full-chat">
+        <div class="sendtime">
+            <p class="sendat"> {{this.month}}-{{this.day}} {{this.hour}}:{{this.min}} </p>
+        </div>
         <div class="balloon" id="shadow" >
-            <p>
+            <p class="msg">
                 <slot></slot>
             </p>
         </div>
@@ -12,29 +15,39 @@
 export default {
   name: 'user-chatting',
   props: {
-      Imgvalue: Image,
-      matename: String,
-      num: String,
-      LastTime: String,
+      Time: String,
   },
+  data() {
+      return {
+        month:'',
+        day:'',
+        hour:'',
+        min:'',
+      }
+  },
+  created() {
+    const sendAt = this.Time;
+    const date = new Date(sendAt); // Date 형식으로 변환
+    this.month = date.getMonth()+1;
+    this.day = date.getDate();
+    this.hour = date.getHours();
+    this.min = date.getMinutes();
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .full-chat {
-    width: 100%;
-    max-width: 400px;
-    margin: auto;
+    width: 98%;
     display: flex;
+    justify-content: right;
 }
 
 .balloon {
   display: inline-block;
   position:relative;
-  width: 100%;
   max-width: 420px;
-  height: 100%;
   background: orange;
   border-radius: 6px;
   border: solid 2px black;
@@ -68,12 +81,24 @@ export default {
     z-index: 0;
 }
 
-p {
-    width: 98%;
+.msg {
     max-width: 400px;
-    height: 100%;
-    margin: 5px 5px 0px;
     text-align: left;
+    height: 100%;
+    min-height: 14px;
+    margin: 3px 3px 3px 5px;
 }
 
+.mini-profile {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    margin: 10px 5px 0px;
+}
+
+.sendtime .sendat {
+    display: inline-block;
+    font-size: 10px;
+    overflow: hidden;
+}
 </style>

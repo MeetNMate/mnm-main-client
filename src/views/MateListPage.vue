@@ -11,10 +11,10 @@
     </div>
     <div class="back-image">
       <div class="content2">
-        <div class="list-single" v-for="(info, i) in UserRes" :key="i">
-          <SingleMatelist v-bind:name="userRes[i].name" v-bind:age="userRes[i].age" 
-          v-bind:uid="userRes[i].uid" v-bind:image="userRes[i].image">
-          {{userRes[i].message}}</SingleMatelist>
+        <div class="list-single" v-for="(info, i) in userRes" :key="i">
+          <SingleMatelist v-bind:name="info.name" v-bind:age="info.age" 
+          v-bind:uid="info.uid" v-bind:image="info.image">
+          {{info.message}}</SingleMatelist>
         </div>
       </div>
       <!-- <div class="button-area">
@@ -44,8 +44,8 @@ export default {
   },
   data() {
     return {
-      matchingserve: this.$root.matchingserverURL,
-      mainserve: this.$root.mainserverURL,
+      mainserve: "http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com",
+      matchingserve: "http://ec2-13-209-88-70.ap-northeast-2.compute.amazonaws.com",
       userRes: [],
       response: {
         status:'',
@@ -55,45 +55,30 @@ export default {
         status:'',
         data:'',
       },
+      test:10,
+      obj:'',
+      result: [],
     }
   },
-  created() {
-    axios.post(this.mathcingserve + '/results/' + localStorage.getItem('uid'))
-    .then((res) => {  //매칭서버에 매칭결과 요청 (성공하면 응답이 리스트형태로 들어옴)
-        console.log(`status code: ${res.status}`);
-        console.log(`data: ${res.data}`)
-        this.response.status = res.status;
-        this.response.data = res.data;
-        console.log('response.data[0]', this.response.data[0]);
-    })
-    .catch((err) => {
-        console.log(err);
-    })
-    .then(()=> {  //매칭 결과를 가져온 다음, 메인서버에 다른 유저들의 프로필을 요청함
-      for(var i=0; i< this.response.data.length; i++) {
-        axios.get(this.mainserve +'/user/profile/'+ this.response.data[i] ,
-        { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
-        )
-        .then((res) => {
-          console.log(`status code: ${res.status}`);
-          console.log(`data: ${res.data}`)
-          this.response2.status = res.status;
-          this.response2.data = res.data;
-          console.log('this.response2.data',this.response2.data);
-          console.log('this.response2.data.name',this.response2.data.name);
-          console.log('this.response2.data.description',this.response2.data.description);
-          // this.userRes[i].name = this.response2.data.name;
-          // this.userRes[i].description = this.response2.data.description;
-          // this.userRes[i].age = this.response2.data.age;
-          // this.userRes[i].image = this.response2.data.image;
-          // this.userRes[i].uid = this.response2.data.uid;
-          this.userRes[i] = this.response2.data;
-        })
-        .then(()=> {
-          console.log('this.userRes', this.userRes);
-        })
-      }
-    });
+  async created() {
+    this.test = await localStorage.getItem('uid');
+
+    const res = await axios.post(this.matchingserve+'/results/' + localStorage.getItem('uid'))
+    this.response.status = await res.status;
+    this.response.data = await res.data;
+    this.result = await this.response.data.split(",");
+
+    console.log(this.result);
+
+    this.result.reduce((previous, current, i) => {
+      return previous.then(async () => {
+        const res1 = await axios.get(this.mainserve+'/user/profile/'+ current ,
+          { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
+        );
+        this.userRes[i] = res1.data.data;
+        console.log(this.userRes[i].name);
+      });
+    }, Promise.resolve());
   }
 }
 

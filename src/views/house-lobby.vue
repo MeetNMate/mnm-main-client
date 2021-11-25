@@ -41,19 +41,31 @@ export default {
     todolist,
     todoinput
   },
-  props: {
-    houseid: {
-      type: String,
-      default: '',
-    }
-  },
+  // props: {
+  //   houseid: {
+  //     type: String,
+  //     default: '',
+  //   }
+  // },
   data() {
     return {
+      mainserve: "http://10.14.4.217:5000",
       Username: 'Soyoung, Seoki, moosongsong',
       housename: '연희동빨간지붕',
       todoItems: [],
-      location: '광야로 걸어가 알아 니 홈그라운드~'
+      Itemnum:0,
+      location: '광야로 걸어가 알아 니 홈그라운드~',
       // todolist: '거실청소(무송)'
+      houseid:'',
+      userid:'',
+      Send: {
+        houseId:'',
+        userId:'',
+        role:'',
+        week:'',
+        startAt:'',
+        routine:'',
+      }
     }
   },
   methods: {
@@ -64,23 +76,62 @@ export default {
       localStorage.clear();
       this.todoItems = [];
     },
-    addTodo(todoItem) {
-      localStorage.setItem(todoItem, todoItem);
-      this.todoItems.push(todoItem);
+    async addTodo(todoItem) {
+      // 값 지정
+      await localStorage.setItem(todoItem, todoItem);
+      await this.todoItems.push(todoItem);
+
+      // 보낼 값 지정
+      this.Send.role = await this.todoItems[this.Itemnum];
+      this.Send.houseId = await this.houseid;
+      this.Send.userId = await this.userid;
+
+      // 호출
+      axios.post(this.mainserve + '/role/', this.Send)
+      .then((res)=> { //수정해야함!!
+        console.log('status code:', res.status);
+        console.log('data:', res.data);
+      });
     },
+    // async addTodo(todoItem) {
+      // this.Send.role = await this.todoItem[this.Itemnum];
+      // this.Send.houseId = await this.houseid;
+      // this.Send.userId = await this.userid;
+      // await this.Itemnum++;
+      // console.log("===========", this.Send);
+      // axios.post(this.mainserve + '/role/', this.Send)
+      // .then((res)=> { //수정해야함!!
+      //   console.log('status code:', res.status);
+      //   console.log('data:', res.data);
+      //   })
+      //
+      // // localStorage.setItem(todoItem, todoItem);
+      // this.todoItems.push(todoItem);
+    // },
     removeTodo(todoItem, index) {
+
       localStorage.removeItem(todoItem);
       this.todoItems.splice(index, 1);
     },
     move_houserule() {
-        this.$router.push({ path: 'rule'})
+      this.$router.push({
+        name: 'HouseRule',
+        query: {houseid: this.houseid}
+      })
     },
     leave_house() {
         this.$router.push({ path: 'report'})
     },
   },
   created() {
-    axios.get('http://10.14.4.42:8080/house/1')
+    // this.houseid = localStorage.getItem('houseid');
+    this.houseid = this.$route.query.houseid;
+    this.userid = localStorage.getItem('uid');
+    console.log('house id:', this.houseid);
+    console.log('user id:', this.userid);
+
+    axios.get(this.mainserve + '/house/'+ this.houseid,
+    { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}})
     .then((res)=> {
       console.log('status code:', res.status);
       console.log('data:', res.data);
@@ -89,20 +140,20 @@ export default {
       this.location = res.data.data.location;
       let userList =  res.data.data.users;
       let tempStr = ' ';
-      for(let key in userList){
+      for(let key in userList) {
         if (key == 0) {
           tempStr = tempStr + userList[key].name;
         }else{
           tempStr = tempStr + ', '+ userList[key].name;
         }
+        this.Itemnum++;
       }
       this.Username = tempStr;
       console.log('result:', tempStr);
     });
-    axios.get('http://10.14.4.42:8080/role/house/1')
+    axios.get(this.mainserve + '/role/house/'+ this.houseid)
     .then((res)=> {
-      // console.log('status code:', res.status);
-      // console.log('data:', res.data);
+
       // this.resList = res.data.data; // 가져온거
       const getData = res.data.data;
       let tempList = [];
@@ -110,18 +161,11 @@ export default {
         let tempStr = ` ${getData[key].role} (${getData[key].userName})`;
         tempList.push(tempStr);
       }
-      // this.todoItems = this.resList;
+      // this.todoItems = this.resList; //
       this.todoItems = tempList
       console.log(tempList);
 
-      // const data = this.resList
-      // const rules = []
 
-      // for (let key in data) {
-        // const rule = data[key]
-        // rule.id = key
-        // rules.push(rule)
-      // }
     });
   },
   // created() {

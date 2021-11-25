@@ -19,7 +19,12 @@ export default {
   },
   data() {
       return {
+        token:'',
       }
+  },
+  created() {
+    this.token = localStorage.getItem("token");
+    console.log('token:', this.token);
   },
   methods: {
   },

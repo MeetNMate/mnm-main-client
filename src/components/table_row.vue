@@ -9,7 +9,7 @@
             <i class="fas fa-times" aria-hidden="true"></i>
             <!-- far fa-trash-alt -->
           </span></td>
-        </tr>
+        </tr>  <!--새로운 테이블 만들고 rows를 바꾸기 -->
       </tbody>
     </table>
   </div>

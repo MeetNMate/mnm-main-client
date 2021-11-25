@@ -8,8 +8,8 @@
         </div>
         <div class="button-area">
           <green-button @click="liveTogether" class="white-bt">같이 살자 요청!</green-button>
-          <green-button v-show="res" @click="response" class="white-bt">응답할게요!</green-button>
-          <div v-show="!res">
+          <green-button v-show="this.check" @click="response" class="white-bt">응답할게요!</green-button>
+          <div v-show="!this.check">
             <green-button @click="Okay" class="white-bt"> 좋아!</green-button>
             <green-button @click="Sorry" class="white-bt">미안;ㅁ;</green-button>
           </div>
@@ -18,21 +18,21 @@
 
     <div class="content2">
       <div class="chatting-area">
-        <div class="add-before" v-for="(chat, index) in beforeChat" :key="index"> <!--for같이 순회하면서 child만들면 됨 uid로 누가 보내는 건지 구분하기-->
-          <PersonChatting> {{beforeChat[index].message}} </PersonChatting>
-          <!-- item.cid, item.uid 로 접근-->
+        <div class="add-before" v-for="(chat, index) in beforeChat" :key="index">
+          <PersonChatting v-if="chat.uid != this.uid" v-bind:Time="chat.sendAt"> {{chat.message}} </PersonChatting>
+          <UserChatting v-if="chat.uid == this.uid" v-bind:Img="PImage" v-bind:Time="chat.sendAt"> {{chat.message}} </UserChatting>
         </div>
-        <div class>
-          <PersonChatting v-for="(item, idx) in recvList" :key="idx"> {{item.message}} </PersonChatting>
-          <!-- 내가 보내는 말풍선.vue 만들기 아니면 자식으로 id 받아서 local.id랑 비교후 같으면 말풍선 바꾸는 걸로 -->
+        <div class v-for="(item, idx) in recvList" :key="idx">
+          <PersonChatting v-if="item.user.id != this.uid" v-bind:Time="item.sendAt" v-bind:Img="PImage"> {{item.message}} </PersonChatting>
+          <UserChatting v-if="item.user.id == this.uid" v-bind:Time="item.sendAt" v-bind:Img="PImage"> {{item.message}} </UserChatting>
         </div>
       </div>
       <div class="input-area">
-        <textarea class="input-box" v-model="message" @keyup="sendMessage" name="Text1"></textarea>
-        <red-button class="sub-bt" @="sendMessage">전송</red-button>
+        <textarea class="input-box" v-model="message" name="Text1"></textarea>
+        <red-button class="sub-bt" @click="sendMessage">전송</red-button>
       </div>
     </div>
-  
+
   </div>
 </template>
 
@@ -59,34 +59,70 @@ export default {
   },
   data() {
     return {
-      res: "true",
-      mainserve: this.$root.matchingserverURL, 
-      uid: '4', //내꺼 uid
-      cid: '5', //방 id
-      value: '',
+      check: "true",
+      mainserve: 'http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com',
+      uid: '', //내꺼 uid
+//      cid: '5', //방 id
+//      otherid: '1', //상대방 ui
       recvList: [],
       beforeChat: [],
-      bdfoechat_num: 0,
-      otherid: '1', //상대방 ui
-      Username: 'eun', //이거 상대방의 이름임;;; 가져오는 방법 생각! 방 생성할때 이름까지 생성해야함
+      Username: 'test', //상대방의 이름
+      PImage: '',
+      respon: {
+        status:'',
+        data:'',
+      },
+    }
+  },
+  props: {
+    otherid: {
+      type: String,
+      default:'',
+    },
+    cid: {
+      type: String,
+      default:''
     }
   },
   created() {
-        this.connect() // ChattingView.vue 생성 시 소켓 연결 시도
-        //여기서 그동안의 채팅내역 리스트 불러오기!
-        axios.get(this.mainserve +'/user/chatting/'+ this.cid, {
-          headers: { 'X-AUTH-TOKEN': localStorage.getItem('token') }
-        })
+        this.uid = localStorage.getItem('uid'); //uid 가져오기
+        console.log('my id:', this.uid);
+        console.log('other id:', this.otherid);
+        console.log('room num:', this.cid);
+        //상대방 이름이랑 이미지 가져오기
+        axios.get(this.mainserve +'/user/profile/'+ this.otherid ,
+        { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
+        )
         .then((res) => {
-          console.log(res.data.data);
-          this.beforeChat = res.data.data;
-          console.log(this.beforeChat[1].cid);
-          console.log(this.beforeChat[1].message);  
+          console.log(`status code: ${res.status}`);
+          console.log(`data: ${res.data}`);
+          this.respon.status = res.status;
+          this.respon.data = res.data;
+
+          this.Username = this.respon.data.data.name;
+          this.PImage = this.respon.data.data.image;
+          console.log('data.name:', this.respon.data.data.name);
+          console.log('data: ', this.respon.data);
+        })
+        .then(()=> {
+          this.connect() // ChattingView.vue 생성 시 소켓 연결 시도
+          //여기서 그동안의 채팅내역 리스트 불러오기!
+          axios.get(this.mainserve +'/user/chatting/'+ this.cid, {
+            headers: { 'X-AUTH-TOKEN': localStorage.getItem('token') }
+          })
+          .then((res) => {
+            console.log('test1: ',res.data.data);
+            this.beforeChat = res.data.data;
+          })
         })
     },
     methods: {
-        sendMessage(e) {
-            if(e.keyCode === 13 && this.uid !== '' && this.message !== '') {
+        sendMessage() {
+            if(this.message == '' | this.message == null) {
+              alert("메세지를 입력하지 않았습니다!");
+              return;
+            }
+            else if(this.uid !== '') {
                 this.send();
                 this.message = '';
             }
@@ -94,17 +130,16 @@ export default {
         send() {
             console.log("Send message:" + this.message);
             if (this.stompClient && this.stompClient.connected) {
-                const msg = { 
+                const msg = {
                 user: {
                     id: this.uid
                 },
                 message: this.message,
-                sendAt: Date.now(),
                 isRequest: false,
                 };
                 this.stompClient.send("/receive/" + this.cid, JSON.stringify(msg), {});
             }
-        }, 
+        },
         connect() {
             let socket = new SockJS(this.mainserve);
             this.stompClient = Stomp.over(socket);
@@ -115,8 +150,8 @@ export default {
                 this.connected = true;
                 console.log('소켓 연결 성공', frame);
                 const msg = { ///너무 중요! 없애지 마!
-                    uid: this.uid, 
-                    cid: this.cid, 
+                    uid: this.uid,
+                    cid: this.cid,
                     sid: socket._transport.url.split('/')[4]
                 };
                 console.log(JSON.stringify(msg));
@@ -129,11 +164,11 @@ export default {
                 error => {
                 console.log('소켓 연결 실패', error);
                 this.connected = false;
-                } 
-            );               
-        }, 
+                }
+            );
+        },
         liveTogether() {
-          axios.post(this.mainserve + '/user/chatting/'+ this.cid +'/request', 
+          axios.post(this.mainserve + '/user/chatting/'+ this.cid +'/request',
             { senderUid: this.uid, receiverUid: this.otherid,},
             { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
           )
@@ -142,8 +177,8 @@ export default {
           })
         },
         Okay() {  //수락
-          this.res = true;
-          axios.post(this.mainserve + '/user/chatting/'+ this.cid +'/accept', 
+          this.check = true;
+          axios.post(this.mainserve + '/user/chatting/'+ this.cid +'/accept',
             { senderUid: this.uid, receiverUid: this.otherid,},
             { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
           )
@@ -152,8 +187,8 @@ export default {
           })
         },
         Sorry() { //거절
-          this.res = true;
-          axios.post(this.mainserve + '/user/chatting/'+ this.cid +'/decilne', 
+          this.check = true;
+          axios.post(this.mainserve + '/user/chatting/'+ this.cid +'/decilne',
             { senderUid: this.uid, receiverUid: this.otherid,},
             { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
           )
@@ -165,7 +200,7 @@ export default {
           this.$router.push({ path: '/auth/chattinglist'})
         },
         response() {
-          this.res = false;
+          this.check = false;
         }
     },
 
@@ -201,7 +236,7 @@ export default {
   height: 15vh;
   background-color: #ea803a;
   padding: 5px;
-  
+
 }
 
 .sub-bt {

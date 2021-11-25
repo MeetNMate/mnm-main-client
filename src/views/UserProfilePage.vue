@@ -3,12 +3,13 @@
   <navigator></navigator>
   <div>
     <div class="content1">
-        <img class="profile-img" src='../assets/profile_img.png'>
+        <!-- <img v-bind:src="imageSrc" class="profile-img"> -->
+        <img class="profile-img" src="../assets/profile_img.png">
         <div class="one-line">
-            <p class="user-name">{{Username}}</p>
+            <p class="user-name">{{name}}</p>
             <button id="non-click"> {{temperature}}</button>
         </div>
-        <p class="mid-text">" {{simpletext}} "</p>
+        <p class="mid-text">" {{description}} "</p>
     </div>
 
     <div class="content2">
@@ -25,7 +26,7 @@
     </div>
     <div class="button-area">
         <red-button class="white-bt" @click="ChatPage">chat!</red-button>
-      </div>
+    </div>
   </div>
 </template>
 
@@ -35,6 +36,7 @@ import Navigator from '../components/navigator.vue'
 import PersonChatting from '../components/person-chatting.vue'
 import RedButton from '../components/red-button.vue'
 import userinfo from '../components/user-info.vue'
+import axios from 'axios'
 
 export default {
   name: 'UserProfilePage',
@@ -47,19 +49,62 @@ export default {
   },
   data() {
     return {
-      Userimage: '',
-      Username: 'User',
-      simpletext: '저와 함께 살 멋쟁이를 구합니다!',
+      mainserve: "http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com",
+      imageSrc: '',
+      name: '',
+      description: '',
       temperature: '90도',
       msg: "벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;벌써 4시야..미쳤네;;",
       u_matename: 'eu***',
-      gender: 'm',
-      age: '24살',
-      MBTI: 'INFJ',
-      smoking: 'NO',
-      with_pet: 'Yes, Puppy',
-      bug: 'YES',
+      gender: '',
+      age: '',
+      MBTI: '',
+      smoking: '',
+      with_pet: '',
+      bug: '',
     }
+  },
+  props: ["uid"],
+  async created() {
+    // 프로필 정보 로딩
+    const res = await axios.get(this.mainserve+'/user/profile/'+ this.uid ,
+          { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}});
+    const data = await res.data.data;
+    this.name = data.name;
+    this.description = data.description;
+    if(data.sex == 1) this.gender = '여성';
+    else if(data.sex == 0) this.gender = "남성";
+    this.age = data.age+"살";
+    if(data.score != 0) this.temperature = data.score+"도";
+
+    // 프로필 이미지 로딩 -> local에서는 가능, EC2에서는 에러
+    // const res3 = await axios.get(this.mainserve+'/user/image/', {
+    //           params: { imagePath: data.image },
+    //           headers: { 'X-AUTH-TOKEN': localStorage.getItem('token') },
+    //           timeout: 1000 // 1초 이내에 응답이 없으면 에러 처리
+    //         });
+    // console.log(res3.data.data);
+    // this.imageSrc = "data:image/jpg;base64,"+res3.data.data;
+
+    // 매칭 정보 로딩
+    const res2 = await axios.get(this.mainserve+'/user/matchinginfo/'+ this.uid ,
+          { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}});
+    const data2 = await res2.data.data;
+    this.MBTI = data2.mbti
+    if(data2.userSmoking == 1) this.smoking = "Yes";
+    else if(data2.userSmoking == 0) this.smoking = "No";
+    if(data2.userPet == 0) this.with_pet = "No";
+    else if(data2.userPet == 1) {
+      this.with_pet = "Yes";
+      if(this.userPetDog == 1) this.with_pet.push(", 강아지");
+      if(this.userPetCat == 1) this.with_pet.push(", 고양이");
+      if(this.userPetReptileFish == 1) this.with_pet.push(", 파충류/어류");
+      if(this.userPet_bird == 1) this.with_pet.push(", 조류");
+      if(this.userPetEtc != null) this.with_pet.put(", "+this.userPetEtc);
+    }
+    if(data2.userBugKiller == 1) this.bug = "잘 잡아요";
+    else if(data2.userBugKiller == 2) this.bug = "시키면 잡을 수 있어요";
+    else if(data2.userBugKiller == 3) this.bug = "못 잡아요";
   },
   methods: {
     ChatPage() {

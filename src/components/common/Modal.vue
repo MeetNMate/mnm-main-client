@@ -8,25 +8,25 @@
           <th>새로운 규칙 등록하기</th>
         </thead>
         <tbody>
-          <tr>
+          <!-- <tr>
             <th id="subtitle">번호</th>
           </tr>
           <tr>
             <td><input id="text" v-model="num"></td>
-          </tr>
+          </tr> -->
           <tr>
             <th id="subtitle">내용</th>
           </tr>
           <tr>
             <td>
-              <textarea id="input_textarea" v-model="message" rows="7"></textarea>
+              <textarea id="input_textarea" v-model="value" rows="10"></textarea>
             </td>
           </tr>
         </tbody>
         <footer class="footer_btn">
           <div class="button-group">
             <green-button class="new-button cancelB" @click="$emit('close-modal')">취소</green-button>
-            <green-button class="new-button registerB" @click="register">등록하기</green-button>
+            <green-button class="new-button registerB" @click="$emit('close-modal'); register">등록하기</green-button>
           </div>
         </footer>
       </table>
@@ -36,31 +36,44 @@
 
 <script>
 import GreenButton from '../../components/green-button.vue'
+// import axios from 'axios'
 
   export default {
     name: 'RuleModal',
     components: {
       GreenButton
     },
-    methods: {
-      register() {
-        if (this.message !== "") {
-          var value = this.message && this.message.trim();
-          console.log(this.message);
-          this.$emit('register', value)
-          this.clearInput();
-        }
-      },
-      clearInput() {
-        this.message = '';
+    data() {
+      return {
+        value: "",
+        // newRule: {
+        //   houseid: "",
+        //   userid: "",
+        //   rule: "",
+        //   upperNum: "",
+        //   lowerNum: "",
+        // }
       }
     },
-    // data() {
-    //   return {
-    //
-    //     message: '',
-    //   }
-    // }
+    methods: {
+      register() {
+        this.$emit("value", this.value);
+      
+      },
+      clearInput() {
+        this.value = '';
+      }
+    }
+
+
+        // if (this.message !== "") {
+        //   var value = this.message && this.message.trim();
+        //   console.log(this.message);
+        //   this.$emit('register', value)
+        //   this.clearInput();
+        // }
+
+
   }
 </script>
 
@@ -142,7 +155,8 @@ textarea {
 .modal-card {
   position: relative;
   max-width: 300px;
-  min-height: 340px;
+  /* min-height: 340px; */
+  min-height: 325px;
   margin: auto;
   margin-top: 70%;
   padding-top: 30px;

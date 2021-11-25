@@ -19,7 +19,7 @@ export default {
   },
   data() {
     return {
-      mathcingserve: this.$root.matchingserverURL,
+      matchingserve: "http://ec2-13-209-88-70.ap-northeast-2.compute.amazonaws.com",
       Username: 'User',
       post: {
         uid: '',

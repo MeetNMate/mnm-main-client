@@ -10,13 +10,37 @@
       </div>
 
       <!--모달-->
-      <div class="button_group">
-        <rulemodal v-on:register="register" v-if="modal" @close-modal="modal=false">
+      <div class="button_group"> <!--v-on:register="register"-->
+        <rulemodal @value="addRule" v-if="modal" @close-modal="modal=false">
         </rulemodal>
-        <span class="add_btn" @click="modalopen">
+        <span class="add_btn" @click="modalopen" >
           <img id="btn_add" src="../assets/add_btn.png" alt="add button">
         </span>
-        <tablerow v-bind:rows="rows" @removeRule="removeRule"></tablerow>
+
+        <div class="rule_table">
+          <!-- <tablerow v-bind:rows="rows" @removeRule="removeRule"></tablerow> -->
+          <table>
+            <tbody>
+              <tr v-for="(row, index) in rows" :key="index">
+                <td class="index">{{ index+1 }}</td>
+                <td id="content">{{ row }}</td>
+                <td><span class="removeBtn" type="button" @click="removeRule(row, index)">
+                  <i class="fas fa-times" aria-hidden="true"></i>
+                </span></td>
+              </tr>
+
+              <!-- <tr v-for="(addrule, i) in newRow" :key="i"> new row 만들기 대 작전!
+                <td class="index">{{ i+1 }}</td>
+                <td id="content">{{ addrule }}</td>
+                <td><span class="removeBtn" type="button" @click="removeRule(rule, i)">
+                  <i class="fas fa-times" aria-hidden="true"></i>
+                </span></td>
+              </tr> -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- <tablerow v-bind:rows="rows" @removeRule="removeRule"></tablerow> -->
       </div>
     </div>
   </div>
@@ -30,7 +54,7 @@ import navimenu from  '../components/navigator.vue'
 import SubTitle from '../components/sub-title.vue'
 import RedButton from '../components/red-button.vue'
 import editmodal from '../components/common/Modal_3.vue'
-import tablerow from '../components/table_row.vue'
+// import tablerow from '../components/table_row.vue'
 import axios from 'axios'
 
 export default {
@@ -43,18 +67,22 @@ export default {
     SubTitle,
     RedButton,
     editmodal,
-    tablerow,
+    // tablerow,
   },
   data() {
     return {
+      mainserve: "http://10.14.4.217:5000",
       modal: false,
       ismodal: false,
       housename: '연희동빨간지붕',
       rows: [],
+      houseid:'',
+      addrule:'',
     }
   },
   created() {
-    axios.get('http://10.14.4.42:8080/rule/house/1')
+    this.houseid = this.$route.query.houseid;
+    axios.get(this.mainserve + '/rule/house/' + this.houseid)
     .then((res)=> {
       console.log('status code:', res.status);
       console.log('data:', res.data);
@@ -69,6 +97,10 @@ export default {
     })
   },
   methods: {
+    addRule(value) {
+      // this.addrule = value;
+      this.rows.push({value});
+    },
     modalopen() {
       this.modal = true;
     },
@@ -80,10 +112,10 @@ export default {
       this.rows.splice(index, 1);
       // this.$emit('removeRule', row, index);
     },
-    register(row) {
-      localStorage.setItem(row, row);
-      // this.row.push(row);
-    },
+    // register(row) {
+    //   localStorage.setItem(row, row);
+    //   // this.row.push(row);
+    // },
   }
 }
 </script>

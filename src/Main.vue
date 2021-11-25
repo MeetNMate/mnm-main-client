@@ -3,19 +3,14 @@
 </template>
 
 <script>
-import LoginPageVue from './views/LoginPage.vue'
 
 export default {
   name: 'Main',
   data: function() {
     return {
-      mainserverURL:"http://192.168.0.117:5050",
-      matchingserverURL:"http://192.168.0.117:5000",
+      
     }
   },
-  components: {
-    'login': LoginPageVue
-  }
 }
 </script>
 
