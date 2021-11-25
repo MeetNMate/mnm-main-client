@@ -3,7 +3,7 @@
     <div class="content1">
         <div class="user-area">
           <p class="user-name">{{Username}}</p> <!--username을 받아와야 하나-->
-          <red-button class="profile-bt">profile</red-button>
+          <red-button class="profile-bt" @click="watchprofile">profile</red-button>
           <button class="exit" @click="Exitevent">x</button>
         </div>
         <div class="button-area">
@@ -60,7 +60,9 @@ export default {
   data() {
     return {
       check: "true",
-      mainserve: 'http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com', 
+      // mainserve: 'http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com', 
+      // mainserve: "http://localhost:5000",
+      mainserve: "http://10.14.5.15:5000",
       uid: '', //내꺼 uid
 //      cid: '5', //방 id
 //      otherid: '1', //상대방 ui
@@ -72,20 +74,24 @@ export default {
         status:'',
         data:'',
       },
+      otherid:'',
+      cid:'',
     }
   },
-  props: {
-    otherid: {
-      type: String,
-      default:'',
-    },
-    cid: {
-      type: String,
-      default:''
-    }
-  },
+  // props: {
+  //   otherid: {
+  //     type: String,
+  //     default:'',
+  //   },
+  //   cid: {
+  //     type: String,
+  //     default:''
+  //   }
+  // },
   created() {
         this.uid = localStorage.getItem('uid'); //uid 가져오기
+        this.otherid = this.$route.query.otherid;
+        this.cid = this.$route.query.cid;
         console.log('my id:', this.uid);
         console.log('other id:', this.otherid);
         console.log('room num:', this.cid);
@@ -183,16 +189,18 @@ export default {
             { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
           )
           .then((res) => {
+            console.log(this.uid, this.otherid);
             console.log("data", res.data);  //이거 내용 확인하고 alert로 띄우기
           })
         },
         Sorry() { //거절
           this.check = true;
-          axios.post(this.mainserve + '/user/chatting/'+ this.cid +'/decilne', 
+          axios.post(this.mainserve + '/user/chatting/'+ this.cid +'/decline', 
             { senderUid: this.uid, receiverUid: this.otherid,},
             { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
           )
           .then((res) => {
+            console.log(this.uid, this.otherid);
             console.log("data", res.data);  //이거 내용 확인하고 alert로 띄우기
           })
         },
@@ -201,6 +209,12 @@ export default {
         },
         response() {
           this.check = false;
+        },
+        watchprofile() {
+          this.$router.push({ 
+          name: 'UserProfile', 
+          query: { uid: this.otherid }
+        });
         }
     },
 

@@ -34,8 +34,9 @@ export default {
   data() {
     return {
       // mainserve: "http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com",
-      mainserve: "http://10.14.6.36:5050",
-      matchingserve: "http://ec2-13-209-88-70.ap-northeast-2.compute.amazonaws.com",
+      // matchingserve: "http://ec2-13-209-88-70.ap-northeast-2.compute.amazonaws.com/",
+      mainserve: "http://localhost:5000",
+      matchingserve: "http://localhost:5555",
       join: {
         email:'',
         password:'',

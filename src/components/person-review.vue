@@ -2,23 +2,22 @@
     <div class= "full-chat">
         <div>
             <img class= "mini-profile" src='../assets/profile_img.png'>
+            <p class="person-name">{{matename}}</p>
         </div>
         <div class="balloon" id="shadow" >
             <p class="msg">
                 <slot></slot>
             </p>
         </div>
-        <div class="sendtime">
-            <p class="sendat"> {{this.month}}-{{this.day}} {{this.hour}}:{{this.min}} </p>
-        </div>
     </div>
 </template>
 
 <script>
 export default {
-  name: 'person-chatting',
+  name: 'person-review',
   props: {
       Img: Image,
+      matename: String,
       Time: String,
   },
   data() {
@@ -28,14 +27,6 @@ export default {
         hour:'',
         min:'',
       }
-  },
-  created() {
-    const sendAt = this.Time;
-    const date = new Date(sendAt); // Date 형식으로 변환
-    this.month = date.getMonth()+1;
-    this.day = date.getDate();
-    this.hour = date.getHours();
-    this.min = date.getMinutes();
   }
 }
 </script>
@@ -45,8 +36,9 @@ export default {
 .full-chat {
     width: 100%;
     max-width: 400px;
-    margin: 0;
+    margin: auto;
     display: flex;
+    justify-content: center;
 }
 
 .balloon {
@@ -89,13 +81,13 @@ export default {
 .msg {
     max-width: 400px;
     height: 100%;
-    text-align: right;
+    text-align: center;
     min-height: 14px;
     margin: 3px 5px 3px 3px;
 }
 
 .mini-profile {
-    display: inline-block;
+    display: block;
     width: 35px;
     height: 35px;
     margin: 10px 5px 0px;
@@ -103,12 +95,6 @@ export default {
 
 .name {
     font-weight: bold;
-}
-
-.sendtime .sendat {
-    display: inline-block;
-    font-size: 10px;
-    overflow: hidden;
 }
 
 .person-name {

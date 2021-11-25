@@ -34,7 +34,8 @@ export default {
   data() {
     return {
       // mainserve: "http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com",
-      mainserve: "http://10.14.6.36:5050",
+      // mainserve: "http://localhost:5000",
+      mainserve: "http://10.14.5.15:5000",
       loginCheck: 0,
       login: {
         email: '',
@@ -73,6 +74,7 @@ export default {
         this.get_res.data = res.data.data;
       })
       .catch(err => {
+        alert("에러가 발생했습니다.");
         console.log(err);
       })
       .then(() => {

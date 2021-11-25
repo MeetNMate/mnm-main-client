@@ -8,7 +8,7 @@
     <div class="back-image">
       <div class="content2">
         <div class="single-chat-list" v-for="(item, i) in this.Room" :key="i">
-          <SingleChatting v-bind:Username="this.User[i].name" v-bind:num="this.Room[i].number"
+          <SingleChatting v-if="exist" v-bind:Username="this.User[i].name" v-bind:num="this.Room[i].number"
            v-bind:LastTime="this.Room[i].sendAt" v-bind:Imgvalue="this.User[i].image" @click="ChatPage(i)">
             {{this.Room[i].message}}
           </SingleChatting>
@@ -41,7 +41,9 @@ export default {
   },
   data() {
     return {
-      mainserve: 'http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com',
+      // mainserve: 'http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com',
+      // mainserve: "http://localhost:5000",
+      mainserve: "http://10.14.5.15:5000",
       ChatRoom : [],
       User: [{
         name:'',
@@ -53,6 +55,7 @@ export default {
         sendAt:'',
         message:'',
       }],
+      exist: false,
     }
   },
   async created() {
@@ -81,10 +84,13 @@ export default {
         );
         this.Room[i] = await res1.data.data;
 
-        const res2 = await axios.get(this.mainserve +'/user/profile/'+ this.Room[i].uid , 
-          { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
-        );
-        this.User[i] = await res2.data.data;
+        if (this.Room.length != 0) {
+          this.exist = true;
+          const res2 = await axios.get(this.mainserve +'/user/profile/'+ this.Room[i].uid , 
+            { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
+          );
+          this.User[i] = await res2.data.data;
+        }
       });
     }, Promise.resolve());
 
@@ -93,7 +99,7 @@ export default {
     ChatPage(index) { //채팅방 아이디 같이 넘겨주기
         this.$router.push({ 
           name: "Chatting",
-          params: {otherid: this.Room[index].uid, cid:this.ChatRoom[index].id} 
+          query: {otherid: this.Room[index].uid, cid:this.ChatRoom[index].id} 
         })
     },
   }

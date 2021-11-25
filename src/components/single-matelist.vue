@@ -22,35 +22,43 @@ export default {
   components: { redButton },
   name: 'single-matelist',
   props: ["name", "age", "uid", "image"],
+  data () {
+    return {
+      mainserve: "http://localhost:5000",
+      makeChattingRoom: {
+        senderUid: localStorage.getItem('uid'), 
+        receiverUid: this.uid,
+      }
+    }
+  },
   methods: {
     ProfilePage() {
         this.$router.push({ 
           name: 'UserProfile', 
-          params: { uid: this.uid }
+          query: { uid: this.uid }
         });
     },
-    ChatPage() {
-        //get으로 방 있는 지 확인 후에, 방 없으면 방만들기, 방 있으면 채팅방으로 이동    
-        axios.get('http://192.168.0.118:5050/chattingRoom/exist', {
-          params: { senderUid: 3, receiverUid: 1}
-        })
-        .then((res) => {
-          console.log("data:", res.data);
-          if(res.data == true) {  //방이 이미 존재하면
-            this.$router.push({ path: '/auth/chatting'})
-          }
-          else {
-            axios.post('http://192.168.0.118:5050/chat', {  //방만들기
-              senderUid: "3", 
-              receiverUid: "1"
-            })
-            .then((res) => {
-              console.log("data", res.data);
-            })
-              }
-            })
-          },
-      },
+    async ChatPage() {
+      const res = await axios.get(this.mainserve+ '/user/chattingRoom/exist', // 채팅방 유무 조회 요청
+      {
+        params: this.makeChattingRoom, 
+        headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}
+      });
+            
+      if(res.data.isExisted) this.$router.push({ 
+          name: "Chatting",
+          query: {otherid: this.uid, cid: res.data.cid}});
+      else {
+        const res = await axios.post(this.mainserve+ '/user/chattingRoom/make', // 채팅방 생성 요청
+              this.makeChattingRoom, 
+               { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')} });
+          this.$router.push({ 
+            name: "Chatting",
+            query: {otherid: this.uid, cid: res.data.chattingRoom.id} 
+          });
+       }
+    },
+  },
 };
 </script>
 
