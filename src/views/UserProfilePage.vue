@@ -109,7 +109,7 @@ export default {
       if(data2.userPetCat == 1) this.with_pet += (", 고양이");
       if(data2.userPetReptileFish == 1) this.with_pet += (", 파충류/어류");
       if(data2.userPetBird == 1) this.with_pet += (", 조류");
-      if(data2.userPetEtc != null) this.with_pet += (", "+this.userPetEtc);
+      if(data2.userPetEtc != null || data2.userPetEtc != "") this.with_pet += (" ("+data2.userPetEtc+")");
     }
     if(data2.userBugKiller == 1) this.bug = "잘 잡아요";
     else if(data2.userBugKiller == 2) this.bug = "시키면 잡을 수 있어요";
