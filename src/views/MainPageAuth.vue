@@ -33,7 +33,8 @@ export default {
 
 <style scoped>
 .footpaint{
-  min-height: 10px;
+  min-height: 150px;
   background-color: #EABF3A;
 }
+
 </style>

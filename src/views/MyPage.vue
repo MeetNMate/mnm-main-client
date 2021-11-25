@@ -83,7 +83,7 @@ export default {
 }
 
 .buttons {
-  min-height: 28vh;
-  padding-bottom: 40px;
+  min-height: 35vh;
+  padding-bottom: 50px;
 }
 </style>
