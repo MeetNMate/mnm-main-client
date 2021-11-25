@@ -70,10 +70,9 @@ export default {
       uid:'',
     }
   },
-  // props: ["uid"],
   async created() {
     this.uid = this.$route.query.uid;
-    console.log('uid:', this.uid);
+
     // 프로필 정보 로딩
     const res = await axios.get(this.mainserve+'/user/profile/'+ this.uid ,
           { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}});

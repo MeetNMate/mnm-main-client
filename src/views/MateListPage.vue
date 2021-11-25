@@ -13,7 +13,7 @@
       <div class="content2">
         <div class="list-single" v-for="(info, i) in userRes" :key="i">
           <SingleMatelist v-bind:name="info.name" v-bind:age="info.age" 
-          v-bind:uid="info.uid" v-bind:image="info.image">
+          v-bind:uid="info.user.id" v-bind:image="info.image">
           {{info.description}}</SingleMatelist>
         </div>
       </div>
