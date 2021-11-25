@@ -56,7 +56,7 @@ export default {
   background: orange;
   border-radius: 6px;
   border: solid 2px black;
-  z-index: 100;
+  z-index: 10;
   margin: 10px 8px 10px;
 }
 

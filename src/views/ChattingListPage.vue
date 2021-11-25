@@ -65,7 +65,7 @@ export default {
       console.log('res.satate:', res.state);
       console.log('res.data:', res.data);
       console.log('res.data.data:', res.data.data);
-      this.ChatRoom = res.data.data;  //이거 안되면 matelist처럼 변경
+      this.ChatRoom = res.data.data;
     }
     catch(err) {
             console.log(err);
