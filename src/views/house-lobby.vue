@@ -58,6 +58,7 @@ export default {
       // todolist: '거실청소(무송)'
       houseid:'',
       userid:'',
+      userName: '',
       Send: {
         houseId:'',
         userId:'',
@@ -77,37 +78,21 @@ export default {
       this.todoItems = [];
     },
     async addTodo(todoItem) {
-      // 값 지정
-      await localStorage.setItem(todoItem, todoItem);
-      await this.todoItems.push(todoItem);
-
       // 보낼 값 지정
-      this.Send.role = await this.todoItems[this.Itemnum];
+      this.Send.role = await todoItem;
       this.Send.houseId = await this.houseid;
       this.Send.userId = await this.userid;
 
+      console.log(todoItem);
+
       // 호출
-      axios.post(this.mainserve + '/role/', this.Send)
-      .then((res)=> { //수정해야함!!
-        console.log('status code:', res.status);
-        console.log('data:', res.data);
-      });
+      const res = await axios.post(this.mainserve + '/role/', this.Send);
+      console.log('status code:', res.status);
+      console.log('data:', res.data);
+
+      // 값 지정
+      await this.todoItems.push(todoItem +` (${this.userName})`);
     },
-    // async addTodo(todoItem) {
-      // this.Send.role = await this.todoItem[this.Itemnum];
-      // this.Send.houseId = await this.houseid;
-      // this.Send.userId = await this.userid;
-      // await this.Itemnum++;
-      // console.log("===========", this.Send);
-      // axios.post(this.mainserve + '/role/', this.Send)
-      // .then((res)=> { //수정해야함!!
-      //   console.log('status code:', res.status);
-      //   console.log('data:', res.data);
-      //   })
-      //
-      // // localStorage.setItem(todoItem, todoItem);
-      // this.todoItems.push(todoItem);
-    // },
     removeTodo(todoItem, index) {
 
       localStorage.removeItem(todoItem);
@@ -123,58 +108,46 @@ export default {
         this.$router.push({ path: 'report'})
     },
   },
-  created() {
-    // this.houseid = localStorage.getItem('houseid');
+  async created() {
     this.houseid = this.$route.query.houseid;
     this.userid = localStorage.getItem('uid');
     console.log('house id:', this.houseid);
     console.log('user id:', this.userid);
 
-    axios.get(this.mainserve + '/house/'+ this.houseid,
-    { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}})
-    .then((res)=> {
-      console.log('status code:', res.status);
-      console.log('data:', res.data);
-      this.housename = res.data.data.name;
-      this.content = res.data.data.description;
-      this.location = res.data.data.location;
-      let userList =  res.data.data.users;
-      let tempStr = ' ';
-      for(let key in userList) {
-        if (key == 0) {
-          tempStr = tempStr + userList[key].name;
-        }else{
-          tempStr = tempStr + ', '+ userList[key].name;
-        }
-        this.Itemnum++;
+    const houseRes = await axios.get(this.mainserve + '/house/'+ this.houseid,
+      { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}});
+    console.log('status code:', houseRes.status);
+    console.log('data:=============', houseRes.data);
+
+    this.housename = houseRes.data.data.name;
+    this.content = houseRes.data.data.description;
+    this.location = houseRes.data.data.location;
+    let userList =  houseRes.data.data.users;
+
+    let tempStr = ' ';
+    for(let key in userList) {
+      if (userList[key].id == this.userid) this.userName = userList[key].name;
+      if (key == 0) {      
+        tempStr = tempStr + userList[key].name;
+      }else{
+        tempStr = tempStr + ', '+ userList[key].name;
       }
-      this.Username = tempStr;
-      console.log('result:', tempStr);
-    });
-    axios.get(this.mainserve + '/role/house/'+ this.houseid)
-    .then((res)=> {
+    }
+    this.Username = tempStr;
+    console.log('result:', tempStr);
 
-      // this.resList = res.data.data; // 가져온거
-      const getData = res.data.data;
-      let tempList = [];
-      for(let key in getData){
-        let tempStr = ` ${getData[key].role} (${getData[key].userName})`;
-        tempList.push(tempStr);
-      }
-      // this.todoItems = this.resList; //
-      this.todoItems = tempList
-      console.log(tempList);
+    const roleRes = await axios.get(this.mainserve + '/role/house/'+ this.houseid)
+    const getData = roleRes.data.data;
+    let tempList = [];
+    for(let key in getData){
+      let tempStr = ` ${getData[key].role} (${getData[key].userName})`;
+      tempList.push(tempStr);
+    }
+    this.todoItems = tempList
+    console.log(tempList);
 
-
-    });
-  },
-  // created() {
-  //   if (localStorage.length > 0) {
-  //     for (var i = 0; i < localStorage.length; i++) {
-  //       this.todoItems.push(localStorage.key(i));
-  //     }
-  //   }
-  // }
+    this.Itemnum = this.todoItems.length-1; // 처음부터 크기로 지정
+  }
 }
 </script>
 

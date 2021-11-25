@@ -44,9 +44,10 @@ export default {
       houselist:[],
     }
   },
-  created() {
+  async created() {
+    await console.log("-------------------------");
     axios.get(this.mainserve + '/house',
-  { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}})
+      { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}})
     .then((res)=> {
       console.log('status code:', res.status);
       console.log('data:', res.data);
@@ -55,7 +56,7 @@ export default {
       console.log('house1 id:', this.houselist[0].id);
       console.log('house1 id:', this.houselist[0].name);
       console.log('house1 id:', this.houselist[0].description);
-    })
+    });
   },
   methods: {
     LobbyPage(i) {

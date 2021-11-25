@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
   name: 'househeader',
@@ -18,12 +18,12 @@ export default {
     }
   },
   created() {
-    axios.get('http://10.14.4.42:8080/house/1')
-    .then((res)=> {
-      console.log('status code:', res.status);
-      console.log('data:', res.data);
-      this.housename = res.data.data.name;
-    })
+    // axios.get('http://10.14.4.42:8080/house/1')
+    // .then((res)=> {
+    //   console.log('status code:', res.status);
+    //   console.log('data:', res.data);
+    //   this.housename = res.data.data.name;
+    // })
   }
 }
 </script>
