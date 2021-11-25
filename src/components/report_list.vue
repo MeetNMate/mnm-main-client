@@ -39,14 +39,16 @@ export default {
   props: {
     userName: String,
     status: String,
-    houseName: String
+    houseName: String, 
+    houseId: Number, 
+    userId: Number
   },
   methods: {
     ReportBtn() {
       console.log(this.houseName, this.userName);
       this.$router.push({
         name: 'HouseMemReport',
-        query: {houseName: this.houseName, userName: this.userName}
+        query: {houseId:this.houseId, houseName: this.houseName, userId: this.userId, userName: this.userName}
       });
       // this.$router.push({ path: '/auth/house/report/member'})
     }

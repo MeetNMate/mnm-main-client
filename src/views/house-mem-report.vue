@@ -22,7 +22,7 @@
             </td>
           </tr>
           <tr>
-            <Rating :grade="0" :maxStars="5" :hasCounter="true" />
+            <Rating :grade="score1" :maxStars="5" :hasCounter="true"  @score="getScore1"/>
           </tr>
           <tr>
             <td>
@@ -30,7 +30,7 @@
             </td>
           </tr>
           <tr>
-            <Rating :grade="0" :maxStars="5" :hasCounter="true" />
+            <Rating :grade="score2" :maxStars="5" :hasCounter="true" @score="getScore2"/>
           </tr>
           <tr>
             <td>
@@ -38,7 +38,7 @@
             </td>
           </tr>
           <tr>
-            <Rating :grade="0" :maxStars="5" :hasCounter="true" />
+            <Rating :grade="score3" :maxStars="5" :hasCounter="true" @score="getScore3"/>
           </tr>
         </table>
       </div>
@@ -46,10 +46,16 @@
       <div v-else-if="number === 2">
         <div class="ask_user">
           <p id="question_user">{{ this.houseName }} HOUSE에서 "{{ this.userName }}"님과 함께 한 시간은 어땠나요?</p>
-          <textarea v-model="message1" rows="8"></textarea>
+          <textarea v-model="evaluation.content" rows="8"></textarea>
         </div>
-        <reportmodal v-if="modal" @close-modal="modal=false">{{ this.userName }}
-        </reportmodal>
+        <reportmodal 
+          v-if="modal" 
+          @close-modal="modal=false"
+          v-bind:score1="score1"
+          v-bind:score2="score2"
+          v-bind:score3="score3"
+          v-bind:evaluation="evaluation"
+        ></reportmodal>
       </div>
     </div>
 
@@ -87,7 +93,15 @@ export default {
       userName: this.$route.query.userName, 
       number: 1,
       modal: false,
-      message1: "",
+      score1: 0, 
+      score2: 0, 
+      score3: 0,
+      evaluation: {
+        appraiseeId: this.$route.query.userId, 
+        houseId: this.$route.query.houseId, 
+        score: 0, 
+        content: ''
+      }
     }
   },
   created() {
@@ -103,7 +117,15 @@ export default {
     SubmitBtn() {
       this.modal = true;
     },
-
+    getScore1(value) {
+      this.score1 = value;
+    },
+    getScore2(value) {
+      this.score2 = value;
+    },
+    getScore3(value) {
+      this.score3 = value;
+    }
   }
 }
 

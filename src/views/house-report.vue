@@ -11,9 +11,11 @@
     <reportlist 
       v-for="(user, i) in userList" 
       :key="i" 
+      v-bind:userId="user.id"
       v-bind:userName="user.name" 
       v-bind:status="status"
       v-bind:houseName="houseName"
+      v-bind:houseId="houseId"
     ></reportlist>
 
   </div>
