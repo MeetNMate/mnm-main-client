@@ -62,7 +62,7 @@ export default {
       headers: { 'X-AUTH-TOKEN': localStorage.getItem('token') }
     });
     try {
-      console.log('res.satate:', res.state);
+      console.log('res.state:', res.state);
       console.log('res.data:', res.data);
       console.log('res.data.data:', res.data.data);
       this.ChatRoom = res.data.data;
