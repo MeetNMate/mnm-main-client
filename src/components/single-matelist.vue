@@ -43,8 +43,7 @@ export default {
       {
         params: this.makeChattingRoom, 
         headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}
-      });
-            
+      });            
       if(res.data.isExisted) this.$router.push({ 
           name: "Chatting",
           query: {otherid: this.uid, cid: res.data.cid}});

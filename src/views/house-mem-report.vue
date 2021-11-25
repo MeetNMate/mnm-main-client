@@ -10,12 +10,40 @@
 
     <div class="profile">
       <img id="profile_img" src="../assets/profile_2.png">
-      <p id="user_name">seoki</p>
+      <p id="user_name">username</p>
     </div>
 
     <div class="change-part">
       <div v-if="number === 1">
-        <!-- <div class="rule_table"> -->
+        <table>
+          <tr>
+            <td>
+              하우스 룰을 잘 지켰나요?
+            </td>
+          </tr>
+          <tr>
+            <Rating :grade="0" :maxStars="5" :hasCounter="true" />
+          </tr>
+          <tr>
+            <td>
+              하우스 Todo List를 잘 수행했나요?
+            </td>
+          </tr>
+          <tr>
+            <Rating :grade="0" :maxStars="5" :hasCounter="true" />
+          </tr>
+          <tr>
+            <td>
+              같이 지내는데 큰 불편함은 없었나요?
+            </td>
+          </tr>
+          <tr>
+            <Rating :grade="0" :maxStars="5" :hasCounter="true" />
+          </tr>
+        </table>
+      </div>
+
+      <!-- <div v-if="number === 1">
           <table>
             <tr>
               <th id="first_rule">1. 요리를 할때는...</th>
@@ -102,23 +130,24 @@
           <tr>
             <Rating :grade="0" :maxStars="5" :hasCounter="true" />
           </tr>
-        </table>
-      </div>
+        </table> -->
+      <!-- </div> -->
 
-      <div v-else-if="number === 4">
+      <div v-else-if="number === 2">
         <div class="ask_user">
-          <p id="question_user">연희동빨간지붕 HOUSE에서 seoki 님과 함께 한 시간은 어땠나요?</p>
+          <p id="question_user">{{ housename }} HOUSE에서 {{ username }} 님과 함께 한 시간은 어땠나요?</p>
           <textarea v-model="message1" rows="8"></textarea>
         </div>
-        <reportmodal v-if="modal" @close-modal="modal=false">
+        <reportmodal v-if="modal" @close-modal="modal=false">{{ username }}
         </reportmodal>
       </div>
+
     </div>
 
     <div class="button-group">
       <red-button class="white-button prevB" v-if="number != 1" @click="PrevBtn">previous</red-button>
-      <red-button class="white-button nextB" v-if="number != 4" @click="NextBtn">next</red-button>
-      <red-button class="white-button finishB" v-if="number === 4" @click="SubmitBtn">finish!</red-button>
+      <red-button class="white-button nextB" v-if="number != 2" @click="NextBtn">next</red-button>
+      <red-button class="white-button finishB" v-if="number === 2" @click="SubmitBtn">finish!</red-button>
     </div>
   </div>
 </template>
@@ -130,6 +159,7 @@ import Rating from '../components/Rating.vue'
 import RedButton from '../components/red-button.vue'
 import reportmodal from '../components/common/Modal_2.vue'
 import navimenu from '../components/navigator.vue'
+// import axios from 'axios'
 
 
 export default {
@@ -142,25 +172,48 @@ export default {
     reportmodal,
     navimenu,
     },
-    methods: {
-      PrevBtn() {
-        this.number--;
-      },
-      NextBtn() {
-        this.number++;
-      },
-      SubmitBtn() {
-        this.modal = true;
-      }
+  methods: {
+    PrevBtn() {
+      this.number--;
     },
+    NextBtn() {
+      this.number++;
+    },
+    SubmitBtn() {
+      this.modal = true;
+    }
+  },
+  props: {
+    housename: String,
+    username: String,
+  },
   data() {
     return {
       number: 1,
       modal: false,
       message1: "",
-      housename: '연희동빨간지붕'
+      // housename: '',
+      // username: '',
     }
-  }
+  },
+  // created() {
+  //   axios.get('http://10.14.4.217:5000/house/'+ this.houseid)
+  //   .then((res)=> {
+  //     console.log('status code:', res.status);
+  //     console.log('data:', res.data);
+  //     this.housename = res.data.data.name;
+  //   })
+  // }
+  // created() {
+  //   axios.get('http://10.14.4.42:8080/rule/house/1')
+  //   .then((res)=> {
+  //     console.log('status code:', res.status);
+  //     console.log('data:', res.data);
+  //     this.housename = res.data.data.name;
+  //     // username 필요
+  //   })
+  // }
+
 }
 
 </script>
@@ -219,19 +272,23 @@ export default {
     text-align: left;
     padding: 5px 0 5px 5px;
     border-bottom: 1px solid black;
-    background-color: #268372;
+    /* background-color: #268372; */
   }
   td {
     padding: 5px 0 5px 15px;
     border-bottom: 1px solid black;
+    background-color: #268372;
+    font-family: a고딕15;
+    font-size: 14px;
   }
-  th, td {
+  /* th, td {
     font-size: 14px;
     font-family: a고딕14;
-  }
+  } */
   table {
     border-collapse: collapse;
     width: 100%;
+    /* text-align: center; */
   }
   .rule {
     padding: 0 20px 0 20px;

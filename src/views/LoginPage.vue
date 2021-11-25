@@ -34,7 +34,8 @@ export default {
   data() {
     return {
       // mainserve: "http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com",
-      mainserve: "http://localhost:5000",
+      // mainserve: "http://localhost:5000",
+      mainserve: "http://10.14.4.217:5000",
       loginCheck: 0,
       login: {
         email: '',
@@ -92,7 +93,7 @@ export default {
       .then(( )=> {
         console.log(this.loginCheck)
         console.log(this.user_id)
-        
+
         if(this.loginCheck == 1) {  //설문조사를 했는 지 확인
           axios.get(this.mainserve+'/user/profile/'+this.user_id, {
             headers: { 'X-AUTH-TOKEN': localStorage.getItem('token') }

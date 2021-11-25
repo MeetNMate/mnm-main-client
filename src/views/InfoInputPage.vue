@@ -453,7 +453,7 @@ export default {
               permissionToEnter:'',
           },
           matching_server:{
-              uid:'',
+              id:'',
               sex: '',
               age:'',
               mbti:'',

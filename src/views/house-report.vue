@@ -8,8 +8,11 @@
       <img id="title" src="../assets/assessment_title.png">
     </div>
 
-    <reportlist v-bind:user_name="user_name" v-bind:status="status"></reportlist>
-    <reportlist v-bind:user_name="user_name" v-bind:status="status"></reportlist>
+    <div v-for="(imtes, i) in housereport" :key="i" @click="ReportPage(i)">
+      <reportlist v-bind:user_name="housereport[i].userName" v-bind:status="status"></reportlist>
+    </div>
+    <!-- <reportlist v-bind:user_name="user_name" v-bind:status="status"></reportlist>
+    <reportlist v-bind:user_name="user_name" v-bind:status="status"></reportlist> -->
 
   </div>
 
@@ -21,6 +24,7 @@ import minilogo from '../components/mini-logo.vue'
 import GreenButton from '../components/green-button.vue'
 import navimenu from '../components/navigator.vue'
 import reportlist from '../components/report_list.vue'
+import axios from 'axios'
 
 export default {
   name: 'HouseReport',
@@ -33,11 +37,62 @@ export default {
   },
   data() {
     return {
+      mainserve: "http://10.14.4.217:5000",
       user_name: 'moosongsong',
       status: '<<평가 대기 중...>>',
-      housename: '연희동빨간지붕'
+      housename: '연희동빨간지붕',
+      housereport:[],
+    }
+  },
+  created() {
+    axios.get(this.mainserve + 'user/evaluation/1',
+    { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}})
+    .then((res)=> {
+      console.log('status code:', res.status);
+      console.log('data:', res.data);
+      console.log('data:', res.data.data);
+      this.housereport = res.data.data;
+      console.log('house id:', this.housereport[0].id);
+      console.log('house userName:', this.housereport[0].userName);
+      console.log('house name:', this.housereport[0].name);
+      // console.log('house id:', this.houselist[0].description);
+    })
+  },
+  methods: {
+    ReportPage(i) {
+      this.$router.push({
+        name: 'HouseMemReport',
+        parmas: {houseid: this.houstreport[i].id }
+      })
     }
   }
+  // methods: {
+  //   ReportPage(i) {
+  //     this.$router.push({
+  //       name: 'HouseMemReport',
+  //       params: { houseid: this.housereport[i].id }
+  //       // path: '/auth/house/report'})
+  //   })
+  // },
+  // methods: {
+  //   ReportPage(i) {
+  //     this.$router.push({ path: '/auth/house/report' }),
+  //     // name: 'HouseMemReport',
+  //     // params: {username: this.housereport[i].userName}
+  //     // }
+  //   }
+  // }
+  // created() {
+  //   axios.get('http://10.14.4.42:8080/house')
+  //   .then((res)=> {
+  //     console.log('status code:', res.status);
+  //     console.log('data:', res.data);
+  //     console.log('data.data:', res.data.data);
+  //     this.housename = res.data.data.name;
+  //
+  //
+  //   })
+  // }
 }
 </script>
 
