@@ -48,8 +48,7 @@ export default {
   // },
   data() {
     return {
-      // mainserve: "http://10.14.4.217:5000",
-      mainserve: "http://10.14.5.15:5000",
+      mainserve: "http://localhost:5000",
       Username: 'Soyoung, Seoki, moosongsong',
       housename: '연희동빨간지붕',
       todoItems: [],
