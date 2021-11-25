@@ -9,7 +9,7 @@
     </div>
 
     <reportlist 
-      v-for="(user, i) in userList" 
+      v-for="(user, i) in profileList" 
       :key="i" 
       v-bind:userId="user.id"
       v-bind:userName="user.name" 
@@ -47,20 +47,47 @@ export default {
       user_name: 'moosongsong',
       status: '<<평가 대기 중...>>',
       houseName: '연희동빨간지붕', 
-      userList: []
+      userList: [], 
+      profileList: []
     }
   }, 
-  created() {
-    // 하우스 정보 조회
+  async created() {
+    // 하우스 정보 요청
     axios.get(this.mainserve+'/house/'+this.houseId)
     .then((res) => {
-      console.log("하우스 정보 조회", res.data);
+      console.log("하우스 정보 요청", res.data);
       this.houseName = res.data.data.name;
-      res.data.data.users.forEach((user) => {
-        if (user.id != this.userId) this.userList.push(user); // 본인 제외
-      });
     });
+
+    // 미평가 메이트 요청
+    const res1 = await axios.get(this.mainserve+"/evaluation/"+this.houseId, 
+      { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')} })
+    console.log("미평가 메이트 요청", res1.data);
+    this.userList = res1.data.data;
+
+    if (this.userList.length == 0) {
+      // 하우스 나가기 요청
+      await axios.delete(this.mainserve+"/house/"+this.houseId, {
+        headers: { 'X-AUTH-TOKEN': localStorage.getItem('token') }
+      }).then((res) => {
+        console.log("하우스 나가기 요청", res.data.data);
+        alert("평가를 모두 완료하였습니다.");
+        this.$router.push({name: 'HouseList'});
+      })
+    }
+    else {
+      // 미평가 메이트 프로필 요청
+      this.userList.reduce((previous, current) => {
+        return previous.then(async () => {
+          const res2 = await axios.get(this.mainserve+"/user/profile/"+current.id, 
+            { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')} })
+          console.log("미평가 메이트 프로필 요청", res2.data);
+          this.profileList.push({id: res2.data.data.user.id, name: res2.data.data.name}); 
+        });
+      }, Promise.resolve());
+      console.log(this.profileList);
   }
+    }
 }
 </script>
 
