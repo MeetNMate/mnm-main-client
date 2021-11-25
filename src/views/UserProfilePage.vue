@@ -66,11 +66,14 @@ export default {
       makeChattingRoom: {
         senderUid: localStorage.getItem('uid'), 
         receiverUid: this.uid,
-      }
+      },
+      uid:'',
     }
   },
-  props: ["uid"],
+  // props: ["uid"],
   async created() {
+    this.uid = this.$route.query.uid;
+    console.log('uid:', this.uid);
     // 프로필 정보 로딩
     const res = await axios.get(this.mainserve+'/user/profile/'+ this.uid ,
           { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}});
@@ -120,14 +123,14 @@ export default {
       
       if(res.data.isExisted) this.$router.push({ 
           name: "Chatting",
-          params: {otherid: this.uid, cid: res.data.cid}});
+          query: {otherid: this.uid, cid: res.data.cid}});
       else {
         const res = await axios.post(this.mainserve+ '/user/chattingRoom/make', // 채팅방 생성 요청
               this.makeChattingRoom, 
               { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')} });
         this.$router.push({ 
           name: "Chatting",
-          params: {otherid: this.uid, cid: res.data.chattingRoom.id} 
+          query: {otherid: this.uid, cid: res.data.chattingRoom.id} 
         });
       }
     },

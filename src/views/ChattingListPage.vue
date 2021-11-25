@@ -98,7 +98,7 @@ export default {
     ChatPage(index) { //채팅방 아이디 같이 넘겨주기
         this.$router.push({ 
           name: "Chatting",
-          params: {otherid: this.Room[index].uid, cid:this.ChatRoom[index].id} 
+          query: {otherid: this.Room[index].uid, cid:this.ChatRoom[index].id} 
         })
     },
   }

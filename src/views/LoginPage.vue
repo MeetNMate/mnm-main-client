@@ -73,6 +73,7 @@ export default {
         this.get_res.data = res.data.data;
       })
       .catch(err => {
+        alert("에러가 발생했습니다.");
         console.log(err);
       })
       .then(() => {

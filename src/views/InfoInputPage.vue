@@ -627,6 +627,7 @@ export default {
         }
     },
     onInputImage() {    //이미지 넣기
+        console.log(this.$refs.profileImage.files);
         this.profile.image = this.$refs.profileImage.files[0];
         console.log(this.profile.image);
     },

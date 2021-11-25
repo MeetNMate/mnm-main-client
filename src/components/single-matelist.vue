@@ -35,7 +35,7 @@ export default {
     ProfilePage() {
         this.$router.push({ 
           name: 'UserProfile', 
-          params: { uid: this.uid }
+          query: { uid: this.uid }
         });
     },
     async ChatPage() {
@@ -47,14 +47,14 @@ export default {
             
       if(res.data.isExisted) this.$router.push({ 
           name: "Chatting",
-          params: {otherid: this.uid, cid: res.data.cid}});
+          query: {otherid: this.uid, cid: res.data.cid}});
       else {
         const res = await axios.post(this.mainserve+ '/user/chattingRoom/make', // 채팅방 생성 요청
               this.makeChattingRoom, 
                { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')} });
           this.$router.push({ 
             name: "Chatting",
-            params: {otherid: this.uid, cid: res.data.chattingRoom.id} 
+            query: {otherid: this.uid, cid: res.data.chattingRoom.id} 
           });
        }
     },

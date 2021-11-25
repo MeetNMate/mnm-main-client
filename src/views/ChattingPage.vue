@@ -73,20 +73,24 @@ export default {
         status:'',
         data:'',
       },
+      otherid:'',
+      cid:'',
     }
   },
-  props: {
-    otherid: {
-      type: String,
-      default:'',
-    },
-    cid: {
-      type: String,
-      default:''
-    }
-  },
+  // props: {
+  //   otherid: {
+  //     type: String,
+  //     default:'',
+  //   },
+  //   cid: {
+  //     type: String,
+  //     default:''
+  //   }
+  // },
   created() {
         this.uid = localStorage.getItem('uid'); //uid 가져오기
+        this.otherid = this.$route.query.otherid;
+        this.cid = this.$route.query.cid;
         console.log('my id:', this.uid);
         console.log('other id:', this.otherid);
         console.log('room num:', this.cid);
@@ -206,7 +210,7 @@ export default {
         watchprofile() {
           this.$router.push({ 
           name: 'UserProfile', 
-          params: { uid: this.otherid }
+          query: { uid: this.otherid }
         });
         }
     },
