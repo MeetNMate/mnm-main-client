@@ -18,10 +18,10 @@
 
     <div class="content2">
       <div class="chatting-area">
-        <div class="add-before" v-for="(chat, index) in beforeChat" :key="index">
+        <div class="add-before" v-for="(chat, index) in beforeChat" :key="index"> 
           <PersonChatting v-if="chat.uid != this.uid" v-bind:Time="chat.sendAt"> {{chat.message}} </PersonChatting>
           <UserChatting v-if="chat.uid == this.uid" v-bind:Img="PImage" v-bind:Time="chat.sendAt"> {{chat.message}} </UserChatting>
-        </div>
+        </div> 
         <div class v-for="(item, idx) in recvList" :key="idx">
           <PersonChatting v-if="item.user.id != this.uid" v-bind:Time="item.sendAt" v-bind:Img="PImage"> {{item.message}} </PersonChatting>
           <UserChatting v-if="item.user.id == this.uid" v-bind:Time="item.sendAt" v-bind:Img="PImage"> {{item.message}} </UserChatting>
@@ -60,7 +60,8 @@ export default {
   data() {
     return {
       check: "true",
-      mainserve: 'http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com',
+      // mainserve: 'http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com', 
+      mainserve: "http://localhost:5000",
       uid: '', //내꺼 uid
 //      cid: '5', //방 id
 //      otherid: '1', //상대방 ui
@@ -112,7 +113,7 @@ export default {
           })
           .then((res) => {
             console.log('test1: ',res.data.data);
-            this.beforeChat = res.data.data;
+            this.beforeChat = res.data.data; 
           })
         })
     },
@@ -178,7 +179,7 @@ export default {
         },
         Okay() {  //수락
           this.check = true;
-          axios.post(this.mainserve + '/user/chatting/'+ this.cid +'/accept',
+          axios.post(this.mainserve + '/user/chatting/'+ this.cid +'/accept', 
             { senderUid: this.uid, receiverUid: this.otherid,},
             { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
           )
@@ -188,7 +189,7 @@ export default {
         },
         Sorry() { //거절
           this.check = true;
-          axios.post(this.mainserve + '/user/chatting/'+ this.cid +'/decilne',
+          axios.post(this.mainserve + '/user/chatting/'+ this.cid +'/decline', 
             { senderUid: this.uid, receiverUid: this.otherid,},
             { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
           )
