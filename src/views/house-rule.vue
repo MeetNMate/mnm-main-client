@@ -2,36 +2,43 @@
   <div class="ruletable" id ="change-color">
     <minilogo></minilogo>
     <navimenu></navimenu>
-    <househeader v-bind:housename="housename"></househeader>
+    <househeader v-bind:housename="houseName"></househeader>
     <div class="rule">
       <div id="page_title">
         <img id="title" src="../assets/house_rule_title.png" alt="house rule title">
       <!--<sub-title>HOUSE RULE</sub-title>-->
       </div>
 
-
-
       <!--모달-->
-      <div class="button_group">
-        <rulemodal v-if="modal" @close-modal="modal=false">
+      <div class="button_group"> <!-- v-on:register="register"-->
+        <rulemodal @value="addRule" v-if="modal" @close-modal="modal=false">
         </rulemodal>
-        <span class="add_btn" v-on:click="addRule">
+        <span class="add_btn" @click="modalopen" >
           <img id="btn_add" src="../assets/add_btn.png" alt="add button">
         </span>
-      </div>
 
-      <div class="tables">
-        <table>
-          <tbody>
-            <tr v-for="(row, index) in rows" :key="row">
-              <td class="index">{{ index+1 }}</td>
-              <td>{{ row.rule }}</td>
-              <td><span class="removeBtn" type="button">
-                <i class="far fa-trash-alt" aria-hidden="true"></i>
-              </span></td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="rule_table">
+          <!-- <tablerow v-bind:rows="rows" @removeRule="removeRule"></tablerow> -->
+          <table>
+            <tbody>
+              <tr v-for="(row, index) in rows" :key="index">
+                <td class="index">{{ index+1 }}</td>
+                <td id="content">{{ row.content }}</td>
+                <td><span class="removeBtn" type="button" @click="removeRule(row, index)">
+                  <i class="fas fa-times" aria-hidden="true"></i>
+                </span></td>
+              </tr>
+              <!-- <tr v-for="(addrule, i) in newRow" :key="i"> new row 만들기 대 작전!
+                <td class="index">{{ i+1 }}</td>
+                <td id="content">{{ addrule }}</td>
+                <td><span class="removeBtn" type="button" @click="removeRule(rule, i)">
+                  <i class="fas fa-times" aria-hidden="true"></i>
+                </span></td>
+              </tr> -->
+            </tbody>
+          </table>
+        </div>
+        <!-- <tablerow v-bind:rows="rows" @removeRule="removeRule"></tablerow> -->
       </div>
     </div>
   </div>
@@ -46,6 +53,7 @@ import SubTitle from '../components/sub-title.vue'
 import RedButton from '../components/red-button.vue'
 import editmodal from '../components/common/Modal_3.vue'
 // import tablerow from '../components/table_row.vue'
+import axios from 'axios'
 
 export default {
   name: 'HouseRule',
@@ -61,56 +69,83 @@ export default {
   },
   data() {
     return {
+      mainserve: "http://localhost:5000",
       modal: false,
       ismodal: false,
-      message: [],
-      housename: '연희동빨간지붕',
-      rows: [
-        { rule: '조리 후 바로바로 설거지하기' },
-        { rule: '가스레인지에 흘린 거 바로 치우기' },
-        { rule: '요리하고 환기하기' },
-        { rule: '쓴 재료 제자리에 원위치하기' },
-        { rule: '맛있는건 나눠먹기' },
-        { rule: '친목도모를 위해 주 1회 음주파티 필수 참석' },
-        { rule: '안주는 퇴근하면서 각자 먹고싶은 거 배민으로 주문' },
-        { rule: '직계가족 방문 허용' },
-        { rule: '이성 출입은 사전 협의하기' },
-        { rule:  '외부인의 숙박을 불가능하다' },
-      ]
+      houseName: '연희동빨간지붕',
+      rows: [{
+        id: '', 
+        content: ''
+      }],
+      houseid:'',
+      addrule: {
+          houseId: this.$route.query.houseid,
+          userId: localStorage.getItem('uid'), 
+          rule: '' 
+      }
     }
   },
+  async created() {
+    this.houseid = await this.$route.query.houseid;
+
+    // 하우스 정보 조회
+    axios.get(this.mainserve+'/house/'+this.houseid)
+    .then((res) => {
+      console.log("하우스 정보 조회", res.data);
+      this.houseName = res.data.data.name;
+    });
+
+    // 하우스 룰 조회
+    axios.get(this.mainserve+'/rule/house/'+this.houseid)
+    .then((res)=> {
+      console.log('status code:', res.status);
+      console.log('data:', res.data);
+      let ruleList = res.data.data;
+      let tempList = [];
+      for (let key in ruleList) {
+        tempList.push({id: ruleList[key].id, content: ruleList[key].originalRule});
+      }
+      this.rows = tempList
+      console.log('result:', tempList);
+    });
+  },
   methods: {
-    addRule(message) {
-      this.modal = true;
-      localStorage.setItem(message, message);
-      this.messages.push(message);
+    addRule(value) {
+      // 룰 생성 요청
+      this.addrule.rule = value;
+      axios.post(this.mainserve+'/rule', this.addrule)
+      .then((res)=> {
+        console.log('status code:', res.status);
+        console.log('data:', res.data);
+        this.rows.push({id: res.data.data.id, content: value});
+        localStorage.setItem('value', value);
+      });
     },
-    removeRule(row, index) {
-      this.$emit('removeRule', row, index);
+    modalopen() {
+      this.modal = true;
     },
     closeModal() {
       this.modal = false
     },
-    // editRule() {
-    //   this.modal = true
-    // },
-    cancel_modal() {
-      this.modal = false
+    removeRule(row, index) {
+      // 룰 삭제 요청
+      axios.delete(this.mainserve+"/rule/"+row.id)
+      .then((res) => {
+        console.log("룰 삭제 요청", res.data);
+        localStorage.removeItem(row);
+        this.rows.splice(index, 1);
+      });
     },
-    // register_modal() {
-    //   this.modal = false
+    // register(row) {
+    //   localStorage.setItem(row, row);
+    //   // this.row.push(row);
     // },
-    // delete_modal() {
-    //   this.modal = false
-    // },
-    update_modal() {
-      this.modal = false
-    }
   }
 }
 </script>
 
 <style scoped>
+
   .index {
     background-color: #268372;
     }
@@ -121,12 +156,6 @@ export default {
     background-color: #5BB5B5;
     text-align: left;
   }
-/*
-  .sub-title {
-    font-size: 16px;
-    width: 611px;
-  }
-*/
 .white-button {
   display: block;
   background-color: white;
@@ -153,16 +182,34 @@ export default {
   }
   td {
     padding: 5px 0 5px 15px;
-    border-bottom: 1px solid black;
+    /* border-bottom: 1px solid black; */
   }
   th, td {
     font-size: 14px;
     font-family: a고딕14;
   }
+  tr {
+    text-align: left;
+    border-bottom: 1px solid black;
+
+  }
   table {
     border-collapse: collapse;
     width: 100%;
+    margin-left: auto;
+    margin-right: auto;
   }
+  #content {
+    float: left;
+    padding-left: 5px;
+  }
+  .removeBtn {
+    float: right;
+  }
+  .fas {
+    font-size: 10px;
+  }
+
   .rule {
     padding: 0 20px 0 20px;
   }
