@@ -35,7 +35,7 @@ export default {
     return {
       // mainserve: "http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com",
       // mainserve: "http://localhost:5000",
-      mainserve: "http://10.14.4.217:5000",
+      mainserve: "http://10.14.5.15:5000",
       loginCheck: 0,
       login: {
         email: '',

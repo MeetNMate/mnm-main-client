@@ -36,7 +36,7 @@ export default {
   },
   data() {
     return {
-      mainserve: "http://10.14.4.217:5000",
+      mainserve: "http://10.14.5.15:5000",
       Username: '연희동 빨간지붕',
       simpletext: '웰컴투네오존',
       Imgvalue: '',

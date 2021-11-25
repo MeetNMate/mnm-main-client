@@ -42,7 +42,8 @@ export default {
   data() {
     return {
       // mainserve: 'http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com',
-      mainserve: "http://localhost:5000",
+      // mainserve: "http://localhost:5000",
+      mainserve: "http://10.14.5.15:5000",
       ChatRoom : [],
       User: [{
         name:'',
@@ -65,7 +66,7 @@ export default {
       console.log('res.satate:', res.state);
       console.log('res.data:', res.data);
       console.log('res.data.data:', res.data.data);
-      this.ChatRoom = res.data.data;  //이거 안되면 matelist처럼 변경
+      this.ChatRoom = res.data.data;
     }
     catch(err) {
             console.log(err);

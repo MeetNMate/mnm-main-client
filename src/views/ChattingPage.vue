@@ -2,7 +2,7 @@
   <div class="hole">
     <div class="content1">
         <div class="user-area">
-          <p class="user-name">{{Username}}</p> <!--username을 받아와야 하나-->
+          <p class="user-name">{{Username}}</p>
           <red-button class="profile-bt" @click="watchprofile">profile</red-button>
           <button class="exit" @click="Exitevent">x</button>
         </div>
@@ -15,7 +15,6 @@
           </div>
         </div>
     </div>
-
     <div class="content2">
       <div class="chatting-area">
         <div class="add-before" v-for="(chat, index) in beforeChat" :key="index"> 
@@ -32,7 +31,7 @@
         <red-button class="sub-bt" @click="sendMessage">전송</red-button>
       </div>
     </div>
-
+    <Makehousemodal v-show="show_modal" @input_value="getresponse"></Makehousemodal>
   </div>
 </template>
 
@@ -46,6 +45,7 @@ import UserChatting from '../components/user-chatting.vue'
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
 import axios from 'axios'
+import Makehousemodal from '../components/common/makehouse-modal.vue'
 
 export default {
   name: 'ChattingPage',
@@ -56,25 +56,32 @@ export default {
     Navigator,
     PersonChatting,
     UserChatting,
+    Makehousemodal,
   },
   data() {
     return {
       check: "true",
       // mainserve: 'http://ec2-15-164-40-127.ap-northeast-2.compute.amazonaws.com', 
-      mainserve: "http://localhost:5000",
+      mainserve: "http://10.14.5.15:5000",
       uid: '', //내꺼 uid
-//      cid: '5', //방 id
-//      otherid: '1', //상대방 ui
       recvList: [],
       beforeChat: [],
-      Username: 'test', //상대방의 이름
+      Username: '', //상대방의 이름
       PImage: '',
       respon: {
         status:'',
         data:'',
       },
-      otherid:'',
-      cid:'',
+      otherid:'', //상대방 id
+      cid:'', //방 id
+      MakeHouse: {
+        capacity: '',
+        location: '',
+        name: '',
+        description:'',
+        chattingRoomId:'',
+      },
+      show_modal: false,
     }
   },
   // props: {
@@ -178,17 +185,50 @@ export default {
             { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
           )
           .then((res) => {
-            console.log("data", res.data);  //이거 내용 확인하고 alert로 띄우기
+           if(res.response == "failed") {
+              alert(res.data);
+            }
           })
         },
         Okay() {  //수락
           this.check = true;
+          this.show_modal = true;
+
           axios.post(this.mainserve + '/user/chatting/'+ this.cid +'/accept', 
             { senderUid: this.uid, receiverUid: this.otherid,},
             { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
           )
           .then((res) => {
-            console.log("data", res.data);  //이거 내용 확인하고 alert로 띄우기
+            console.log(res.data);
+            if(res.response == "success") {
+              console.log(res.response);
+            }
+          })
+        },
+        getresponse(input_value) {
+          this.show_modal = false;
+          
+          this.MakeHouse.name = input_value.housename;
+          this.MakeHouse.description = input_value.housedescription;
+          this.MakeHouse.location = input_value.location;
+          this.MakeHouse.capacity = input_value.capacity;
+          this.MakeHouse.chattingRoomId=this.cid;
+
+          console.log("name:", this.MakeHouse.name);
+          console.log("description:", this.MakeHouse.description);
+          console.log("location:", this.MakeHouse.location);
+          console.log("capacity:", this.MakeHouse.capacity);
+          console.log("Id:", this.MakeHouse.chattingRoomId);
+
+          axios.post(this.mainserve+'/house', this.MakeHouse, 
+          { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
+          )
+          .then((res2) => {
+            console.log("make house res:", res2.data);
+            // this.$router.push({ path: '/auth/house/list'});
+            alert("하우스가 생성되었습니다!");
+            this.message = "하우스가 생성되었대요!";
+            this.sendMessage();
           })
         },
         Sorry() { //거절
