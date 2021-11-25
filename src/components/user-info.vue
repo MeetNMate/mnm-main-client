@@ -6,6 +6,7 @@
     <p class="user_info" id="age">나이: {{ age }}</p>
     <p class="user_info" id="MBTI">MBTI: {{ MBTI }}</p>
     <p class="user_info" id="smoking">흡연 여부: {{ smoking }}</p>
+    <p class="user_info" id="bug">음식: {{ cooking }}</p>
     <p class="user_info" id="with_pet">반려동물 유무: {{ with_pet }}</p>
     <p class="user_info" id="bug">벌레: {{ bug }}</p>
     <!-- <p class="user_info">성별: </p>
@@ -40,7 +41,8 @@ export default {
     MBTI: String,
     smoking: String,
     with_pet: String,
-    bug: String
+    bug: String, 
+    cooking: String
   }
 }
 </script>
@@ -51,7 +53,7 @@ export default {
     border-radius: 5px;
     width: 280px;
     text-align: left;
-    padding-left: 7px;
+    padding: 2px 7px;
     margin-bottom: 7px;
     border: 2px solid black;
     margin-left: auto;

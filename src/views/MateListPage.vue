@@ -80,7 +80,15 @@ export default {
         const res1 = await axios.get(this.mainserve+'/user/profile/'+current ,
           { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
         );
-        this.userRes[i] = res1.data.data;
+        this.userRes[i] = await res1.data.data;
+
+        // 프로필 이미지 로딩
+        const res2 = await axios.get(this.mainserve+'/user/image/', {
+              params: { imagePath: this.userRes[i].image },
+              headers: { 'X-AUTH-TOKEN': localStorage.getItem('token') },
+              timeout: 1000 // 1초 이내에 응답이 없으면 에러 처리
+        });
+        this.userRes[i].image = "data:image/jpg;base64,"+res2.data.data;
       });
     }, Promise.resolve());
     console.log(this.userRes);
