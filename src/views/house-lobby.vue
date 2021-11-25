@@ -51,8 +51,11 @@ export default {
       mainserve: "http://localhost:5000",
       Username: 'Soyoung, Seoki, moosongsong',
       housename: '연희동빨간지붕',
-      todoItems: [],
-      Itemnum:0,
+      todoItems: [{
+        id: '', 
+        content: ''
+      }],
+      itemNum:0,
       location: '광야로 걸어가 알아 니 홈그라운드~',
       // todolist: '거실청소(무송)'
       houseid:'',
@@ -70,7 +73,6 @@ export default {
   },
   methods: {
     // addMate() {
-    //   console.log();
     // },
     clearAll() {
       localStorage.clear();
@@ -87,11 +89,18 @@ export default {
       console.log('status code:', res.status);
       console.log('data:', res.data);
       // 값 지정
-      await this.todoItems.push(todoItem +` (${this.userName})`);
+      await this.todoItems.push({id: res.data.id, content: todoItem +` (${this.userName})`});
+      console.log(this.todoItems);
     },
     removeTodo(todoItem, index) {
-      localStorage.removeItem(todoItem);
+      // 페이지에서 롤 삭제
       this.todoItems.splice(index, 1);
+
+      // 롤 삭제 요청
+      axios.delete(this.mainserve+'/role/'+todoItem.id) 
+      .then(res=> {
+        console.log('success:', res.data);
+      });
     },
     move_houserule() {
       this.$router.push({
@@ -108,14 +117,17 @@ export default {
     this.userid = localStorage.getItem('uid');
     console.log('house id:', this.houseid);
     console.log('user id:', this.userid);
+
+    // 하우스 정보 요청
     const houseRes = await axios.get(this.mainserve + '/house/'+ this.houseid,
       { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}});
     console.log('status code:', houseRes.status);
-    console.log('data:=============', houseRes.data);
+    console.log('data:', houseRes.data);
     this.housename = houseRes.data.data.name;
     this.content = houseRes.data.data.description;
     this.location = houseRes.data.data.location;
     let userList =  houseRes.data.data.users;
+
     let tempStr = ' ';
     for(let key in userList) {
       if (userList[key].id == this.userid) this.userName = userList[key].name;
@@ -127,16 +139,17 @@ export default {
     }
     this.Username = tempStr;
     console.log('result:', tempStr);
+
+    // 하우스 롤 요청
     const roleRes = await axios.get(this.mainserve + '/role/house/'+ this.houseid)
     const getData = roleRes.data.data;
     let tempList = [];
     for(let key in getData){
-      let tempStr = ` ${getData[key].role} (${getData[key].userName})`;
-      tempList.push(tempStr);
+      tempList.push({id: getData[key].id, content: ` ${getData[key].role} (${getData[key].userName})`});
     }
-    this.todoItems = tempList
-    console.log(tempList);
-    this.Itemnum = this.todoItems.length-1; // 처음부터 크기로 지정
+    this.todoItems = tempList;
+    this.itemNum = this.todoItems.length-1; // 처음부터 크기로 지정
+    console.log(tempList, this.todoItems, this.itemNum);
   }
 }
 </script>
