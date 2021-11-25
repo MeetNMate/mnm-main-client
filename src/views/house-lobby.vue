@@ -29,6 +29,7 @@ import explanation from '../components/lobby-explain.vue'
 import todolist from '../components/todolist.vue'
 import todoinput from '../components/todoinput.vue'
 import axios from 'axios'
+
 export default {
   name: 'HouseLobby',
   components: {
@@ -84,6 +85,7 @@ export default {
       this.Send.houseId = await this.houseid;
       this.Send.userId = await this.userid;
       console.log(todoItem);
+      console.log(this.Send);
       // 호출
       const res = await axios.post(this.mainserve + '/role/', this.Send);
       console.log('status code:', res.status);
@@ -106,10 +108,13 @@ export default {
       this.$router.push({
         name: 'HouseRule',
         query: {houseid: this.houseid}
-      })
+      });
     },
     leave_house() {
-        this.$router.push({ path: 'report'})
+      this.$router.push({
+        name: 'HouseReport',
+        query: {houseid: this.houseid}
+      });
     },
   },
   async created() {

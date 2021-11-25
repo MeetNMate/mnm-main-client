@@ -2,14 +2,19 @@
   <div class="report" id ="change-color">
     <minilogo></minilogo>
     <navimenu></navimenu>
-    <househeader v-bind:housename="housename"></househeader>
+    <househeader v-bind:housename="houseName"></househeader>
 
     <div id="page_title">
       <img id="title" src="../assets/assessment_title.png">
     </div>
 
-    <reportlist v-bind:user_name="user_name" v-bind:status="status"></reportlist>
-    <reportlist v-bind:user_name="user_name" v-bind:status="status"></reportlist>
+    <reportlist 
+      v-for="(user, i) in userList" 
+      :key="i" 
+      v-bind:userName="user.name" 
+      v-bind:status="status"
+      v-bind:houseName="houseName"
+    ></reportlist>
 
   </div>
 
@@ -21,6 +26,7 @@ import minilogo from '../components/mini-logo.vue'
 import GreenButton from '../components/green-button.vue'
 import navimenu from '../components/navigator.vue'
 import reportlist from '../components/report_list.vue'
+import axios from 'axios'
 
 export default {
   name: 'HouseReport',
@@ -33,10 +39,25 @@ export default {
   },
   data() {
     return {
+      mainserve: "http://localhost:5000",
+      houseId: this.$route.query.houseid,
+      userId: localStorage.getItem('uid'),
       user_name: 'moosongsong',
       status: '<<평가 대기 중...>>',
-      housename: '연희동빨간지붕'
+      houseName: '연희동빨간지붕', 
+      userList: []
     }
+  }, 
+  created() {
+    // 하우스 정보 조회
+    axios.get(this.mainserve+'/house/'+this.houseId)
+    .then((res) => {
+      console.log("하우스 정보 조회", res.data);
+      this.houseName = res.data.data.name;
+      res.data.data.users.forEach((user) => {
+        if (user.id != this.userId) this.userList.push(user); // 본인 제외
+      });
+    });
   }
 }
 </script>

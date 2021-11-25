@@ -2,7 +2,7 @@
   <div class="report_mem" id ="change-color">
     <minilogo></minilogo>
     <navimenu></navimenu>
-    <househeader v-bind:housename="housename"></househeader>
+    <househeader v-bind:housename="houseName"></househeader>
 
     <div id="page_title">
       <img id="title" src="../assets/assessment_title.png">
@@ -10,115 +10,53 @@
 
     <div class="profile">
       <img id="profile_img" src="../assets/profile_2.png">
-      <p id="user_name">seoki</p>
+      <p id="user_name">{{this.userName}}</p>
     </div>
 
     <div class="change-part">
       <div v-if="number === 1">
-        <!-- <div class="rule_table"> -->
-          <table>
-            <tr>
-              <th id="first_rule">1. 요리를 할때는...</th>
-            </tr>
-            <tr>
-              <td>1-1. 조리 후 바로바로 설거지하기</td>
-            </tr>
-            <tr>
-              <Rating :grade="0" :maxStars="5" :hasCounter="true" />
-            </tr>
-            <tr>
-              <td>1-2. 가스레인지에 흘린 거 바로 치우기</td>
-            </tr>
-            <tr>
-              <Rating :grade="0" :maxStars="5" :hasCounter="true" />
-            </tr>
-            <tr>
-              <td>1-3. 요리하고 환기하기</td>
-            </tr>
-            <tr>
-              <Rating :grade="0" :maxStars="5" :hasCounter="true" />
-            </tr>
-            <tr>
-              <td>1-4. 쓴 재료 제자리에 원위치하기</td>
-            </tr>
-            <tr>
-              <Rating :grade="0" :maxStars="5" :hasCounter="true" />
-            </tr>
-            <tr>
-              <td>1-5. 맛있는건 나눠먹기</td>
-            </tr>
-            <tr>
-              <Rating :grade="0" :maxStars="5" :hasCounter="true" />
-            </tr>
-          </table>
+        <table>
+          <tr>
+            <td>
+              하우스 룰을 잘 지켰나요?
+            </td>
+          </tr>
+          <tr>
+            <Rating :grade="0" :maxStars="5" :hasCounter="true" />
+          </tr>
+          <tr>
+            <td>
+              하우스 Todo List를 잘 수행했나요?
+            </td>
+          </tr>
+          <tr>
+            <Rating :grade="0" :maxStars="5" :hasCounter="true" />
+          </tr>
+          <tr>
+            <td>
+              같이 지내는데 큰 불편함은 없었나요?
+            </td>
+          </tr>
+          <tr>
+            <Rating :grade="0" :maxStars="5" :hasCounter="true" />
+          </tr>
+        </table>
       </div>
 
       <div v-else-if="number === 2">
-        <table>
-          <tr>
-            <th>2. 우리들의 음주문화!</th>
-          </tr>
-          <tr>
-            <td>2-1. 친목도모를 위해 주 1회 음주파티 필수 참석</td>
-          </tr>
-          <tr>
-            <Rating :grade="0" :maxStars="5" :hasCounter="true" />
-          </tr>
-          <tr>
-            <td>2-2. 안주는 퇴근하면서 각자 먹고싶은 거 배민으로 주문</td>
-          </tr>
-          <tr>
-            <Rating :grade="0" :maxStars="5" :hasCounter="true" />
-          </tr>
-          <tr>
-            <td>2-3. 외부인 초대 가능</td>
-          </tr>
-          <tr>
-            <Rating :grade="0" :maxStars="5" :hasCounter="true" />
-          </tr>
-        </table>
-      </div>
-
-      <div v-else-if="number === 3">
-        <table>
-          <tr>
-            <th>3. 외부인 관련</th>
-          </tr>
-          <tr>
-            <td>3-1. 직계가족 방문 허용</td>
-          </tr>
-          <tr>
-            <Rating :grade="0" :maxStars="5" :hasCounter="true" />
-          </tr>
-          <tr>
-            <td>3-2. 이성 출입은 사전 협의하기</td>
-          </tr>
-          <tr>
-            <Rating :grade="0" :maxStars="5" :hasCounter="true" />
-          </tr>
-          <tr>
-            <td>3-3. 외부인의 숙박을 불가능하다</td>
-          </tr>
-          <tr>
-            <Rating :grade="0" :maxStars="5" :hasCounter="true" />
-          </tr>
-        </table>
-      </div>
-
-      <div v-else-if="number === 4">
         <div class="ask_user">
-          <p id="question_user">연희동빨간지붕 HOUSE에서 seoki 님과 함께 한 시간은 어땠나요?</p>
+          <p id="question_user">{{ this.houseName }} HOUSE에서 "{{ this.userName }}"님과 함께 한 시간은 어땠나요?</p>
           <textarea v-model="message1" rows="8"></textarea>
         </div>
-        <reportmodal v-if="modal" @close-modal="modal=false">
+        <reportmodal v-if="modal" @close-modal="modal=false">{{ this.userName }}
         </reportmodal>
       </div>
     </div>
 
     <div class="button-group">
       <red-button class="white-button prevB" v-if="number != 1" @click="PrevBtn">previous</red-button>
-      <red-button class="white-button nextB" v-if="number != 4" @click="NextBtn">next</red-button>
-      <red-button class="white-button finishB" v-if="number === 4" @click="SubmitBtn">finish!</red-button>
+      <red-button class="white-button nextB" v-if="number != 2" @click="NextBtn">next</red-button>
+      <red-button class="white-button finishB" v-if="number === 2" @click="SubmitBtn">finish!</red-button>
     </div>
   </div>
 </template>
@@ -130,6 +68,7 @@ import Rating from '../components/Rating.vue'
 import RedButton from '../components/red-button.vue'
 import reportmodal from '../components/common/Modal_2.vue'
 import navimenu from '../components/navigator.vue'
+// import axios from 'axios'
 
 
 export default {
@@ -141,25 +80,30 @@ export default {
     RedButton,
     reportmodal,
     navimenu,
-    },
-    methods: {
-      PrevBtn() {
-        this.number--;
-      },
-      NextBtn() {
-        this.number++;
-      },
-      SubmitBtn() {
-        this.modal = true;
-      }
-    },
+  },
   data() {
     return {
+      houseName: this.$route.query.houseName, 
+      userName: this.$route.query.userName, 
       number: 1,
       modal: false,
       message1: "",
-      housename: '연희동빨간지붕'
     }
+  },
+  created() {
+    console.log(this.userName, this.houseName);
+  },
+  methods: {
+    PrevBtn() {
+      this.number--;
+    },
+    NextBtn() {
+      this.number++;
+    },
+    SubmitBtn() {
+      this.modal = true;
+    },
+
   }
 }
 
@@ -219,19 +163,23 @@ export default {
     text-align: left;
     padding: 5px 0 5px 5px;
     border-bottom: 1px solid black;
-    background-color: #268372;
+    /* background-color: #268372; */
   }
   td {
     padding: 5px 0 5px 15px;
     border-bottom: 1px solid black;
+    background-color: #268372;
+    font-family: a고딕15;
+    font-size: 14px;
   }
-  th, td {
+  /* th, td {
     font-size: 14px;
     font-family: a고딕14;
-  }
+  } */
   table {
     border-collapse: collapse;
     width: 100%;
+    /* text-align: center; */
   }
   .rule {
     padding: 0 20px 0 20px;
