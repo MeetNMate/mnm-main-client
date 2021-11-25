@@ -3,7 +3,7 @@
     <div class="content1">
         <div class="user-area">
           <p class="user-name">{{Username}}</p> <!--username을 받아와야 하나-->
-          <red-button class="profile-bt">profile</red-button>
+          <red-button class="profile-bt" @click="watchprofile">profile</red-button>
           <button class="exit" @click="Exitevent">x</button>
         </div>
         <div class="button-area">
@@ -202,6 +202,12 @@ export default {
         },
         response() {
           this.check = false;
+        },
+        watchprofile() {
+          this.$router.push({ 
+          name: 'UserProfile', 
+          params: { uid: this.otherid }
+        });
         }
     },
 

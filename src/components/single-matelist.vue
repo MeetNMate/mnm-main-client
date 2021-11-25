@@ -24,7 +24,11 @@ export default {
   props: ["name", "age", "uid", "image"],
   data () {
     return {
-      myid:'',
+      mainserve: "http://localhost:5000",
+      makeChattingRoom: {
+        senderUid: localStorage.getItem('uid'), 
+        receiverUid: this.uid,
+      }
     }
   },
   methods: {
@@ -34,33 +38,27 @@ export default {
           params: { uid: this.uid }
         });
     },
-    ChatPage() {
-      this.myid = localStorage.getItem('uid'); 
-        //get으로 방 있는 지 확인 후에, 방 없으면 방만들기, 방 있으면 채팅방으로 이동    
-        axios.get('http://192.168.0.118:5050/chattingRoom/exist', {
-          params: { senderUid: this.myid, receiverUid: this.uid}
-        })
-        .then((res) => {
-          console.log("data:", res.data); 
-          if(res.data == true) {  //방이 이미 존재하면
-//            this.$router.push({ path: '/auth/chatting'})
-            this.$router.push({ 
-              name: "Chatting",
-              params: {otherid: this.uid, cid:this.id}  //res.data까보고 방id 있는 지 확인해서 집어넣기 
-            })
-          }
-          else {
-            axios.post('http://192.168.0.118:5050/chat', {  //방만들기
-              senderUid: this.myid, 
-              receiverUid: this.uid,
-            })
-            .then((res) => {
-              console.log("data", res.data);  //확인하고 방id 얻은다음에 넘어가기..
-            })
-              }
-            })
-          },
-      },
+    async ChatPage() {
+      const res = await axios.get(this.mainserve+ '/user/chattingRoom/exist', // 채팅방 유무 조회 요청
+      {
+        params: this.makeChattingRoom, 
+        headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}
+      });
+            
+      if(res.data.isExisted) this.$router.push({ 
+          name: "Chatting",
+          params: {otherid: this.uid, cid: res.data.cid}});
+      else {
+        const res = await axios.post(this.mainserve+ '/user/chattingRoom/make', // 채팅방 생성 요청
+              this.makeChattingRoom, 
+               { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')} });
+          this.$router.push({ 
+            name: "Chatting",
+            params: {otherid: this.uid, cid: res.data.chattingRoom.id} 
+          });
+       }
+    },
+  },
 };
 </script>
 

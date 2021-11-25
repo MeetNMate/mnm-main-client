@@ -453,7 +453,7 @@ export default {
               permissionToEnter:'',
           },
           matching_server:{
-              id:'',
+              uid:'',
               sex: '',
               age:'',
               mbti:'',
@@ -622,8 +622,7 @@ export default {
             alert("답을 안한 질문이 있습니다!"); return;
         }
         else {  //대답을 다 했으면
-            // this.matching_server.id = localStorage.getItem('uid');   둘중 뭔지 선택
-            // this.matching_server.uid = localStorage.getItem('uid');
+            this.matching_server.uid = localStorage.getItem('uid');
             this.show_modal = true;
         }
     },
