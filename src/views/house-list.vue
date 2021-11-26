@@ -24,7 +24,6 @@ import listyoso from '../components/list-yoso.vue'
 import GreenButton from '../components/green-button.vue'
 import SubTitle from '../components/sub-title.vue'
 import axios from 'axios'
-
 export default {
   name: 'HouseList',
   components: {
@@ -36,7 +35,8 @@ export default {
   },
   data() {
     return {
-      mainserve: "http://10.14.5.15:5000",
+      // mainserve: "http://10.14.4.217:5000",
+      mainserve: "http://localhost:5000",
       Username: '연희동 빨간지붕',
       simpletext: '웰컴투네오존',
       Imgvalue: '',
@@ -89,15 +89,12 @@ export default {
     width: 89px;
     height: 28px;
 } */
-
 .button-area {
     justify-content: space-around;
 }
-
 .list-single {
   display: block;
 }
-
 .back-image {
   background-image: url("../assets/backline_image.png");
   background-size: 100%;
@@ -106,12 +103,10 @@ export default {
 .content1 {
   padding-bottom: 10px;
 }
-
 .content2 {
   padding-top: 12px;
   padding-bottom: 10px;
 }
-
 @media screen and (min-width: 1025px) {
   #houselist {
     height: 115vh;

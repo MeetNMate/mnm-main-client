@@ -49,11 +49,14 @@ export default {
   // },
   data() {
     return {
-      mainserve: "http://10.14.4.217:5000",
+      mainserve: "http://localhost:5000",
       Username: 'Soyoung, Seoki, moosongsong',
       housename: '연희동빨간지붕',
-      todoItems: [],
-      Itemnum:0,
+      todoItems: [{
+        id: '', 
+        content: ''
+      }],
+      itemNum:0,
       location: '광야로 걸어가 알아 니 홈그라운드~',
       // todolist: '거실청소(무송)'
       houseid:'',
@@ -71,7 +74,6 @@ export default {
   },
   methods: {
     // addMate() {
-    //   console.log();
     // },
     clearAll() {
       localStorage.clear();
@@ -82,30 +84,37 @@ export default {
       this.Send.role = await todoItem;
       this.Send.houseId = await this.houseid;
       this.Send.userId = await this.userid;
-
       console.log(todoItem);
-
+      console.log(this.Send);
       // 호출
       const res = await axios.post(this.mainserve + '/role/', this.Send);
       console.log('status code:', res.status);
       console.log('data:', res.data);
-
       // 값 지정
-      await this.todoItems.push(todoItem +` (${this.userName})`);
+      await this.todoItems.push({id: res.data.id, content: todoItem +` (${this.userName})`});
+      console.log(this.todoItems);
     },
     removeTodo(todoItem, index) {
-
-      localStorage.removeItem(todoItem);
+      // 페이지에서 롤 삭제
       this.todoItems.splice(index, 1);
+
+      // 롤 삭제 요청
+      axios.delete(this.mainserve+'/role/'+todoItem.id) 
+      .then(res=> {
+        console.log('success:', res.data);
+      });
     },
     move_houserule() {
       this.$router.push({
         name: 'HouseRule',
         query: {houseid: this.houseid}
-      })
+      });
     },
     leave_house() {
-        this.$router.push({ path: 'report'})
+      this.$router.push({
+        name: 'HouseReport',
+        query: {houseid: this.houseid}
+      });
     },
   },
   async created() {
@@ -114,11 +123,11 @@ export default {
     console.log('house id:', this.houseid);
     console.log('user id:', this.userid);
 
+    // 하우스 정보 요청
     const houseRes = await axios.get(this.mainserve + '/house/'+ this.houseid,
       { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}});
     console.log('status code:', houseRes.status);
-    console.log('data:=============', houseRes.data);
-
+    console.log('data:', houseRes.data);
     this.housename = houseRes.data.data.name;
     this.content = houseRes.data.data.description;
     this.location = houseRes.data.data.location;
@@ -136,17 +145,16 @@ export default {
     this.Username = tempStr;
     console.log('result:', tempStr);
 
+    // 하우스 롤 요청
     const roleRes = await axios.get(this.mainserve + '/role/house/'+ this.houseid)
     const getData = roleRes.data.data;
     let tempList = [];
     for(let key in getData){
-      let tempStr = ` ${getData[key].role} (${getData[key].userName})`;
-      tempList.push(tempStr);
+      tempList.push({id: getData[key].id, content: ` ${getData[key].role} (${getData[key].userName})`});
     }
-    this.todoItems = tempList
-    console.log(tempList);
-
-    this.Itemnum = this.todoItems.length-1; // 처음부터 크기로 지정
+    this.todoItems = tempList;
+    this.itemNum = this.todoItems.length-1; // 처음부터 크기로 지정
+    console.log(tempList, this.todoItems, this.itemNum);
   }
 }
 </script>
@@ -193,7 +201,6 @@ export default {
   #explanation {
     font-family: a고딕19;
   }
-
   #mate_add {
     width: 19px;
     height: 19px;
@@ -203,7 +210,6 @@ export default {
     cursor: pointer;
   }
 /** 프로필 이미지 겹치기 끝 **/
-
   @media screen and (min-width: 768px) and (max-width: 1024px){
     #house_pic {
       width: 470px;
@@ -216,7 +222,6 @@ export default {
       display: none;
     }
   }
-
   @media screen and (min-width: 1025px) {
     #house_pic {
       width: 470px;

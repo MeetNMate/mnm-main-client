@@ -2,17 +2,21 @@
   <div class="report" id ="change-color">
     <minilogo></minilogo>
     <navimenu></navimenu>
-    <househeader v-bind:housename="housename"></househeader>
+    <househeader v-bind:housename="houseName"></househeader>
 
     <div id="page_title">
       <img id="title" src="../assets/assessment_title.png">
     </div>
 
-    <div v-for="(imtes, i) in housereport" :key="i" @click="ReportPage(i)">
-      <reportlist v-bind:user_name="housereport[i].userName" v-bind:status="status"></reportlist>
-    </div>
-    <!-- <reportlist v-bind:user_name="user_name" v-bind:status="status"></reportlist>
-    <reportlist v-bind:user_name="user_name" v-bind:status="status"></reportlist> -->
+    <reportlist 
+      v-for="(user, i) in profileList" 
+      :key="i" 
+      v-bind:userId="user.id"
+      v-bind:userName="user.name" 
+      v-bind:status="status"
+      v-bind:houseName="houseName"
+      v-bind:houseId="houseId"
+    ></reportlist>
 
   </div>
 
@@ -37,62 +41,53 @@ export default {
   },
   data() {
     return {
-      mainserve: "http://10.14.4.217:5000",
+      mainserve: "http://localhost:5000",
+      houseId: this.$route.query.houseid,
+      userId: localStorage.getItem('uid'),
       user_name: 'moosongsong',
       status: '<<평가 대기 중...>>',
-      housename: '연희동빨간지붕',
-      housereport:[],
+      houseName: '연희동빨간지붕', 
+      userList: [], 
+      profileList: []
     }
-  },
-  created() {
-    axios.get(this.mainserve + 'user/evaluation/1',
-    { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}})
-    .then((res)=> {
-      console.log('status code:', res.status);
-      console.log('data:', res.data);
-      console.log('data:', res.data.data);
-      this.housereport = res.data.data;
-      console.log('house id:', this.housereport[0].id);
-      console.log('house userName:', this.housereport[0].userName);
-      console.log('house name:', this.housereport[0].name);
-      // console.log('house id:', this.houselist[0].description);
-    })
-  },
-  methods: {
-    ReportPage(i) {
-      this.$router.push({
-        name: 'HouseMemReport',
-        parmas: {houseid: this.houstreport[i].id }
+  }, 
+  async created() {
+    // 하우스 정보 요청
+    axios.get(this.mainserve+'/house/'+this.houseId)
+    .then((res) => {
+      console.log("하우스 정보 요청", res.data);
+      this.houseName = res.data.data.name;
+    });
+
+    // 미평가 메이트 요청
+    const res1 = await axios.get(this.mainserve+"/evaluation/"+this.houseId, 
+      { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')} })
+    console.log("미평가 메이트 요청", res1.data);
+    this.userList = res1.data.data;
+
+    if (this.userList.length == 0) {
+      // 하우스 나가기 요청
+      await axios.delete(this.mainserve+"/house/"+this.houseId, {
+        headers: { 'X-AUTH-TOKEN': localStorage.getItem('token') }
+      }).then((res) => {
+        console.log("하우스 나가기 요청", res.data.data);
+        alert("평가를 모두 완료하였습니다.");
+        this.$router.push({name: 'HouseList'});
       })
     }
+    else {
+      // 미평가 메이트 프로필 요청
+      this.userList.reduce((previous, current) => {
+        return previous.then(async () => {
+          const res2 = await axios.get(this.mainserve+"/user/profile/"+current.id, 
+            { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')} })
+          console.log("미평가 메이트 프로필 요청", res2.data);
+          this.profileList.push({id: res2.data.data.user.id, name: res2.data.data.name}); 
+        });
+      }, Promise.resolve());
+      console.log(this.profileList);
   }
-  // methods: {
-  //   ReportPage(i) {
-  //     this.$router.push({
-  //       name: 'HouseMemReport',
-  //       params: { houseid: this.housereport[i].id }
-  //       // path: '/auth/house/report'})
-  //   })
-  // },
-  // methods: {
-  //   ReportPage(i) {
-  //     this.$router.push({ path: '/auth/house/report' }),
-  //     // name: 'HouseMemReport',
-  //     // params: {username: this.housereport[i].userName}
-  //     // }
-  //   }
-  // }
-  // created() {
-  //   axios.get('http://10.14.4.42:8080/house')
-  //   .then((res)=> {
-  //     console.log('status code:', res.status);
-  //     console.log('data:', res.data);
-  //     console.log('data.data:', res.data.data);
-  //     this.housename = res.data.data.name;
-  //
-  //
-  //   })
-  // }
+    }
 }
 </script>
 

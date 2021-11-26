@@ -3,7 +3,7 @@
     <transition-group name="list" tag="ul">
       <li v-for="(todoItem, index) in todoItems" :key="todoItem" class="shadow">
         <!-- <i class="checkBtn far fa-heart" aria-hidden="true"></i> -->
-        {{ todoItem }}
+        {{ todoItem.content }}
         <span class="removeBtn" type="button" @click="removeTodo(todoItem,index)">
           <i class="far fa-trash-alt" aria-hidden="true"></i>
         </span>

@@ -26,7 +26,7 @@
         <footer class="footer_btn">
           <div class="button-group">
             <green-button class="new-button cancelB" @click="$emit('close-modal')">취소</green-button>
-            <green-button class="new-button registerB" @click="$emit('close-modal'); register">등록하기</green-button>
+            <green-button class="new-button registerB" @click="register(); $emit('close-modal');">등록하기</green-button>
           </div>
         </footer>
       </table>
@@ -45,20 +45,12 @@ import GreenButton from '../../components/green-button.vue'
     },
     data() {
       return {
-        value: "",
-        // newRule: {
-        //   houseid: "",
-        //   userid: "",
-        //   rule: "",
-        //   upperNum: "",
-        //   lowerNum: "",
-        // }
+        value: ''
       }
     },
     methods: {
       register() {
         this.$emit("value", this.value);
-      
       },
       clearInput() {
         this.value = '';

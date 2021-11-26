@@ -8,7 +8,7 @@
             </p>
         </div>
         <div class= "sub-content" id="non-click">
-            <p class="time">{{this.hour}}:{{this.min}}</p>
+            <p class="time">{{this.month}}-{{this.date}} {{this.hour}}:{{this.min}}</p>
             <button class="no-read">{{num}}</button>
         </div>
     </div>
@@ -25,6 +25,8 @@ export default {
   },
   data() {
       return {
+        month: '', 
+        date: '',
         hour:'',
         min:'',
       }
@@ -32,6 +34,8 @@ export default {
   created() {
     const sendAt = this.LastTime;
     const date = new Date(sendAt); // Date 형식으로 변환
+    this.month = date.getMonth()+1;
+    this.date = date.getDate();
     this.hour = date.getHours();
     this.min = date.getMinutes();
   },

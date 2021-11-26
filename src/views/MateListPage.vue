@@ -4,8 +4,8 @@
   <div>
     <div class="content1">
         <sub-title>MATE LIST</sub-title>
-        <p class="sub-text"> 매칭 알고리즘을 기반으로 {{Username}}님께 추천된 메이트 목록입니다.<br>
-        모두들 {{Username}}님의 연락을 기다리고 있어요.<br> 
+        <p class="sub-text"> 매칭 알고리즘을 기반으로 "{{this.userName}}"님께 추천된 메이트 목록입니다.<br>
+        모두들 "{{this.userName}}"님의 연락을 기다리고 있어요.<br> 
         chat! 버튼을 눌러 메이트와 연락해보세요!
         </p>
     </div>
@@ -13,14 +13,10 @@
       <div class="content2">
         <div class="list-single" v-for="(info, i) in userRes" :key="i">
           <SingleMatelist v-bind:name="info.name" v-bind:age="info.age" 
-          v-bind:uid="info.uid" v-bind:image="info.image">
-          {{info.message}}</SingleMatelist>
+          v-bind:uid="info.user.id" v-bind:image="info.image">
+          {{info.description}}</SingleMatelist>
         </div>
       </div>
-      <!-- <div class="button-area">
-        <green-button>previous</green-button>
-        <green-button>next</green-button>
-      </div> -->
     </div>
   </div>
 </template>
@@ -57,29 +53,45 @@ export default {
         status:'',
         data:'',
       },
-      test:10,
       obj:'',
       result: [],
+      userName: ''
     }
   },
   async created() {
-    this.test = await localStorage.getItem('uid');
+    // 사용자 프로필 요청
+    axios.get(this.mainserve+'/user/profile/'+localStorage.getItem('uid') ,
+          { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
+    ).then((res) => {
+      console.log(res.data);
+      this.userName = res.data.data.name;
+    });
 
-    const res = await axios.post(this.matchingserve+'/results/' + localStorage.getItem('uid'))
+    // 매칭 수행 및 결과 요청
+    const res = await axios.post(this.matchingserve+'/results/'+localStorage.getItem('uid'))
     this.response.status = await res.status;
     this.response.data = await res.data;
     this.result = await this.response.data.split(",");
-
     console.log(this.result);
 
+    // 매칭 된 메이트 프로필 요청
     this.result.reduce((previous, current, i) => {
       return previous.then(async () => {
-        const res1 = await axios.get(this.mainserve+'/user/profile/'+ current ,
+        const res1 = await axios.get(this.mainserve+'/user/profile/'+current ,
           { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
         );
-        this.userRes[i] = res1.data.data;
+        this.userRes[i] = await res1.data.data;
+
+        // 프로필 이미지 로딩
+        const res2 = await axios.get(this.mainserve+'/user/image/', {
+              params: { imagePath: this.userRes[i].image },
+              headers: { 'X-AUTH-TOKEN': localStorage.getItem('token') },
+              timeout: 1000 // 1초 이내에 응답이 없으면 에러 처리
+        });
+        this.userRes[i].image = "data:image/jpg;base64,"+res2.data.data;
       });
     }, Promise.resolve());
+    console.log(this.userRes);
   }
 }
 

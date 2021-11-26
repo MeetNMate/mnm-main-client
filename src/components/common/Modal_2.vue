@@ -4,12 +4,12 @@
     </div>
     <div class="modal-card">
       <div class="mem_report">
-        <p id="report_content">{{ username }} 님이 작성한 평가는 삭제되지 않습니다.</p>
+        <p id="report_content">작성한 평가는 삭제되지 않습니다.</p>
         <p id="report_content">신중하게 작성하셨나요?</p>
         <p id="report_content">Yes 버튼을 누르면 평가를 완료합니다.</p>
       </div>
       <footer class="footer_btn">
-        <red-button class="white-button yesB" @click="reportPage">Yes</red-button>
+        <red-button class="white-button yesB" @click="submitBtn(); $emit('close-modal')">Yes</red-button>
         <red-button class="white-button cancelB" @click="$emit('close-modal')">Cancel</red-button>
       </footer>
     </div>
@@ -18,28 +18,54 @@
 
 <script>
   import RedButton from '../../components/red-button.vue'
+  import axios from 'axios'
 
   export default {
     name: 'ReportModal',
     components: {
       RedButton
     },
-    props: {
-      username: String,
+    props: ["score1", "score2", "score3", "evaluation", "houseId"],
+    data() {
+      return {
+        mainserve: "http://localhost:5000", 
+        requestData: {
+          appraiseeId: this.evaluation.appraiseeId, 
+          houseId: this.evaluation.houseId, 
+          score: 0, 
+          content: this.evaluation.content
+        }
+      }
+    },
+    created() {
+      console.log(this.score1, this.score2, this.score3, this.evaluation);
     },
     methods: {
-      reportPage() {
-        this.$router.push({ path: '/auth/house/report'})
+      // cancelBtn() {
+      //   this.modal = false;
+      // },
+      async submitBtn() {
+        // 온도 계산
+        const score = await (this.score1+this.score2+this.score3)*7;
+        if (score >= 100) this.requestData.score = await 100;
+        else this.requestData.score = await score;
+
+        console.log(this.requestData);
+
+        // 평가 생성 요청
+        await axios.post(this.mainserve+ '/evaluation', 
+            this.requestData, { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
+        ).then((res) => {
+          console.log(res.data);
+        });
+
+        // 메이트 평가로 이동
+        this.$router.push({
+          name: 'HouseReport',
+          query: {houseid: this.requestData.houseId}
+        });
       }
     }
-    // methods: {
-    //   cancelBtn() {
-    //     this.modal = false;
-    //   },
-    //   submitBtn() {
-    //     this.modal = false;
-    //   }
-    // }
   }
 </script>
 

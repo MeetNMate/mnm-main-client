@@ -59,7 +59,7 @@ img {
 }
 
 .foot {
-    min-height: 80px;
+    min-height: 125px;
 }
 
 </style>

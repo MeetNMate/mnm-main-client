@@ -14,7 +14,7 @@
                 <img id="profile_img" src='../assets/profile_2.png'>
               </span>
             </td>
-            <td id="user">{{ user_name }}</td>
+            <td id="user">{{ userName }}</td>
             <td rowspan="2">
               <green-button class="reportB" @click="ReportBtn">평가하기</green-button>
             </td>
@@ -38,12 +38,20 @@ export default {
     GreenButton,
   },
   props: {
-    user_name: String,
+    userName: String,
     status: String,
+    houseName: String, 
+    houseId: Number, 
+    userId: Number
   },
   methods: {
     ReportBtn() {
-      this.$router.push({ path: '/auth/house/report/member'})
+      console.log(this.houseName, this.userName);
+      this.$router.push({
+        name: 'HouseMemReport',
+        query: {houseId:this.houseId, houseName: this.houseName, userId: this.userId, userName: this.userName}
+      });
+      // this.$router.push({ path: '/auth/house/report/member'})
     }
   }
 }
