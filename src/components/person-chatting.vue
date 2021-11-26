@@ -89,7 +89,7 @@ export default {
 .msg {
     max-width: 400px;
     height: 100%;
-    text-align: right;
+    text-align: left;
     min-height: 14px;
     margin: 3px 5px 3px 3px;
 }

@@ -17,12 +17,15 @@
     </div>
 
     <div class="content3">
-      <div>
+      <div v-for="(item, index) in Coment" :key="index">
+        <PersonReview v-bind:matename="item.appraiser.name">{{item.content}}</PersonReview>
+      </div>
+      <!-- <div>
         <PersonReview v-bind:matename="u_matename">{{msg1}}</PersonReview>
       </div>
       <div>
         <PersonReview v-bind:matename="u_matename">{{msg2}}</PersonReview>
-      </div>
+      </div> -->
     </div>
     <div class="button-area">
         <red-button class="white-bt" @click="ChatPage">chat!</red-button>
@@ -70,6 +73,7 @@ export default {
         receiverUid: this.$route.query.uid,
       },
       uid:'',
+      Coment:[],
     }
   },
   async created() {
@@ -116,6 +120,14 @@ export default {
     else if(data2.userBugKiller == 3) this.bug = "못 잡아요";
     if (data2.userCooking == 1) this.cooking = "요리해 먹는 걸 좋아해요";
     else if (data2.userCooking == 0) this.cooking = "배달해 먹는 걸 좋아해요";
+
+    //코멘트 가져오기
+    axios.get(this.mainserve+'/evaluation/profile/' + this.uid)
+    .then((res3)=>{
+      console.log(res3.data.data);
+      this.Coment = res3.data.data;
+    })
+
   },
   methods: {
     async ChatPage() {
