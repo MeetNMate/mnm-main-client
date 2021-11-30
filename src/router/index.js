@@ -84,7 +84,8 @@ const routes = [
   {
     path: '/auth/house/lobby',
     name: 'HouseLobby',
-    component: HouseLobby
+    component: HouseLobby,
+    props: true,
   },
   {
     path: '/auth/house/rule',

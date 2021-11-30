@@ -5,12 +5,12 @@
     <househeader v-bind:housename="housename"></househeader>
     <div class="lobby">
       <div class="explain_lobby">
-        <explanation v-bind:Username="Username" v-bind:housename="housename" v-bind:date="date"></explanation>
+        <explanation v-bind:Username="Username" v-bind:housename="housename" v-bind:content="content" v-bind:location="location"></explanation>
       </div>
 
       <div class="todolist">
         <todoinput v-on:addTodo="addTodo"></todoinput>
-        <todolist v-bind:propsdata="todoItems" @removeTodo="removeTodo"></todolist>
+        <todolist v-bind:todoItems="todoItems" @removeTodo="removeTodo"></todolist>
       </div>
 
       <red-button class="pink-button ruleB" @click="move_houserule">HOUSE RULE →</red-button>
@@ -28,6 +28,7 @@ import RedButton from '../components/red-button.vue'
 import explanation from '../components/lobby-explain.vue'
 import todolist from '../components/todolist.vue'
 import todoinput from '../components/todoinput.vue'
+import axios from 'axios'
 
 export default {
   name: 'HouseLobby',
@@ -40,13 +41,32 @@ export default {
     todolist,
     todoinput
   },
+  // props: {
+  //   houseid: {
+  //     type: String,
+  //     default: '',
+  //   }
+  // },
   data() {
     return {
+      mainserve: "http://10.14.4.217:5000",
       Username: 'Soyoung, Seoki, moosongsong',
       housename: '연희동빨간지붕',
-      date: '[2020.10.01~2021.09.30]',
       todoItems: [],
+      Itemnum:0,
+      location: '광야로 걸어가 알아 니 홈그라운드~',
       // todolist: '거실청소(무송)'
+      houseid:'',
+      userid:'',
+      userName: '',
+      Send: {
+        houseId:'',
+        userId:'',
+        role:'',
+        week:'',
+        startAt:'',
+        routine:'',
+      }
     }
   },
   methods: {
@@ -57,27 +77,76 @@ export default {
       localStorage.clear();
       this.todoItems = [];
     },
-    addTodo(todoItem) {
-      localStorage.setItem(todoItem, todoItem);
-      this.todoItems.push(todoItem);
+    async addTodo(todoItem) {
+      // 보낼 값 지정
+      this.Send.role = await todoItem;
+      this.Send.houseId = await this.houseid;
+      this.Send.userId = await this.userid;
+
+      console.log(todoItem);
+
+      // 호출
+      const res = await axios.post(this.mainserve + '/role/', this.Send);
+      console.log('status code:', res.status);
+      console.log('data:', res.data);
+
+      // 값 지정
+      await this.todoItems.push(todoItem +` (${this.userName})`);
     },
     removeTodo(todoItem, index) {
+
       localStorage.removeItem(todoItem);
       this.todoItems.splice(index, 1);
     },
     move_houserule() {
-        this.$router.push({ path: 'rule'})
+      this.$router.push({
+        name: 'HouseRule',
+        query: {houseid: this.houseid}
+      })
     },
     leave_house() {
         this.$router.push({ path: 'report'})
     },
   },
-  created() {
-    if (localStorage.length > 0) {
-      for (var i = 0; i < localStorage.length; i++) {
-        this.todoItems.push(localStorage.key(i));
+  async created() {
+    this.houseid = this.$route.query.houseid;
+    this.userid = localStorage.getItem('uid');
+    console.log('house id:', this.houseid);
+    console.log('user id:', this.userid);
+
+    const houseRes = await axios.get(this.mainserve + '/house/'+ this.houseid,
+      { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}});
+    console.log('status code:', houseRes.status);
+    console.log('data:=============', houseRes.data);
+
+    this.housename = houseRes.data.data.name;
+    this.content = houseRes.data.data.description;
+    this.location = houseRes.data.data.location;
+    let userList =  houseRes.data.data.users;
+
+    let tempStr = ' ';
+    for(let key in userList) {
+      if (userList[key].id == this.userid) this.userName = userList[key].name;
+      if (key == 0) {      
+        tempStr = tempStr + userList[key].name;
+      }else{
+        tempStr = tempStr + ', '+ userList[key].name;
       }
     }
+    this.Username = tempStr;
+    console.log('result:', tempStr);
+
+    const roleRes = await axios.get(this.mainserve + '/role/house/'+ this.houseid)
+    const getData = roleRes.data.data;
+    let tempList = [];
+    for(let key in getData){
+      let tempStr = ` ${getData[key].role} (${getData[key].userName})`;
+      tempList.push(tempStr);
+    }
+    this.todoItems = tempList
+    console.log(tempList);
+
+    this.Itemnum = this.todoItems.length-1; // 처음부터 크기로 지정
   }
 }
 </script>

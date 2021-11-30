@@ -453,7 +453,7 @@ export default {
               permissionToEnter:'',
           },
           matching_server:{
-              uid:'',
+              id:'',
               sex: '',
               age:'',
               mbti:'',
@@ -553,6 +553,7 @@ export default {
                 });
             })
             .then(() => {   //matching server에 정보 전송
+                console.log('serverURL:', this.matchingserve);
                 axios.post(this.matchingserve + '/infos',
                     this.matching_server
                 )

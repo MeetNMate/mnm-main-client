@@ -26,7 +26,7 @@
     </div>
     <div class="button-area">
         <red-button class="white-bt" @click="ChatPage">chat!</red-button>
-      </div>
+    </div>
   </div>
 </template>
 
@@ -63,10 +63,6 @@ export default {
       smoking: '',
       with_pet: '',
       bug: '',
-      makeChattingRoom: {
-        senderUid: localStorage.getItem('uid'), 
-        receiverUid: this.uid,
-      }
     }
   },
   props: ["uid"],

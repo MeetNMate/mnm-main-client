@@ -13,9 +13,10 @@
         <p id="explanation" style="display: inline">{{housename}}</p>
         <p style="display: inline"> House입니다.</p>
       </div>
-      <p class="date">{{date}}</p>
+      <p class="date">{{ content }}</p>
       <!--집 이미지-->
       <img id="house_pic" src="../assets/house_pic.png" alt="house picture">
+      <p id="locate">{{ location }}</p>
     </div>
   </div>
 </template>
@@ -26,12 +27,17 @@ export default {
   props: {
     Username: String,
     housename: String,
-    date: String
-  }
+    content: String,
+    location: String
+  },
 }
 </script>
 
 <style scoped>
+#locate {
+  font-size: 12px;
+  margin-top: 0;
+}
 .explain_house {
   padding-bottom: 3%;
   text-align: left;

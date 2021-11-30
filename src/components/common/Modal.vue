@@ -4,36 +4,29 @@
     </div>
     <div class="modal-card">
       <table>
+        <thead>
+          <th>새로운 규칙 등록하기</th>
+        </thead>
         <tbody>
+          <!-- <tr>
+            <th id="subtitle">번호</th>
+          </tr>
           <tr>
-            <th id="tableH">대분류</th>
+            <td><input id="text" v-model="num"></td>
+          </tr> -->
+          <tr>
+            <th id="subtitle">내용</th>
           </tr>
           <tr>
             <td>
-              <input v-model="message1">
-            </td>
-          </tr>
-          <tr>
-            <th>소분류</th>
-          </tr>
-          <tr>
-            <td>
-              <input v-model="message2">
-            </td>
-          </tr>
-          <tr>
-            <th>내용</th>
-          </tr>
-          <tr>
-            <td>
-              <textarea id="input_textarea" v-model="message3" rows="5"></textarea>
+              <textarea id="input_textarea" v-model="value" rows="10"></textarea>
             </td>
           </tr>
         </tbody>
         <footer class="footer_btn">
           <div class="button-group">
             <green-button class="new-button cancelB" @click="$emit('close-modal')">취소</green-button>
-            <green-button class="new-button registerB" @click="$emit('close-modal')">등록하기</green-button>
+            <green-button class="new-button registerB" @click="$emit('close-modal'); register">등록하기</green-button>
           </div>
         </footer>
       </table>
@@ -43,31 +36,44 @@
 
 <script>
 import GreenButton from '../../components/green-button.vue'
+// import axios from 'axios'
 
   export default {
     name: 'RuleModal',
     components: {
       GreenButton
     },
-    // methods: {
-    //   addRule() {
-    //     if(this.message !== "") {
-    //       var value = this.message && this.message.trim();
-    //       this.$emit('addRule', value)
-    //       this.clearInput();
-    //     }
-    //   },
-    //   clearInput() {
-    //     this.message = '';
-    //   }
-    // },
     data() {
       return {
-        message1: '',
-        message2: '',
-        message3: '',
+        value: "",
+        // newRule: {
+        //   houseid: "",
+        //   userid: "",
+        //   rule: "",
+        //   upperNum: "",
+        //   lowerNum: "",
+        // }
+      }
+    },
+    methods: {
+      register() {
+        this.$emit("value", this.value);
+      
+      },
+      clearInput() {
+        this.value = '';
       }
     }
+
+
+        // if (this.message !== "") {
+        //   var value = this.message && this.message.trim();
+        //   console.log(this.message);
+        //   this.$emit('register', value)
+        //   this.clearInput();
+        // }
+
+
   }
 </script>
 
@@ -85,6 +91,7 @@ import GreenButton from '../../components/green-button.vue'
   margin-left: 20px;
   margin-right: 20px;
   width: 70px;
+  cursor: pointer;
 }
 .registerB {
   float: right;
@@ -94,9 +101,10 @@ table {
 }
 th {
   background-color: #EABF3A;
-  font-family: a고딕14;
-  font-size: 15px;
+  font-family: a고딕16;
+  font-size: 20px;
   border-bottom: 1.5px solid black;
+  text-align: center;
 }
 #tableH {
   border-top: 1.5px solid black;
@@ -116,8 +124,17 @@ textarea {
   background-color: #EABF3A;
   border-bottom: 1px solid black;
 }
+#subtitle {
+  font-family: a고딕15;
+  font-size: 16px;
+  text-align: left;
+}
+#text {
+  font-family: a고딕14;
+}
 #input_textarea {
   width: 285px;
+  font-family: a고딕14;
 }
 .content {
   background: #EABF3A;
@@ -137,10 +154,11 @@ textarea {
 }
 .modal-card {
   position: relative;
-  max-width: 310px;
-  min-height: 335px;
+  max-width: 300px;
+  /* min-height: 340px; */
+  min-height: 325px;
   margin: auto;
-  margin-top: 60%;
+  margin-top: 70%;
   padding-top: 30px;
   background-color: white;
   z-index: 10;

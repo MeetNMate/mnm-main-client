@@ -29,28 +29,27 @@ export default {
           params: { uid: this.uid }
         });
     },
-    ChatPage() {
-        //get으로 방 있는 지 확인 후에, 방 없으면 방만들기, 방 있으면 채팅방으로 이동    
-        axios.get('http://192.168.0.118:5050/chattingRoom/exist', {
-          params: { senderUid: 3, receiverUid: 1}
-        })
-        .then((res) => {
-          console.log("data:", res.data);
-          if(res.data == true) {  //방이 이미 존재하면
-            this.$router.push({ path: '/auth/chatting'})
-          }
-          else {
-            axios.post('http://192.168.0.118:5050/chat', {  //방만들기
-              senderUid: "3", 
-              receiverUid: "1"
-            })
-            .then((res) => {
-              console.log("data", res.data);
-            })
-              }
-            })
-          },
-      },
+    async ChatPage() {
+      const res = await axios.get(this.mainserve+ '/user/chattingRoom/exist', // 채팅방 유무 조회 요청
+      {
+        params: this.makeChattingRoom, 
+        headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}
+      });
+      
+      if(res.data.isExisted) this.$router.push({ 
+          name: "Chatting",
+          params: {otherid: this.uid, cid: res.data.cid}});
+      else {
+        const res = await axios.post(this.mainserve+ '/user/chattingRoom/make', // 채팅방 생성 요청
+              this.makeChattingRoom, 
+              { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')} });
+        this.$router.push({ 
+          name: "Chatting",
+          params: {otherid: this.uid, cid: res.data.chattingRoom.id} 
+        });
+      }
+    },
+  },
 };
 </script>
 
@@ -63,16 +62,16 @@ export default {
   min-width: 250px;
   max-width: 400px;
   height: 100%;
-  background: pink;
+  background: #E88827;
   border-radius: 10px 10px 0 10px;
-  border: solid 2px rgb(235, 21, 57);
-  box-shadow: 5px 9px 0px rgb(235, 21, 57);
+  border: solid 2px #A05E17;
+  box-shadow: 5px 9px 0px #A05E17;
   z-index: 100;
   margin: 10px auto 25px;
 }
 
 .balloon-shadow:after {
-    border-top: 15px solid pink;
+    border-top: 15px solid #E88827;
     border-left: 30px solid transparent;
     border-right: 0px solid transparent;
     border-bottom: 0px solid transparent;
@@ -85,7 +84,7 @@ export default {
 }
 
 .balloon-shadow:before {
-    border-top: 20px solid rgb(235, 21, 57);
+    border-top: 20px solid #A05E17;
     border-left: 45px solid transparent;
     border-right: 0px solid transparent;
     border-bottom: 0px solid transparent;

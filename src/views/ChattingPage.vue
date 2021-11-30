@@ -32,7 +32,7 @@
         <red-button class="sub-bt" @click="sendMessage">전송</red-button>
       </div>
     </div>
-  
+
   </div>
 </template>
 
@@ -131,7 +131,7 @@ export default {
         send() {
             console.log("Send message:" + this.message);
             if (this.stompClient && this.stompClient.connected) {
-                const msg = { 
+                const msg = {
                 user: {
                     id: this.uid
                 },
@@ -140,7 +140,7 @@ export default {
                 };
                 this.stompClient.send("/receive/" + this.cid, JSON.stringify(msg), {});
             }
-        }, 
+        },
         connect() {
             let socket = new SockJS(this.mainserve);
             this.stompClient = Stomp.over(socket);
@@ -151,8 +151,8 @@ export default {
                 this.connected = true;
                 console.log('소켓 연결 성공', frame);
                 const msg = { ///너무 중요! 없애지 마!
-                    uid: this.uid, 
-                    cid: this.cid, 
+                    uid: this.uid,
+                    cid: this.cid,
                     sid: socket._transport.url.split('/')[4]
                 };
                 console.log(JSON.stringify(msg));
@@ -165,11 +165,11 @@ export default {
                 error => {
                 console.log('소켓 연결 실패', error);
                 this.connected = false;
-                } 
-            );               
-        }, 
+                }
+            );
+        },
         liveTogether() {
-          axios.post(this.mainserve + '/user/chatting/'+ this.cid +'/request', 
+          axios.post(this.mainserve + '/user/chatting/'+ this.cid +'/request',
             { senderUid: this.uid, receiverUid: this.otherid,},
             { headers: { 'X-AUTH-TOKEN': localStorage.getItem('token')}}
           )
@@ -237,7 +237,7 @@ export default {
   height: 15vh;
   background-color: #ea803a;
   padding: 5px;
-  
+
 }
 
 .sub-bt {

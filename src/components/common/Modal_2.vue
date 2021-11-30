@@ -4,12 +4,12 @@
     </div>
     <div class="modal-card">
       <div class="mem_report">
-        <p id="report_content">soyoung 님이 작성한 평가는 삭제되지 않습니다.</p>
+        <p id="report_content">{{ username }} 님이 작성한 평가는 삭제되지 않습니다.</p>
         <p id="report_content">신중하게 작성하셨나요?</p>
         <p id="report_content">Yes 버튼을 누르면 평가를 완료합니다.</p>
       </div>
       <footer class="footer_btn">
-        <red-button class="white-button yesB" @click="$emit('close-modal')">Yes</red-button>
+        <red-button class="white-button yesB" @click="reportPage">Yes</red-button>
         <red-button class="white-button cancelB" @click="$emit('close-modal')">Cancel</red-button>
       </footer>
     </div>
@@ -24,6 +24,14 @@
     components: {
       RedButton
     },
+    props: {
+      username: String,
+    },
+    methods: {
+      reportPage() {
+        this.$router.push({ path: '/auth/house/report'})
+      }
+    }
     // methods: {
     //   cancelBtn() {
     //     this.modal = false;
